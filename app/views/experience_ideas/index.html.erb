@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Experience Ideas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Duration</th>
+      <th>Category</th>
+      <th>Capacity</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @experience_ideas.each do |experience_idea| %>
+      <tr>
+        <td><%= experience_idea.title %></td>
+        <td><%= experience_idea.duration %></td>
+        <td><%= experience_idea.category %></td>
+        <td><%= experience_idea.capacity %></td>
+        <td><%= experience_idea.description %></td>
+        <td><%= link_to 'Show', experience_idea %></td>
+        <td><%= link_to 'Edit', edit_experience_idea_path(experience_idea) %></td>
+        <td><%= link_to 'Destroy', experience_idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Experience Idea', new_experience_idea_path %>

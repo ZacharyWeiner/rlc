@@ -1,0 +1,42 @@
+<%= form_with(model: experience_idea, local: true) do |form| %>
+  <% if experience_idea.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(experience_idea.errors.count, "error") %> prohibited this experience_idea from being saved:</h2>
+
+      <ul>
+      <% experience_idea.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :experience_idea_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :duration %>
+    <%= form.number_field :duration, id: :experience_idea_duration %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.text_field :category_id, id: :experience_idea_category_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :capacity %>
+    <%= form.number_field :capacity, id: :experience_idea_capacity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :experience_idea_description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

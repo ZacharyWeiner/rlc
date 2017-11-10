@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  duration: 1
+  category: one
+  capacity: 1
+  description: MyText
+
+two:
+  title: MyString
+  duration: 1
+  category: two
+  capacity: 1
+  description: MyText

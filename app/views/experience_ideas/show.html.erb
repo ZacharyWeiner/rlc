@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @experience_idea.title %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @experience_idea.duration %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @experience_idea.category %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @experience_idea.capacity %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @experience_idea.description %>
+</p>
+
+<%= link_to 'Edit', edit_experience_idea_path(@experience_idea) %> |
+<%= link_to 'Back', experience_ideas_path %>
