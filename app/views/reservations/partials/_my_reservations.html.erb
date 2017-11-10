@@ -1,0 +1,15 @@
+<% Reservation.where(email: request.query_parameters[:q]).each do |res| %>
+  <div class='row'>
+    <div class='col-md-9'>
+      <%= res.experience_occurance.experience.title %> <br>
+      <%= res.experience_occurance.date %>
+    </div>
+    <div class='col-md-3'>
+      <% if res.paid %>
+        <p>Paid</p>
+      <% else %>
+        <p>UnPaid</p>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,32 @@
+<%= form_with(model: experience_occurance, local: true) do |form| %>
+  <% if experience_occurance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(experience_occurance.errors.count, "error") %> prohibited this experience_occurance from being saved:</h2>
+
+      <ul>
+      <% experience_occurance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :experience_id %>
+    <%= form.text_field :experience_id, id: :experience_occurance_experience_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date, id: :experience_occurance_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :capacity %>
+    <%= form.number_field :capacity, id: :experience_occurance_capacity %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

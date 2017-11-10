@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Experience Occurances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Experience</th>
+      <th>Date</th>
+      <th>Capacity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @experience_occurances.each do |experience_occurance| %>
+      <tr>
+        <td><%= experience_occurance.experience %></td>
+        <td><%= experience_occurance.date %></td>
+        <td><%= experience_occurance.capacity %></td>
+        <td><%= link_to 'Show', experience_occurance %></td>
+        <td><%= link_to 'Edit', edit_experience_occurance_path(experience_occurance) %></td>
+        <td><%= link_to 'Destroy', experience_occurance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Experience Occurance', new_experience_occurance_path %>

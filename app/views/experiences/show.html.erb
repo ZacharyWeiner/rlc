@@ -9,7 +9,22 @@
 
     <p>
       <strong>Cost:</strong>
-      $<%= @experience.cost %> per person
+      <%= @experience.cost %> per person
+    </p>
+
+     <p>
+      <strong>Start:</strong>
+      <%= @experience.start_date %>
+    </p>
+
+    <p>
+      <strong>End:</strong>
+      <%= @experience.end_date %>
+    </p>
+
+    <p>
+      <strong>Recurrs Every:</strong>
+      <%= @experience.recurrs_every %>
     </p>
 
     <p>
@@ -40,4 +55,17 @@
     <%= b.name %>
   <% end %>
 </div>
+
+<%@experience.experience_occurances.each do |eo| %>
+<div class='row'>
+  <div class='col-md-6'>
+
+      <%= eo.date %>
+
+  </div>
+  <div class='col-md-6'>
+    <%= link_to "Reserve My Spot", new_experience_occurance_reservation_path(eo) %>
+  </div>
+</div>
+<% end %>
 

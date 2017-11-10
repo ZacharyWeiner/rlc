@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171110194607) do
+ActiveRecord::Schema.define(version: 20171110215654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(version: 20171110194607) do
     t.index ["category_id"], name: "index_experience_ideas_on_category_id"
   end
 
+  create_table "experience_occurances", force: :cascade do |t|
+    t.bigint "experience_id"
+    t.date "date"
+    t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["experience_id"], name: "index_experience_occurances_on_experience_id"
+  end
+
   create_table "experiences", force: :cascade do |t|
     t.string "title"
     t.integer "duration"
@@ -59,6 +68,9 @@ ActiveRecord::Schema.define(version: 20171110194607) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cost"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "recurrs_every"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -78,12 +90,18 @@ ActiveRecord::Schema.define(version: 20171110194607) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.bigint "experience_occurance_id"
+    t.boolean "paid"
+    t.bigint "charge_id"
     t.index ["experience_id"], name: "index_reservations_on_experience_id"
+    t.index ["experience_occurance_id"], name: "index_reservations_on_experience_occurance_id"
   end
 
   add_foreign_key "businesses", "categories"
   add_foreign_key "businesses", "locations"
   add_foreign_key "experience_ideas", "categories"
+  add_foreign_key "experience_occurances", "experiences"
   add_foreign_key "locations", "businesses"
+  add_foreign_key "reservations", "experience_occurances"
   add_foreign_key "reservations", "experiences"
 end

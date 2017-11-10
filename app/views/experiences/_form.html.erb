@@ -32,6 +32,26 @@
   </div>
 
   <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date, id: :experience_start_date, data:{ provide:'datepicker' } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date, id: :experience_end_date, data:{ provide:'datepicker' } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :occurs_every %>
+    <% recurrence_array = ["Never", "Day", "Week", "Other Week", "Month", "Year"] %>
+    <%= form.select(:recurrs_every, recurrence_array.map { |value| [ value, value ] }) %>
+
+
+  </div>
+
+
+
+  <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description, id: :experience_description %>
   </div>

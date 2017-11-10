@@ -15,20 +15,37 @@ class ReservationsController < ApplicationController
   # GET /reservations/new
   def new
     @reservation = Reservation.new
+    if params[:experience_id]
+      @experience = Experience.find(params[:experience_id])
+    elsif params[:experience_occurance_id]
+      @experience_occurance = ExperienceOccurance.find(params[:experience_occurance_id])
+      @experience = @experience_occurance.experience
+    end
+
   end
 
   # GET /reservations/1/edit
   def edit
+    @experience = @reservation.experience
+    @experience_occurance = @reservation.experience_occurance
   end
 
   # POST /reservations
   # POST /reservations.json
   def create
+    if reservation_params[:experience_id]
+      @experience = Experience.find(reservation_params[:experience_id])
+    elsif reservation_params[:experience_occurance_id]
+      @experience_occurance = ExperienceOccurance.find(reservation_params[:experience_occurance_id])
+      @experience = @experience_occurance.experience
+    end
     @reservation = Reservation.new(reservation_params)
-
+    if @reservation.experience.nil?
+      @reservation.experience = @experience
+    end
     respond_to do |format|
       if @reservation.save
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
+        format.html { redirect_to experience_occurance_reservation_path(@experience_occurance, @reservation), notice: 'Reservation was successfully created.' }
         format.json { render :show, status: :created, location: @reservation }
       else
         format.html { render :new }
@@ -69,6 +86,6 @@ class ReservationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reservation_params
-      params.require(:reservation).permit(:name, :phone, :experience_id, :count)
+      params.require(:reservation).permit(:name, :email, :phone, :experience_id, :count, :experience_occurance_id)
     end
 end

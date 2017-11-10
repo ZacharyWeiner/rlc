@@ -1,0 +1,8 @@
+<% if request.query_parameters[:q] %>
+  <%= render 'reservations/partials/my_reservations' %>
+<% else %>
+  <form action="/my_reservations">
+      <label>Email Address: <input name="q"></label>
+      <input type="submit">
+  </form>
+<% end %>

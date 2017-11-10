@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Experience:</strong>
+  <%= @experience_occurance.experience %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @experience_occurance.date %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @experience_occurance.capacity %>
+</p>
+
+<%= link_to 'Edit', edit_experience_occurance_path(@experience_occurance) %> |
+<%= link_to 'Back', experience_occurances_path %>

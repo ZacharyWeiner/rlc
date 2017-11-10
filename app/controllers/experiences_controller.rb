@@ -25,9 +25,9 @@ class ExperiencesController < ApplicationController
   # POST /experiences.json
   def create
     @experience = Experience.new(experience_params)
-
     respond_to do |format|
       if @experience.save
+        create_occurences
         format.html { redirect_to @experience, notice: 'Experience was successfully created.' }
         format.json { render :show, status: :created, location: @experience }
       else
@@ -94,6 +94,34 @@ class ExperiencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def experience_params
-      params.require(:experience).permit(:title, :duration, :capacity, :description, :cost)
+      params.require(:experience).permit(:title, :duration, :capacity, :description, :cost, :start_date, :end_date, :recurrs_every)
+    end
+
+    def create_occurences
+      date = @experience.start_date
+      occurrance = get_occurance(date)
+      if occurrance.nil?
+        occurrance = @experience.experience_occurances.create!(date: date, capacity: @experience.capacity)
+      end
+      while(date < @experience.end_date)
+        date = next_date(date)
+        occurrance = @experience.experience_occurances.create!(date: date, capacity: @experience.capacity)
+      end
+    end
+
+    def get_occurance(date)
+      return @experience.experience_occurances.where(date: date).first
+    end
+
+    def next_date(date)
+      if @experience.recurrs_every == "Day"
+        return date + 1.day
+      elsif  @experience.recurrs_every == "Week"
+        return date + 7.days
+       elsif @experience.recurrs_every == "Other Week"
+        return date + 14.days
+       @experience.recurrs_every == "Month"
+        return date + 28.days;
+      end
     end
 end
