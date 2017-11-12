@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   resources :experience_occurances do
     resources :reservations
   end
-  resources :reservations
+  resources :reservations do
+    get 'deposit', to: 'reservations#deposit', as: 'deposit'
+  end
   get 'my_reservations', to:'reservations#my_reservations', as: 'my_reservations'
   resources :experiences do
     get 'add_company/:id', to: 'experiences#add_company', as: 'add_company'
