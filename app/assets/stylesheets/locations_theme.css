@@ -3,11 +3,11 @@
 *= require locations/css/owl.carousel
 *= require locations/css/datepicker
 *= require locations/css/bootstrap.css
-
 *= require locations/css/owl.transitions
 *= require locations/css/trackpad-scroll-emulator
 *= require locations/css/bootstrap-datetimepicker.min
 *= require locations/css/bootstrap-select.min.css
+*= require locations/css/jssocials
 *= require locations/style
 *= require_self
 */

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171110231055) do
+ActiveRecord::Schema.define(version: 20171112214540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,15 @@ ActiveRecord::Schema.define(version: 20171110231055) do
     t.string "recurrs_every"
   end
 
+  create_table "images", force: :cascade do |t|
+    t.bigint "experience_id"
+    t.text "file"
+    t.string "image_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["experience_id"], name: "index_images_on_experience_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -102,6 +111,7 @@ ActiveRecord::Schema.define(version: 20171110231055) do
   add_foreign_key "businesses", "locations"
   add_foreign_key "experience_ideas", "categories"
   add_foreign_key "experience_occurances", "experiences"
+  add_foreign_key "images", "experiences"
   add_foreign_key "locations", "businesses"
   add_foreign_key "reservations", "experience_occurances"
   add_foreign_key "reservations", "experiences"

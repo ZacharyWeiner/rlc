@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :images
   resources :experience_occurances do
     resources :reservations
   end
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
     get 'add_company/:id', to: 'experiences#add_company', as: 'add_company'
     get 'remove_company/:id', to: 'experiences#remove_company', as: 'remove_company'
     resources :reservations
+    resources :images
   end
   resources :experience_ideas
   resources :businesses

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Experience:</strong>
+  <%= @image.experience %>
+</p>
+
+<p>
+  <strong>File:</strong>
+  <%= @image.file %>
+</p>
+
+<p>
+  <strong>Image type:</strong>
+  <%= @image.image_type %>
+</p>
+
+<%= link_to 'Edit', edit_image_path(@image) %> |
+<%= link_to 'Back', images_path %>

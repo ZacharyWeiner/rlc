@@ -94,7 +94,7 @@ class ExperiencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def experience_params
-      params.require(:experience).permit(:title, :duration, :capacity, :description, :cost, :start_date, :end_date, :recurrs_every)
+      params.require(:experience).permit(:title, :duration, :capacity, :description, :cost, :start_date, :end_date, :recurrs_every, {images: []})
     end
 
     def create_occurences
