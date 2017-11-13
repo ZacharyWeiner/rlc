@@ -1,0 +1,11 @@
+<section class="box">
+    <h2>Available Dates</h2>
+    <div style='max-height: 250px; overflow-y: scroll;'>
+        <dl>
+            <% @experience.experience_occurances.each do |eo| %>
+            <dt><%= eo.date.to_time.strftime('%A, %b %d, %Y') %></dt>
+            <dd><%= link_to "Reserve My Spot", eo, class: 'btn btn-primary'%></dd>
+            <%end %>
+        </dl>
+    </div>
+</section>

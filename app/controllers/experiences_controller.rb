@@ -1,6 +1,6 @@
 class ExperiencesController < ApplicationController
   before_action :set_experience, only: [:show, :edit, :update, :destroy, :add_company, :remove_company]
-
+  layout 'locations_theme'
   # GET /experiences
   # GET /experiences.json
   def index

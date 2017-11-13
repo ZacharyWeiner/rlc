@@ -1,0 +1,94 @@
+
+<div class="hero-section has-background full-screen background-is-dark">
+  <div class="form search-form horizontal position-bottom">
+    <div class="container">
+      <form>
+        <div class="row">
+          <div class="col-md-3 col-sm-2">
+            <div class="form-group">
+              <input type="text" class="form-control" name="keyword" placeholder="Enter keyword">
+            </div>
+            <!--end form-group-->
+          </div>
+          <!--end col-md-4-->
+          <div class="col-md-3 col-sm-4">
+            <div class="form-group">
+              <select class="form-control selectpicker" name="location">
+                <option value="">Location</option>
+                <option value="1">New York</option>
+                <option value="2">Washington</option>
+                <option value="3">London</option>
+                <option value="4">Paris</option>
+              </select>
+            </div>
+            <!--end form-group-->
+          </div>
+          <!--end col-md-4-->
+          <div class="col-md-3 col-sm-4">
+            <div class="form-group">
+              <select class="form-control selectpicker" name="category">
+                <option value="">Category</option>
+                <option value="1">Restaurant</option>
+                <option value="2">Event</option>
+                <option value="3">Adrenaline</option>
+                <option value="4">Sport</option>
+                <option value="5">Wellness</option>
+              </select>
+            </div>
+            <!--end form-group-->
+          </div>
+          <!--end col-md-4-->
+          <div class="col-md-2 col-sm-4">
+         <!--  <div class="form-group">
+              <input type="text" class="form-control date-picker"  placeholder="Event Date">
+            </div> -->
+            <!--end form-group-->
+          </div>
+          <!--end col-md-4-->
+          <div class="col-md-1 col-sm-4">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-search"></i></button>
+            </div>
+            <!--end form-group-->
+          </div>
+          <!--end col-md-4-->
+        </div>
+        <!--end row-->
+      </form>
+      <!--end form-hero-->
+    </div>
+    <!--end container-->
+  </div>
+  <!--end search-form-->
+
+  <div class="slider">
+    <div class="owl-carousel" data-owl-nav="0" data-owl-dots="1" data-owl-loop="1">
+      <% @header_experiences.each do |he|%>
+      <div class="slide">
+        <div class="presentation">
+          <div class="description">
+            <div class="container">
+              <h1><%= he.title %></h1>
+              <h2>Pickup: <i class="fa fa-map-marker"></i>Your Hotel</h2>
+              <div class="rating-passive" data-rating="4">
+                <span class="stars"></span>
+                <span class="reviews">6</span>
+              </div>
+              <div class="label label-default"><%= he.categories.first.name %></div>
+              <hr>
+              <%= link_to "View Detail", he, class: 'btn btn-default btn-framed btn-rounded' %>
+            </div>
+          </div>
+          <div class="image">
+            <div class="bg-transfer"><%= image_tag he.images.first.file %></div>
+          </div>
+        </div>
+        <!--end presentation-->
+      </div>
+      <% end %>
+    </div>
+    <!--end owl-carousel-->
+  </div>
+  <!--end slider-->
+</div>
+<!--end hero-section-->
