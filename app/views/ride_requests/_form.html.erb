@@ -1,3 +1,11 @@
+<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+
+</style>
 <%= form_with(model: ride_request, local: true) do |form| %>
   <% if ride_request.errors.any? %>
     <div id="error_explanation">
@@ -11,10 +19,11 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="pac-container">
     <%= form.label :pickup_address %>
-    <%= form.text_field :pickup_address, id: :ride_request_pickup_address %>
+    <%= form.text_field :pickup_address, id: "pac-input" %>
   </div>
+
 
   <div class="field">
     <%= form.label :dropoff_address %>
@@ -45,3 +54,47 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<div id="map" style='padding-top:400px;'></div>
+  <div id="infowindow-content">
+    <img src="" width="16" height="16" id="place-icon">
+    <span id="place-name"  class="title"></span><br>
+    <span id="place-address"></span>
+  </div>
+
+<!-- <div class="pac-card" id="pac-card">
+      <div>
+        <div id="title">
+          Autocomplete search
+        </div>
+        <div id="type-selector" class="pac-controls">
+          <input type="radio" name="type" id="changetype-all" checked="checked">
+          <label for="changetype-all">All</label>
+
+          <input type="radio" name="type" id="changetype-establishment">
+          <label for="changetype-establishment">Establishments</label>
+
+          <input type="radio" name="type" id="changetype-address">
+          <label for="changetype-address">Addresses</label>
+
+          <input type="radio" name="type" id="changetype-geocode">
+          <label for="changetype-geocode">Geocodes</label>
+        </div>
+        <div id="strict-bounds-selector" class="pac-controls">
+          <input type="checkbox" id="use-strict-bounds" value="">
+          <label for="use-strict-bounds">Strict Bounds</label>
+        </div>
+      </div>
+      <div id="pac-container">
+        <input id="pac-input" type="text"
+            placeholder="Enter a location">
+      </div>
+    </div>
+    <div id="map"></div>
+    <div id="infowindow-content">
+      <img src="" width="16" height="16" id="place-icon">
+      <span id="place-name"  class="title"></span><br>
+      <span id="place-address"></span>
+    </div> -->
+
+

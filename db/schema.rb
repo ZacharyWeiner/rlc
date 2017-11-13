@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113180435) do
+ActiveRecord::Schema.define(version: 20171113191640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,18 @@ ActiveRecord::Schema.define(version: 20171113180435) do
     t.index ["experience_occurance_id"], name: "index_reservations_on_experience_occurance_id"
   end
 
+  create_table "ride_requests", force: :cascade do |t|
+    t.string "pickup_address"
+    t.string "dropoff_address"
+    t.integer "riders"
+    t.string "requester_name"
+    t.bigint "shuttle_id"
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shuttle_id"], name: "index_ride_requests_on_shuttle_id"
+  end
+
   create_table "shuttle_stops", force: :cascade do |t|
     t.bigint "shuttle_id"
     t.integer "order"
@@ -147,5 +159,6 @@ ActiveRecord::Schema.define(version: 20171113180435) do
   add_foreign_key "locations", "businesses"
   add_foreign_key "reservations", "experience_occurances"
   add_foreign_key "reservations", "experiences"
+  add_foreign_key "ride_requests", "shuttles"
   add_foreign_key "shuttle_stops", "shuttles"
 end

@@ -1,6 +1,6 @@
 class RideRequestsController < ApplicationController
   before_action :set_ride_request, only: [:show, :edit, :update, :destroy]
-
+  layout 'shuttle_layout'
   # GET /ride_requests
   # GET /ride_requests.json
   def index

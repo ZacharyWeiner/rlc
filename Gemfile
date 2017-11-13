@@ -37,6 +37,9 @@ gem 'stripe'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-aws'
 gem 'geocoder'
+gem 'jquery-rails'
+gem 'gmaps-autocomplete-rails'
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
