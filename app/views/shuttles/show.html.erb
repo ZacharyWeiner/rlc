@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Current lat:</strong>
+  <%= @shuttle.current_lat %>
+</p>
+
+<p>
+  <strong>Current long:</strong>
+  <%= @shuttle.current_long %>
+</p>
+
+<p>
+  <strong>Previous lat:</strong>
+  <%= @shuttle.previous_lat %>
+</p>
+
+<p>
+  <strong>Previous long:</strong>
+  <%= @shuttle.previous_long %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @shuttle.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @shuttle.address %>
+</p>
+
+<%= link_to 'Edit', edit_shuttle_path(@shuttle) %> |
+<%= link_to 'Back', shuttles_path %>

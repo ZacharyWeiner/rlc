@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113001811) do
+ActiveRecord::Schema.define(version: 20171113180435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,8 @@ ActiveRecord::Schema.define(version: 20171113001811) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "business_id"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["business_id"], name: "index_locations_on_business_id"
   end
 
@@ -113,6 +115,30 @@ ActiveRecord::Schema.define(version: 20171113001811) do
     t.index ["experience_occurance_id"], name: "index_reservations_on_experience_occurance_id"
   end
 
+  create_table "shuttle_stops", force: :cascade do |t|
+    t.bigint "shuttle_id"
+    t.integer "order"
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.integer "person_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shuttle_id"], name: "index_shuttle_stops_on_shuttle_id"
+  end
+
+  create_table "shuttles", force: :cascade do |t|
+    t.float "current_lat"
+    t.float "current_long"
+    t.float "previous_lat"
+    t.float "previous_long"
+    t.string "name"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "capacity"
+  end
+
   add_foreign_key "businesses", "categories"
   add_foreign_key "businesses", "locations"
   add_foreign_key "experience_ideas", "categories"
@@ -121,4 +147,5 @@ ActiveRecord::Schema.define(version: 20171113001811) do
   add_foreign_key "locations", "businesses"
   add_foreign_key "reservations", "experience_occurances"
   add_foreign_key "reservations", "experiences"
+  add_foreign_key "shuttle_stops", "shuttles"
 end

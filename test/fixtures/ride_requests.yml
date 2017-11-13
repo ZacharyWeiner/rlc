@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pickup_address: MyString
+  dropoff_address: MyString
+  riders: 1
+  requester_name: MyString
+  shuttle: one
+  completed: false
+
+two:
+  pickup_address: MyString
+  dropoff_address: MyString
+  riders: 1
+  requester_name: MyString
+  shuttle: two
+  completed: false

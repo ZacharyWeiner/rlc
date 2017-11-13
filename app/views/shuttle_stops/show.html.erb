@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Shuttle:</strong>
+  <%= @shuttle_stop.shuttle %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @shuttle_stop.order %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @shuttle_stop.address %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @shuttle_stop.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @shuttle_stop.longitude %>
+</p>
+
+<p>
+  <strong>Person count:</strong>
+  <%= @shuttle_stop.person_count %>
+</p>
+
+<%= link_to 'Edit', edit_shuttle_stop_path(@shuttle_stop) %> |
+<%= link_to 'Back', shuttle_stops_path %>

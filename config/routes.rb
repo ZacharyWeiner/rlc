@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :ride_requests
+  resources :shuttle_stops
+  resources :shuttles
+  get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
   resources :images
   resources :experience_occurances do
     resources :reservations

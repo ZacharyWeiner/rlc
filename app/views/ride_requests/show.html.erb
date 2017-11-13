@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pickup address:</strong>
+  <%= @ride_request.pickup_address %>
+</p>
+
+<p>
+  <strong>Dropoff address:</strong>
+  <%= @ride_request.dropoff_address %>
+</p>
+
+<p>
+  <strong>Riders:</strong>
+  <%= @ride_request.riders %>
+</p>
+
+<p>
+  <strong>Requester name:</strong>
+  <%= @ride_request.requester_name %>
+</p>
+
+<p>
+  <strong>Shuttle:</strong>
+  <%= @ride_request.shuttle %>
+</p>
+
+<p>
+  <strong>Completed:</strong>
+  <%= @ride_request.completed %>
+</p>
+
+<%= link_to 'Edit', edit_ride_request_path(@ride_request) %> |
+<%= link_to 'Back', ride_requests_path %>

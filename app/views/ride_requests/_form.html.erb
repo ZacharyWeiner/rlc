@@ -1,0 +1,47 @@
+<%= form_with(model: ride_request, local: true) do |form| %>
+  <% if ride_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ride_request.errors.count, "error") %> prohibited this ride_request from being saved:</h2>
+
+      <ul>
+      <% ride_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :pickup_address %>
+    <%= form.text_field :pickup_address, id: :ride_request_pickup_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dropoff_address %>
+    <%= form.text_field :dropoff_address, id: :ride_request_dropoff_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :riders %>
+    <%= form.number_field :riders, id: :ride_request_riders %>
+  </div>
+
+  <div class="field">
+    <%= form.label :requester_name %>
+    <%= form.text_field :requester_name, id: :ride_request_requester_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :shuttle_id %>
+    <%= form.text_field :shuttle_id, id: :ride_request_shuttle_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :completed %>
+    <%= form.check_box :completed, id: :ride_request_completed %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

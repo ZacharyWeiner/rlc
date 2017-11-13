@@ -1,0 +1,47 @@
+<%= form_with(model: shuttle, local: true) do |form| %>
+  <% if shuttle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(shuttle.errors.count, "error") %> prohibited this shuttle from being saved:</h2>
+
+      <ul>
+      <% shuttle.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :current_lat %>
+    <%= form.text_field :current_lat, id: :shuttle_current_lat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_long %>
+    <%= form.text_field :current_long, id: :shuttle_current_long %>
+  </div>
+
+  <div class="field">
+    <%= form.label :previous_lat %>
+    <%= form.text_field :previous_lat, id: :shuttle_previous_lat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :previous_long %>
+    <%= form.text_field :previous_long, id: :shuttle_previous_long %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :shuttle_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, id: :shuttle_address %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Shuttles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Current lat</th>
+      <th>Current long</th>
+      <th>Previous lat</th>
+      <th>Previous long</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shuttles.each do |shuttle| %>
+      <tr>
+        <td><%= shuttle.current_lat %></td>
+        <td><%= shuttle.current_long %></td>
+        <td><%= shuttle.previous_lat %></td>
+        <td><%= shuttle.previous_long %></td>
+        <td><%= shuttle.name %></td>
+        <td><%= shuttle.address %></td>
+        <td><%= link_to 'Show', shuttle %></td>
+        <td><%= link_to 'Edit', edit_shuttle_path(shuttle) %></td>
+        <td><%= link_to 'Destroy', shuttle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shuttle', new_shuttle_path %>
+
+<%= "Ordered Shuttles" %><br>
+<% @ordered_shuttles.each do |os|%>
+  <%= os.name %> <br>
+<% end %>
+<br>
+<%= "Closest Stops" %><br>
+<%= @ordered_shuttle_stops.first.name unless @ordered_shuttle_stops.first.nil? %>
+
+<% shuttle_1_lat = @shuttles[0].current_lat%>
+<% shuttle_1_long = @shuttles[0].current_long%>
+<br>
+<%= lat_long = "#{shuttle_1_lat}","#{shuttle_1_long}" %>
+<%= waypoints = ""%>
+<% unless ShuttleStop.all.first.nil?%>
+  <% ShuttleStop.all.each do |ss|%>
+    <% if ss.order != 0 && ss.order != 8 %>
+      <% waypoints = waypoints + ss.address.gsub!(' ','+') + "|" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= waypoints = waypoints[0...-1] %>
+<button onclick="getLocation()">Try It</button>
+<div id='demo'></div>
+<iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
+  &origin=<%= ShuttleStop.first.address%>
+  &destination=<%= ShuttleStop.last.address%>
+  &avoid=tolls|highways" allowfullscreen>
+</iframe>

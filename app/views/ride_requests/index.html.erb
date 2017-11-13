@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ride Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pickup address</th>
+      <th>Dropoff address</th>
+      <th>Riders</th>
+      <th>Requester name</th>
+      <th>Shuttle</th>
+      <th>Completed</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ride_requests.each do |ride_request| %>
+      <tr>
+        <td><%= ride_request.pickup_address %></td>
+        <td><%= ride_request.dropoff_address %></td>
+        <td><%= ride_request.riders %></td>
+        <td><%= ride_request.requester_name %></td>
+        <td><%= ride_request.shuttle %></td>
+        <td><%= ride_request.completed %></td>
+        <td><%= link_to 'Show', ride_request %></td>
+        <td><%= link_to 'Edit', edit_ride_request_path(ride_request) %></td>
+        <td><%= link_to 'Destroy', ride_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ride Request', new_ride_request_path %>
