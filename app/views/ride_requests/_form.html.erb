@@ -5,6 +5,48 @@
         height: 100%;
       }
 
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #origin-input,
+      #destination-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 200px;
+        max-height: 75px;
+      }
+
+      #origin-input:focus,
+      #destination-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #mode-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        margin-left: 12px;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #mode-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
 </style>
 <%= form_with(model: ride_request, local: true) do |form| %>
   <% if ride_request.errors.any? %>
@@ -19,15 +61,15 @@
     </div>
   <% end %>
 
-  <div class="pac-container">
+  <div class="field">
     <%= form.label :pickup_address %>
-    <%= form.text_field :pickup_address, id: "pac-input" %>
+    <%= form.text_field :pickup_address, id: "origin-input", placeholder: 'enter the starting point' %>
   </div>
 
 
-  <div class="field">
+  <div class="field" ">
     <%= form.label :dropoff_address %>
-    <%= form.text_field :dropoff_address, id: :ride_request_dropoff_address %>
+    <%= form.text_field :dropoff_address, id: "destination-input", placeholder: 'enter the destination' %>
   </div>
 
   <div class="field">
@@ -53,48 +95,14 @@
   <div class="actions">
     <%= form.submit %>
   </div>
-<% end %>
 
-<div id="map" style='padding-top:400px;'></div>
+
+<div id="map" style='padding-top:24px; min-height: 250px;'></div>
   <div id="infowindow-content">
     <img src="" width="16" height="16" id="place-icon">
     <span id="place-name"  class="title"></span><br>
     <span id="place-address"></span>
   </div>
-
-<!-- <div class="pac-card" id="pac-card">
-      <div>
-        <div id="title">
-          Autocomplete search
-        </div>
-        <div id="type-selector" class="pac-controls">
-          <input type="radio" name="type" id="changetype-all" checked="checked">
-          <label for="changetype-all">All</label>
-
-          <input type="radio" name="type" id="changetype-establishment">
-          <label for="changetype-establishment">Establishments</label>
-
-          <input type="radio" name="type" id="changetype-address">
-          <label for="changetype-address">Addresses</label>
-
-          <input type="radio" name="type" id="changetype-geocode">
-          <label for="changetype-geocode">Geocodes</label>
-        </div>
-        <div id="strict-bounds-selector" class="pac-controls">
-          <input type="checkbox" id="use-strict-bounds" value="">
-          <label for="use-strict-bounds">Strict Bounds</label>
-        </div>
-      </div>
-      <div id="pac-container">
-        <input id="pac-input" type="text"
-            placeholder="Enter a location">
-      </div>
-    </div>
-    <div id="map"></div>
-    <div id="infowindow-content">
-      <img src="" width="16" height="16" id="place-icon">
-      <span id="place-name"  class="title"></span><br>
-      <span id="place-address"></span>
-    </div> -->
+  <% end %>
 
 

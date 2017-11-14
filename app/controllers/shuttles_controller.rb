@@ -15,6 +15,7 @@ class ShuttlesController < ApplicationController
   # GET /shuttles/1
   # GET /shuttles/1.json
   def show
+    @ride_requests = @shuttle.ride_requests.where.not(completed: true)
   end
 
   # GET /shuttles/new

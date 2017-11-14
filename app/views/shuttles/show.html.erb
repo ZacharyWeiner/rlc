@@ -1,3 +1,18 @@
+<style>
+    .google-maps {
+        position: relative;
+        padding-bottom: 75%; // This is the aspect ratio
+        height: 0;
+        overflow: hidden;
+    }
+    .google-maps iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }
+</style>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -32,3 +47,27 @@
 
 <%= link_to 'Edit', edit_shuttle_path(@shuttle) %> |
 <%= link_to 'Back', shuttles_path %>
+
+<%= waypoints = ""%>
+<% unless @ride_requests.first.nil?%>
+  <% @ride_requests.each do |rr|%>
+    <% waypoints = waypoints + rr.pickup_address.gsub!(' ','+') + "|" %>
+    <% waypoints = waypoints + rr.dropoff_address.gsub!(' ','+') + "|" %>
+  <% end %>
+<% end %>
+<div style='max-width: 1000px'>
+<%= waypoints = waypoints[0...-1] %>
+</div>
+<div class="google-maps">
+<iframe
+  width="100%"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
+  &origin=<%= @ride_requests.first.pickup_address%>
+  &destination=<%= @ride_requests.last.dropoff_address%>
+  &waypoints=<%= waypoints %>
+  &avoid=tolls|highways" allowfullscreen>
+</iframe>
+</div>
+
+
