@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
-
+  layout 'locations_theme'
   # GET /reservations
   # GET /reservations.json
   def index
@@ -76,6 +76,10 @@ class ReservationsController < ApplicationController
       format.html { redirect_to reservations_url, notice: 'Reservation was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def my_reservations
+    @reservations = Reservation.where(email: request.query_parameters[:q])
   end
 
   def deposit

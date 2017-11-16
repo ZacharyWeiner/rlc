@@ -11,38 +11,38 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :reservation_name %>
+  <div class='row'>
+    <div class='col-md-6'>
+      <div class="field">
+        <%= form.label :name %>
+        <%= form.text_field :name, id: :reservation_name %>
+      </div>
+      <div class="field">
+        <%= form.label :email_address %>
+        <%= form.text_field :email, id: :reservation_email %>
+      </div>
+    </div>
+    <div class='col-md-6'>
+      <div class="field">
+        <%= form.label :phone %>
+        <%= form.text_field :phone, id: :reservation_phone %>
+      </div>
+      <div class="field">
+        <%= form.label :count %>
+        <% reservation_count_options = [] %>
+        <% total_count = 0 %>
+        <% @experience_occurance.reservations.each do |res| %>
+          <% total_count = total_count + res.count %>
+        <% end %>
+        <% remaining_seats = @experience_occurance.capacity - total_count %>
+        <% while remaining_seats > 0 %>
+          <% reservation_count_options << "#{remaining_seats}" %>
+          <% remaining_seats = remaining_seats - 1%>
+        <% end %>
+        <%= form.select(:count, reservation_count_options.map { |value| [ value, value ] }) %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :email_address %>
-    <%= form.text_field :email, id: :reservation_email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_field :phone, id: :reservation_phone %>
-  </div>
-
-  <div class="field">
-    <%= form.label :count %>
-
-
-  <% reservation_count_options = [] %>
-  <% total_count = 0 %>
-  <% @experience_occurance.reservations.each do |res| %>
-    <% total_count = total_count + res.count %>
-  <% end %>
-  <% remaining_seats = @experience_occurance.capacity - total_count %>
-  <% while remaining_seats > 0 %>
-    <% reservation_count_options << "#{remaining_seats}" %>
-    <% remaining_seats = remaining_seats - 1%>
-  <% end %>
-  <%= form.select(:count, reservation_count_options.map { |value| [ value, value ] }) %>
-</div>
-
   <div class="field">
     <% if params[:experience_id]%>
       <%= form.hidden_field :experience_id, :value => @experience.id %>
@@ -52,6 +52,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Save My Spots", class: 'btn btn-primary' %>
   </div>
 <% end %>

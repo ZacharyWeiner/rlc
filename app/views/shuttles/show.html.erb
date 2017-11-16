@@ -12,62 +12,72 @@
         width: 100% !important;
         height: 100% !important;
     }
+
+    .directions-card .directions-card-medium-large {
+      display: none;
+    }
 </style>
 <p id="notice"><%= notice %></p>
+<h1>Shuttle Route</h1>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-6'>
+      <p>
+        <strong>Name:</strong>
+        <%= @shuttle.name %>
+      </p>
 
-<p>
-  <strong>Current lat:</strong>
-  <%= @shuttle.current_lat %>
-</p>
+      <p>
+        <strong>Address:</strong>
+        <%= @shuttle.address %>
+      </p>
 
-<p>
-  <strong>Current long:</strong>
-  <%= @shuttle.current_long %>
-</p>
 
-<p>
-  <strong>Previous lat:</strong>
-  <%= @shuttle.previous_lat %>
-</p>
-
-<p>
-  <strong>Previous long:</strong>
-  <%= @shuttle.previous_long %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @shuttle.name %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @shuttle.address %>
-</p>
-
-<%= link_to 'Edit', edit_shuttle_path(@shuttle) %> |
-<%= link_to 'Back', shuttles_path %>
-
-<%= waypoints = ""%>
-<% unless @ride_requests.first.nil?%>
-  <% @ride_requests.each do |rr|%>
-    <% waypoints = waypoints + rr.pickup_address.gsub!(' ','+') + "|" %>
-    <% waypoints = waypoints + rr.dropoff_address.gsub!(' ','+') + "|" %>
-  <% end %>
-<% end %>
-<div style='max-width: 1000px'>
-<%= waypoints = waypoints[0...-1] %>
+      <%= waypoints = ""%>
+      <% unless @ride_requests.first.nil?%>
+        <% @ride_requests.each do |rr|%>
+          <% waypoints = waypoints + rr.pickup_address.gsub!(' ','+') + "|" %>
+          <% waypoints = waypoints + rr.dropoff_address.gsub!(' ','+') + "|" %>
+        <% end %>
+      <% end %>
+      <div style='max-width: 1000px'>
+        <% waypoints = waypoints[0...-1] %>
+      </div>
+      <% request_count = 0%>
+      <% unless @ride_requests.first.nil?%>
+        <% @ride_requests.each do |rr|%>
+          <% request_count = request_count + 1 %>
+          <h4> Ride Request #<%= request_count %></h4>
+          <div class='row'>
+            <div class='col-md-6'>
+              Pickup:<br> <%= rr.pickup_address.gsub!('+',' ') %>
+            </div>
+            <div class='col-md-6'>
+               Dropoff:<br> <%= rr.dropoff_address.gsub!('+',' ') %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class='col-md-6'>
+      <div class="google-maps">
+        <iframe
+          width="100%"
+          frameborder="0" style="border:0"
+          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
+          &origin=<%= @ride_requests.first.pickup_address%>
+          &destination=<%= @ride_requests.last.dropoff_address%>
+          &waypoints=<%= waypoints %>
+          &avoid=tolls|highways" allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="google-maps">
-<iframe
-  width="100%"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
-  &origin=<%= @ride_requests.first.pickup_address%>
-  &destination=<%= @ride_requests.last.dropoff_address%>
-  &waypoints=<%= waypoints %>
-  &avoid=tolls|highways" allowfullscreen>
-</iframe>
-</div>
+
+ <%= render 'shared/locations_theme/promoted_locations' %>
+
+
+
 
 

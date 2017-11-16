@@ -28,7 +28,7 @@ class RideRequestsController < ApplicationController
 
     respond_to do |format|
       if @ride_request.save
-        format.html { redirect_to @ride_request, notice: 'Ride request was successfully created.' }
+        format.html { redirect_to @ride_request.shuttle, notice: 'Ride request was successfully created.' }
         format.json { render :show, status: :created, location: @ride_request }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class RideRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @ride_request.update(ride_request_params)
-        format.html { redirect_to @ride_request, notice: 'Ride request was successfully updated.' }
+        format.html { redirect_to @ride_request.shuttle, notice: 'Ride request was successfully updated.' }
         format.json { render :show, status: :ok, location: @ride_request }
       else
         format.html { render :edit }

@@ -1,3 +1,4 @@
+<div style='margin:24px;'>
 <%= form_with(model: experience, local: true) do |form| %>
   <% if experience.errors.any? %>
     <div id="error_explanation">
@@ -48,7 +49,10 @@
 
 
   </div>
-
+  <div class="field">
+    <%= form.label :header_image %>
+    <%= form.file_field :header_image %>
+  </div>
 
   <div class="field">
     <%= form.label :description %>
@@ -59,3 +63,4 @@
     <%= form.submit %>
   </div>
 <% end %>
+</div>

@@ -1,5 +1,14 @@
 <h1>New Ride Request</h1>
-
+<div class='row'>
+  <div class='col-md-10'>
+    <%= link_to '< Back', ride_requests_path %>
+  </div>
+  <div class='col-md-2'>
+    <%= link_to  "tel:1-877-302-2628", class: 'btn btn-primary' do %>
+    <i class='fa fa-phone'></i> Call For Ride
+    <% end %>
+  </div>
+</div>
 <%= render 'form', ride_request: @ride_request %>
 
-<%= link_to 'Back', ride_requests_path %>
+ <%= render 'shared/locations_theme/promoted_locations' %>

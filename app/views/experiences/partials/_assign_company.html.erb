@@ -1,13 +1,14 @@
 <% Business.all.each do |company|%>
   <div class='row'>
-    <div class='col-md-6'>
+    <div class='col-md-9'>
       <%= company.name %>
     </div>
     <div class='col-md-3'>
-      <%= link_to "Add", experience_add_company_path(@experience, company) %>
-    </div>
-    <div class='col-md-3'>
-      <%= link_to "Remove", experience_remove_company_path(@experience, company) %>
+      <% if @experience.businesses.include?(company) %>
+        <%= link_to "Remove", experience_remove_company_path(@experience, company) %>
+      <% else %>
+        <%= link_to "Add", experience_add_company_path(@experience, company) %>
+      <% end %>
     </div>
   </div>
 <% end %>

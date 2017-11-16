@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   resources :charges
 
+
+  get 'right_column_list', to: 'pages#right_column_list', as: 'right_column_list'
   root "pages#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

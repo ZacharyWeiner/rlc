@@ -1,40 +1,97 @@
-<% Reservation.where(email: request.query_parameters[:q]).each do |res| %>
-  <div class='row'>
-    <div class='col-md-3'>
-      <%= res.experience_occurance.experience.title %> <br>
-      <%= res.experience_occurance.date %>
-    </div>
-    <div class='col-md-6'>
-      Name: <%= res.name %> <br>
-      Seats Requested: <%= res.count %> <br>
-      Cost: <%= res.experience.cost %> per seat<br>
-    </div>
-    <div class='col-md-3'>
-      <% if res.paid %>
-        <p>Paid</p>
-      <% else %>
-        <%= form_tag charges_path do %>
-          <article>
-            <% if flash[:error].present? %>
-              <div id="error_explanation">
-                <p><%= flash[:error] %></p>
-              </div>
-            <% end %>
-            <label class="amount">
-              <% cost = (res.experience.cost * res.count) %>
-              <span>Deposit: $<%= cost %></span>
-            </label>
-          </article>
-          <%= hidden_field_tag :reservation_id, :value => res.id %>
-          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                  data-description="A month's subscription"
-                  data-amount="<%= (cost * 100)%>"
-                  data-locale="auto"></script>
+<section>
+                      <% Reservation.where(email: request.query_parameters[:q]).each do |res| %>
+                        <div class="item item-row" data-id="1" data-latitude="40.72807182" data-longitude="-73.85735035">
+                            <a href="detail.html">
+                                <div class="image bg-transfer">
+                                    <figure>
+                                      Cost: <%= res.experience.cost %> per spot
+                                      <br/>
+                                      <%= res.count %> spots reserved
+                                    </figure>
+                                    <% if res.experience.header_image %>
+                                      <%= image_tag res.experience.header_image%>
+                                    <% else %>
+                                      <%= image_tag res.experience.images.first%>
+                                    <% end %>
+                                </div>
+                                <!--end image-->
+                                <div class="map"></div>
+                                <div class="description">
+                                    <h3><%= res.experience_occurance.experience.title %></h3>
+                                    <h4><%= res.experience_occurance.date %></h4>
+                                    <% res.experience.categories.each do |cat| %>
+                                      <div class="label label-default">
 
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+                                        <%= cat.name %>
+                                      </div>
+                                    <%end %>
+                                </div>
+                                <!--end description-->
+                                <div class="additional-info">
+                                    <div class="rating-passive" data-rating="4">
+                                        <span class="stars"></span>
+                                        <span class="reviews">6</span>
+                                    </div>
+                                    <% if res.paid %>
+                                    <p>Paid</p>
+                                    <% else %>
+                                      <%= form_tag charges_path do %>
+                                        <article>
+                                          <% if flash[:error].present? %>
+                                            <div id="error_explanation">
+                                              <p><%= flash[:error] %></p>
+                                            </div>
+                                          <% end %>
+                                          <label class="amount">
+                                            <% cost = (res.experience.cost * res.count) %>
+                                            <span>Total: $<%= cost %></span>
+                                          </label>
+                                        </article>
+                                        <%= hidden_field_tag :reservation_id, :value => res.id %>
+                                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                                                data-description="A month's subscription"
+                                                data-amount="<%= (cost * 100)%>"
+                                                data-locale="auto"
+                                                data-label="Pay Now"></script>
+
+                                      <% end %>
+                                    <% end %>
+                                </div>
+                                <!--end additional-info-->
+                            </a>
+                            <div class="controls-more">
+                                <ul>
+                                    <li><a href="#">Add to favorites</a></li>
+                                    <li><a href="#">Add to watchlist</a></li>
+                                    <li><a href="#" class="quick-detail">Quick detail</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <% end %>
+                    </section>
+
+                    <section>
+                        <div class="center">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li class="disabled previous">
+                                        <a href="#" aria-label="Previous">
+                                            <i class="arrow_left"></i>
+                                        </a>
+                                    </li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li class="active"><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li class="next">
+                                        <a href="#" aria-label="Next">
+                                            <i class="arrow_right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </section>
 

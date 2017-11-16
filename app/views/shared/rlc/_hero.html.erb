@@ -80,7 +80,14 @@
             </div>
           </div>
           <div class="image">
-            <div class="bg-transfer"><%= image_tag he.images.first.file %></div>
+            <div class="bg-transfer">
+              <% if he.header_image %>
+                <%= image_tag he.header_image %>
+              <% else %>
+                <%= image_tag he.images.first.file %>
+              <% end %>
+
+            </div>
           </div>
         </div>
         <!--end presentation-->

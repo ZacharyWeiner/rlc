@@ -69,7 +69,7 @@ class ExperiencesController < ApplicationController
     else
       @experience.businesses << business
     end
-    redirect_to @experience
+    redirect_to edit_experience_path(@experience)
   end
 
   def remove_company
@@ -79,7 +79,7 @@ class ExperiencesController < ApplicationController
     else
 
     end
-    redirect_to @experience
+    redirect_to edit_experience_path(@experience)
   end
 
   private
@@ -94,7 +94,7 @@ class ExperiencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def experience_params
-      params.require(:experience).permit(:title, :duration, :capacity, :description, :cost, :start_date, :end_date, :recurrs_every, {images: []})
+      params.require(:experience).permit(:title, :duration, :capacity, :description, :cost, :start_date, :end_date, :recurrs_every, :header_image)
     end
 
     def create_occurences

@@ -1,6 +1,23 @@
 <h1>Editing Experience</h1>
 
-<%= render 'form', experience: @experience %>
+<div class='row'>
+  <div class='col-md-6'>
+    <%= render 'form', experience: @experience %>
+  </div>
+  <div class='col-md-6'>
+    <h3> Current Partners </h3><br/>
+    <div class='container'>
+      <% @experience.businesses.each do |biz|%>
+        <div class='row'>
+          <%= biz.name %>
+        </div>
+      <% end %>
+    </div>
+    <h3> Add Partners </h3>
+    <%= render 'experiences/partials/assign_company'%>
+  </div>
+</div>
+
 
 <%= link_to 'Show', @experience %> |
 <%= link_to 'Back', experiences_path %>

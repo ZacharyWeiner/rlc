@@ -4,5 +4,5 @@ class Experience < ApplicationRecord
   has_many :experience_occurances
   has_many :reservations
   has_many :images
-
+  mount_uploader :header_image, ImageUploader
 end

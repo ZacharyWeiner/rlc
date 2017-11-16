@@ -62,42 +62,41 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :pickup_address %>
     <%= form.text_field :pickup_address, id: "origin-input", placeholder: 'enter the starting point' %>
   </div>
-
-
   <div class="field" ">
-    <%= form.label :dropoff_address %>
     <%= form.text_field :dropoff_address, id: "destination-input", placeholder: 'enter the destination' %>
   </div>
-
-  <div class="field">
-    <%= form.label :riders %>
-    <%= form.number_field :riders, id: :ride_request_riders %>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-md-6'>
+        <%= form.label :requester_name %>
+        <br/>
+        <%= form.text_field :requester_name, id: :ride_request_requester_name %>
+      </div>
+      <div class='col-md-3'>
+        <%= form.label :riders %>
+        <br/>
+        <%= form.number_field :riders, id: :ride_request_riders, style: 'max-height:25px;' %>
+      </div>
+      <div class='col-md-3'>
+        <%= form.label :shuttle_id %>
+        <br/>
+        <%= form.text_field :shuttle_id, id: :ride_request_shuttle_id %>
+      </div>
+    </div>
+  </div>
+  <div class='container'>
+    <br/>
+    <div class="actions">
+      <%= form.submit "Request Ride", class: 'btn btn-primary' %>
+    </div>
+    <br/>
+    <br/>
   </div>
 
-  <div class="field">
-    <%= form.label :requester_name %>
-    <%= form.text_field :requester_name, id: :ride_request_requester_name %>
-  </div>
 
-  <div class="field">
-    <%= form.label :shuttle_id %>
-    <%= form.text_field :shuttle_id, id: :ride_request_shuttle_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :completed %>
-    <%= form.check_box :completed, id: :ride_request_completed %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-
-
-<div id="map" style='padding-top:24px; min-height: 250px;'></div>
+<div id="map" style='padding-top:24px; min-height: 400px;'></div>
   <div id="infowindow-content">
     <img src="" width="16" height="16" id="place-icon">
     <span id="place-name"  class="title"></span><br>
