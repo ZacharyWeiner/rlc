@@ -6,9 +6,7 @@
      <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900,400italic' rel='stylesheet' type='text/css'>
      <script src="https://use.fontawesome.com/1494e0c4f8.js"></script>
     <%= stylesheet_link_tag 'locations_maps' %>
-
-
-
+    <%= yield :head %>
     <!-- Latest compiled and minified JavaScript -->
   </head>
 
@@ -22,7 +20,9 @@
     </div>
 
     <%= javascript_include_tag 'locations_maps' %>
-   <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe_etF6ggVPrcWv7TAIW9wxyGrFGD0IJI&region=US&libraries=places&callback=initMap""></script>
+
+    <%= yield :js %>
+   <!-- <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe_etF6ggVPrcWv7TAIW9wxyGrFGD0IJI&region=US&libraries=places&callback=initMap""></script> -->
     <script>
       autoComplete();
     </script>

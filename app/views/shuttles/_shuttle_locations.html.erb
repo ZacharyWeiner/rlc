@@ -1,0 +1,55 @@
+
+<% content_for :head do %>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe_etF6ggVPrcWv7TAIW9wxyGrFGD0IJI"
+  type="text/javascript"></script>
+<% end %>
+<% shuttle_count = 1 %>
+<% shuttle_placement = ""%>
+<% shuttle_list_html = "" %>
+<% Shuttle.all.each do |shuttle| %>
+    <% shuttle_placement = shuttle_placement + "['#{shuttle.name} <br> #{shuttle.capacity}', #{shuttle.current_lat}, #{shuttle.current_long}, #{shuttle_count}], " %>
+    <% shuttle_count = shuttle_count + 1 %>
+    <% shuttle_list_html = shuttle_list_html + "<li> #{shuttle.name} - Available Seats: #{shuttle.capacity} </li>" %>
+  <% end %>
+  <% shuttle_placement = shuttle_placement[0...-2] %>
+  <br>
+  <br>
+  <ul>
+    <%= shuttle_list_html.html_safe%>
+  </ul>
+
+ <div id="map" style="height: 400px; width: 500px;">
+  <% content_for :js do %>
+
+  <script type="text/javascript">
+
+    var locations = [
+        <%= shuttle_placement.html_safe %>
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: new google.maps.LatLng(40.473821, -106.826383),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+  <% end %>
+

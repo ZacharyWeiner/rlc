@@ -2,23 +2,28 @@
     <h1>Ride Requests</h1>
 </section>
 <div class='container'>
-<% @ride_requests.each do |request| %>
-  <div class="item item-row" >
-
-        <div class="description">
-            <h3><%= request.requester_name %></h3>
-            <h4><strong>Pickup:</strong> <%= request.pickup_address%> <br> <br>  <strong>DropOff:</strong><%= request.dropoff_address%></h4>
-            <div class="label label-default">In Queue / Rolling / Complete</div>
+    <div class='row'>
+        <div class='col-md-6'>
+        <% @ride_requests.each do |request| %>
+          <div class="item item-row" >
+                <h2><%= request.requester_name %> -  <%= request.riders %></h2>
+                <div class="description">
+                    <h4><strong>Pickup:</strong> <%= request.pickup_address%> <br> <br>  <strong>DropOff:</strong><%= request.dropoff_address%></h4>
+                    <div class="label label-default">In Queue / Rolling / Complete</div>
+                </div>
+            <div class="controls-more">
+                <ul>
+                    <li><a href="#">Some really long text that is absurdly long</a></li>
+                    <li><a href="#">Add to watchlist</a></li>
+                    <li><a href="#" class="quick-detail">Quick detail</a></li>
+                </ul>
+            </div>
+            <!--end controls-more-->
         </div>
-
-    <div class="controls-more">
-        <ul>
-            <li><a href="#">Add to favorites</a></li>
-            <li><a href="#">Add to watchlist</a></li>
-            <li><a href="#" class="quick-detail">Quick detail</a></li>
-        </ul>
+        <% end %>
     </div>
-    <!--end controls-more-->
-</div>
-<% end %>
+    <div class='col-md-6'>
+      <%= render 'shuttles/shuttle_locations'%>
+    </div>
+    </div>
 </div>
