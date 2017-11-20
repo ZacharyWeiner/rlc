@@ -5,7 +5,10 @@
     <%= csrf_meta_tags %>
      <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900,400italic' rel='stylesheet' type='text/css'>
      <script src="https://use.fontawesome.com/1494e0c4f8.js"></script>
-    <%= stylesheet_link_tag 'locations_theme' %>
+    <%= stylesheet_link_tag 'locations_maps' %>
+
+
+
     <!-- Latest compiled and minified JavaScript -->
   </head>
 
@@ -15,14 +18,15 @@
       <div id="page-content">
       <%= yield %>
     </div>
-    </div>
     <%= render 'shared/locations_theme/footer' %>
-      <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
-    <%= javascript_include_tag 'locations_locations' %>
+    </div>
 
+    <%= javascript_include_tag 'locations_locations' %>
+   <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe_etF6ggVPrcWv7TAIW9wxyGrFGD0IJI&region=US&libraries=places&callback=initMap""></script>
     <script>
       autoComplete();
     </script>
   </body>
 </html>
+
 

@@ -3,22 +3,14 @@
 </section>
 <div class='container'>
 <% @ride_requests.each do |request| %>
-  <div class="item item-row" data-id="1" data-latitude="40.72807182" data-longitude="-73.85735035">
-    <a href="detail.html">
+  <div class="item item-row" >
+
         <div class="description">
             <h3><%= request.requester_name %></h3>
             <h4><strong>Pickup:</strong> <%= request.pickup_address%> <br> <br>  <strong>DropOff:</strong><%= request.dropoff_address%></h4>
             <div class="label label-default">In Queue / Rolling / Complete</div>
         </div>
-        <!--end description-->
-        <div class="additional-info">
-            <div class="rating-passive" data-rating="4">
-                <span class="stars"><figure class="active fa fa-star"></figure><figure class="active fa fa-star"></figure><figure class="active fa fa-star"></figure><figure class="active fa fa-star"></figure><figure class="fa fa-star"></figure></span>
-                <span class="reviews">6</span>
-            </div>
-        </div>
-        <!--end additional-info-->
-    </a>
+
     <div class="controls-more">
         <ul>
             <li><a href="#">Add to favorites</a></li>

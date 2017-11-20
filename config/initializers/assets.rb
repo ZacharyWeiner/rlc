@@ -11,6 +11,7 @@ Rails.application.config.assets.precompile += %w( locations_theme.css )
 Rails.application.config.assets.precompile += %w( locations_theme.js )
 Rails.application.config.assets.precompile += %w( locations_maps.css )
 Rails.application.config.assets.precompile += %w( locations_maps.js )
+Rails.application.config.assets.precompile += %w( locations_locations.js )
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
