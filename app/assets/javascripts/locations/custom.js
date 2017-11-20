@@ -153,7 +153,25 @@ $(document).ready(function($) {
 
 //  Map in Row listing -------------------------------------------------------------------------------------------------
 
-    $(".item.item-row").each(function() {
+
+
+//  Close "More" menu on click anywhere on page ------------------------------------------------------------------------
+
+    $(document).on("click", function(e){
+
+        if( e.target.className == "controls-more" ){
+            $(".controls-more.show").removeClass("show");
+            $(e.target).addClass("show");
+
+        }
+        else {
+            $(".controls-more.show").each(function() {
+                $(this).removeClass("show");
+            });
+        }
+    });
+
+     $(".item.item-row").each(function() {
         var element = "map"+$(this).attr("data-id");
         var place;
         $(this).find(".map").attr("id", element );
@@ -166,21 +184,6 @@ $(document).ready(function($) {
             place = false;
         }
         simpleMap(_latitude,_longitude, element, false, place);
-    });
-
-//  Close "More" menu on click anywhere on page ------------------------------------------------------------------------
-
-    $(document).on("click", function(e){
-        if( e.target.className == "controls-more" ){
-            $(".controls-more.show").removeClass("show");
-            $(e.target).addClass("show");
-
-        }
-        else {
-            $(".controls-more.show").each(function() {
-                $(this).removeClass("show");
-            });
-        }
     });
 
 // Mobile navigation button --------------------------------------------------------------------------------------------
@@ -335,7 +338,6 @@ $(window).resize(function(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function heroSectionHeight(){
-
     if( $(".hero-section").length > 0 ){
         if( viewport.is('xs') ){
             $(".map-wrapper").height( $(window).height() - 25 );
@@ -455,8 +457,8 @@ function openModal(target, modalPath, clusterData){
 }
 
 //  Transfer "img" into CSS background-image
-
 function bgTransfer(){
+
     //disable-on-mobile
     if( viewport.is('xs') ){
 
@@ -578,6 +580,7 @@ function initializeDateTimePicker(){
 
     });
 }
+
 
 function trackpadScroll(method){
     if( method == "initialize" ){
@@ -761,7 +764,6 @@ function rating(element){
 // Read more -----------------------------------------------------------------------------------------------------------
 
 function initializeReadMore(){
-
     $.ajax({
         type: "GET",
         url: "assets/js/readmore.min.js",
@@ -813,7 +815,24 @@ function fixedNavigation(state){
         });
     }
 }
+//  Show element when scrolled desired amount of pixels ----------------------------------------------------------------
+$( document ).ready(function() {
+    $("[data-show-after-scroll]").each(function() {
+       var _this = $(this);
+        var scroll = _this.attr("data-show-after-scroll");
+        var offsetTop = $(this).offset().top;
+        $(window).scroll(function() {
+            var currentScroll = $(window).scrollTop();
+            if (currentScroll >= scroll) {
+                _this.addClass("show");
+            }
+            else {
+                _this.removeClass("show");
+            }
+        });
+    });
 
+});
 //  Show element after desired time ------------------------------------------------------------------------------------
 
 if( !viewport.is('xs') ){
@@ -856,19 +875,4 @@ if( !viewport.is('xs') ){
 
 }
 
-//  Show element when scrolled desired amount of pixels ----------------------------------------------------------------
 
-$("[data-show-after-scroll]").each(function() {
-    var _this = $(this);
-    var scroll = _this.attr("data-show-after-scroll");
-    var offsetTop = $(this).offset().top;
-    $(window).scroll(function() {
-        var currentScroll = $(window).scrollTop();
-        if (currentScroll >= scroll) {
-            _this.addClass("show");
-        }
-        else {
-            _this.removeClass("show");
-        }
-    });
-});

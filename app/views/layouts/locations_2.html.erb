@@ -10,9 +10,11 @@
     <%= javascript_include_tag 'locations_theme' %>
   </head>
   <body>
-
-    <%= yield %>
-    <a href="#" class="to-top scroll" data-show-after-scroll="600"><i class="arrow_up"></i></a>
+    <div class="page-wrapper">
+      <%= yield %>
+      <%= render 'shared/rlc/content/footer'%>
+    </div>
+    <a href="#" class="to-top scroll" data-show-after-scroll="600"><i class="fa fa-arrow-up"></i></a>
     <script>
       autoComplete();
     </script>

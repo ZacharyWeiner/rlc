@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :ride_requests
+  get 'ride_request/manager', to: "ride_requests#manager", as:'manager'
   resources :shuttle_stops
   resources :shuttles
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'

@@ -61,6 +61,10 @@ class RideRequestsController < ApplicationController
     end
   end
 
+  def manager
+    @ride_requests = RideRequest.all
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ride_request

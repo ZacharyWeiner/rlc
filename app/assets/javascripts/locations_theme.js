@@ -6,6 +6,8 @@
 //= require locations/js/bootstrap.min
 //= require locations/js/bootstrap-select.min
 //= require locations/js/richmarker-compiled.js
+//= require locations/js/markerclusterer_packed
+//= require locations/js/infobox
 //= require locations/js/jquery.validate.min
 //= require locations/js/jquery.fitvids
 //= require locations/js/moment.js
@@ -15,9 +17,9 @@
 //= require locations/js/jquery.trackpad-scroll-emulator.min
 //= require locations/js/jQuery.MultiFile.min
 //= require locations/js/jquery.nouislider.all.min
-//= require locations/js/infobox
+
 //= require locations/js/jssocials.min
-//= require locations/js/markerclusterer_packed
+
 //= require locations/js/masonry.pkgd.min
 //= require locations/js/readmore.min
 //= require locations/custom

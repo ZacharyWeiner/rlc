@@ -18,8 +18,9 @@
       <div id="page-content">
       <%= yield %>
     </div>
-    </div>
     <%= render 'shared/locations_theme/footer' %>
+    </div>
+
     <%= javascript_include_tag 'locations_maps' %>
    <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe_etF6ggVPrcWv7TAIW9wxyGrFGD0IJI&region=US&libraries=places&callback=initMap""></script>
     <script>
