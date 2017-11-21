@@ -1,5 +1,5 @@
 class RideRequestsController < ApplicationController
-  before_action :set_ride_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear]
   layout 'shuttle_layout'
   # GET /ride_requests
   # GET /ride_requests.json
@@ -25,11 +25,16 @@ class RideRequestsController < ApplicationController
   # POST /ride_requests.json
   def create
     @ride_request = RideRequest.new(ride_request_params)
-
+    @ride_request.status = "In Queue"
+    @ride_request.completed = false
     respond_to do |format|
       if @ride_request.save
-        format.html { redirect_to @ride_request.shuttle, notice: 'Ride request was successfully created.' }
-        format.json { render :show, status: :created, location: @ride_request }
+        if @ride_request.shuttle.nil?
+          format.html { redirect_to @ride_request, notice: 'Ride request was successfully created.' }
+        else
+          format.html { redirect_to @ride_request.shuttle, notice: 'Ride request was successfully created.' }
+          format.json { render :show, status: :created, location: @ride_request }
+        end
       else
         format.html { render :new }
         format.json { render json: @ride_request.errors, status: :unprocessable_entity }
@@ -62,17 +67,41 @@ class RideRequestsController < ApplicationController
   end
 
   def manager
-    @ride_requests = RideRequest.all
+    @ride_requests = RideRequest.where.not(completed: true)
+  end
+
+  def assign_to_shuttle
+    @shuttle = Shuttle.find(params[:shuttle_id])
+    @ride_request.shuttle = @shuttle
+    @ride_request.status = "Rolling"
+    respond_to do |format|
+      if @ride_request.save
+        format.html { redirect_to ride_request_manager_path, notice: 'Ride request was successfully assigned.' }
+      else
+        byebug
+      end
+    end
+  end
+
+  def mark_clear
+    @ride_request.status = "Completed"
+    @ride_request.completed = true
+    @ride_request.save
+    redirect_to ride_request_manager_path
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ride_request
-      @ride_request = RideRequest.find(params[:id])
+      if params[:ride_request_id]
+        @ride_request = RideRequest.find(params[:ride_request_id])
+      else
+        @ride_request = RideRequest.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ride_request_params
-      params.require(:ride_request).permit(:pickup_address, :dropoff_address, :riders, :requester_name, :shuttle_id, :completed)
+      params.require(:ride_request).permit(:pickup_address, :dropoff_address, :riders, :requester_name, :shuttle_id, :completed, :phone)
     end
 end

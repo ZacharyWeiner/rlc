@@ -1,6 +1,4 @@
-<%= content_for :js do %>
-<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe_etF6ggVPrcWv7TAIW9wxyGrFGD0IJI&region=US&libraries=places&callback=initMap""></script>
-<% end %>
+
 <h1>New Ride Request</h1>
 <div class='row'>
   <div class='col-md-10'>
@@ -12,6 +10,13 @@
     <% end %>
   </div>
 </div>
-<%= render 'form', ride_request: @ride_request %>
+<div class='row'>
+  <div class='col-md-6'>
+    <%= render 'shuttles/shuttle_locations' %>
+  </div>
+  <div class='col-md-6'>
+    <%= render 'transpo_form', ride_request: @ride_request %>
+  </div>
+</div>
 
- <%= render 'shared/locations_theme/promoted_locations' %>
+

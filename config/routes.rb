@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  resources :ride_requests
-  get 'ride_request/manager', to: "ride_requests#manager", as:'manager'
+  resources :ride_requests do
+    get '/assign/:shuttle_id', to: 'ride_requests#assign_to_shuttle', as: 'assign_shuttle'
+    get '/mark_clear', to: 'ride_requests#mark_clear', as: 'mark_clear'
+  end
+  get 'ride_request/manager', to: "ride_requests#manager", as:'ride_request_manager'
   resources :shuttle_stops
   resources :shuttles
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'

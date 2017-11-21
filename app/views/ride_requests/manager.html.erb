@@ -9,14 +9,20 @@
                 <h2><%= request.requester_name %> -  <%= request.riders %></h2>
                 <div class="description">
                     <h4><strong>Pickup:</strong> <%= request.pickup_address%> <br> <br>  <strong>DropOff:</strong><%= request.dropoff_address%></h4>
-                    <div class="label label-default">In Queue / Rolling / Complete</div>
+                    Status: <div class="label label-default"><%= request.status %></div>
                 </div>
             <div class="controls-more">
+              <% if request.status == "In Queue" %>
                 <ul>
-                    <li><a href="#">Some really long text that is absurdly long</a></li>
-                    <li><a href="#">Add to watchlist</a></li>
-                    <li><a href="#" class="quick-detail">Quick detail</a></li>
+                    <% Shuttle.all.each do |shuttle| %>
+                    <li><%= link_to "Assign to #{shuttle.name}", ride_request_assign_shuttle_path(request, shuttle.id) %></li>
+                    <% end %>
                 </ul>
+              <% else %>
+                 <ul>
+                   <li><%= link_to "Mark Clear", ride_request_mark_clear_path(request) %></li>
+                 </ul>
+              <% end %>
             </div>
             <!--end controls-more-->
         </div>

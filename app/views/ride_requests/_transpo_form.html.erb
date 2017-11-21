@@ -1,0 +1,43 @@
+<%= form_with(model: ride_request, local: true) do |form| %>
+  <% if ride_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ride_request.errors.count, "error") %> prohibited this ride_request from being saved:</h2>
+
+      <ul>
+      <% ride_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class='form-group'>
+    <%= form.label :requester_name %>
+    <%= form.text_field :requester_name, id: :ride_request_requester_name, class: 'form-control' %>
+  </div>
+  <div class='form-group'>
+    <%= form.label :phone_number %>
+    <%= form.text_field :phone, id: :ride_request_phone,  class: 'form-control'  %>
+  </div>
+  <div class='form-group'>
+     <%= form.label :riders %>
+     <%= form.number_field :riders, id: :ride_request_riders, class: 'form-control' %>
+  </div>
+  <% locations = [] %>
+  <% locations << ["-- Please Select --", "-- Please Select --"]%>
+  <%  Location.all.each do |l|  %>
+  <% locations << [l.name, "#{l.name}, #{l.address}"] %>
+  <% end %>
+
+  <div class='form-group'>
+     <%= form.label :pickup_address %>
+     <%= form.select(:pickup_address, options_for_select(locations)) %>
+  </div>
+  <div class='form-group'>
+     <%= form.label :dropoff_address %>
+     <%= form.select(:dropoff_address, options_for_select(locations)) %>
+  </div>
+
+
+  <%= form.submit "Request Ride", class: "btn btn-primary" %>
+<% end %>
+

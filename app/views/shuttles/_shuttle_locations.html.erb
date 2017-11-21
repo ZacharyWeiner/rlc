@@ -3,22 +3,24 @@
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe_etF6ggVPrcWv7TAIW9wxyGrFGD0IJI"
   type="text/javascript"></script>
 <% end %>
+
 <% shuttle_count = 1 %>
 <% shuttle_placement = ""%>
 <% shuttle_list_html = "" %>
 <% Shuttle.all.each do |shuttle| %>
     <% shuttle_placement = shuttle_placement + "['#{shuttle.name} <br> #{shuttle.capacity}', #{shuttle.current_lat}, #{shuttle.current_long}, #{shuttle_count}], " %>
     <% shuttle_count = shuttle_count + 1 %>
-    <% shuttle_list_html = shuttle_list_html + "<li> #{shuttle.name} - Available Seats: #{shuttle.capacity} </li>" %>
+    <% shuttle_list_html = shuttle_list_html + "<li> #{shuttle.name} - Available Seats: #{shuttle.available_seats} </li>" %>
   <% end %>
   <% shuttle_placement = shuttle_placement[0...-2] %>
   <br>
   <br>
+
+
+ <div id="map" style="height: 400px; width: 500px;"></div>
   <ul>
     <%= shuttle_list_html.html_safe%>
   </ul>
-
- <div id="map" style="height: 400px; width: 500px;">
   <% content_for :js do %>
 
   <script type="text/javascript">

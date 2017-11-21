@@ -22,9 +22,16 @@
 
 <p>
   <strong>Shuttle:</strong>
-  <%= @ride_request.shuttle %>
+  <% if @ride_request.shuttle.nil? %>
+    <p>Unassigned</p>
+  <% else %>
+    <%= @ride_request.shuttle.name %>
+  <% end %>
 </p>
-
+<p>
+  <strong>Status:</strong>
+  <%= @ride_request.status %>
+</p>
 <p>
   <strong>Completed:</strong>
   <%= @ride_request.completed %>
