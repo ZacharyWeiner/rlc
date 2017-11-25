@@ -1,37 +1,30 @@
-
 <% content_for :head do %>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe_etF6ggVPrcWv7TAIW9wxyGrFGD0IJI"
   type="text/javascript"></script>
 <% end %>
 
-<% shuttle_count = 1 %>
-<% shuttle_placement = ""%>
-<% shuttle_list_html = "" %>
-<% Shuttle.all.each do |shuttle| %>
-    <% shuttle_placement = shuttle_placement + "['#{shuttle.name} <br> #{shuttle.capacity}', #{shuttle.current_lat}, #{shuttle.current_long}, #{shuttle_count}], " %>
-    <% shuttle_count = shuttle_count + 1 %>
-    <% shuttle_list_html = shuttle_list_html + "<li> #{shuttle.name} - Available Seats: #{shuttle.available_seats} </li>" %>
-  <% end %>
-  <% shuttle_placement = shuttle_placement[0...-2] %>
+ <% location_count = 1 %>
+   <% location_placement = ""%>
+   <% @ordered_locations.reverse.take(3).each do |ol| %>
+   <% location_placement = location_placement + "['#{ol.name}', #{ol.latitude}, #{ol.longitude}, #{location_count}], " %>
+   <% location_count = location_count +1 %>
+ <% end %>
+<% location_placement = location_placement[0...-2] %>
+ <br>
   <br>
-  <br>
-
-
- <div id="map" style="height: 300px; width: 400px;"></div>
-  <ul>
-    <%= shuttle_list_html.html_safe%>
-  </ul>
+  <% my_location =  @ordered_locations.reverse.take(4).last %>
+ <div id="map" style="height: 400px; width: 500px;"></div>
   <% content_for :js do %>
 
   <script type="text/javascript">
 
     var locations = [
-        <%= shuttle_placement.html_safe %>
+        <%= location_placement.html_safe %>
     ];
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: new google.maps.LatLng(40.473821, -106.826383),
+      zoom: 14,
+      center: new google.maps.LatLng(<%= my_location.latitude %>, <%= my_location.longitude %>),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
@@ -54,4 +47,3 @@
     }
   </script>
   <% end %>
-

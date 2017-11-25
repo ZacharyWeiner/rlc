@@ -1,0 +1,18 @@
+<section class="box">
+    <h2>Available Dates</h2>
+    <div style='max-height: 250px; overflow-y: scroll;'>
+        <dl>
+           <div class='row'>
+            <% @experience.experience_occurances.each do |eo| %>
+              <% unless eo.available_tickets == 0%>
+              <div class='col-md-6 col-sm-6'>
+                <%= eo.date.to_time.strftime('%A, %b %d, %Y') %>
+              </div>
+              <%= render :partial => 'experiences/partials/show/reservation_form', :locals => {:experience_occurance => eo} %>
+              <div class='col-md-1 col-sm-1'></div>
+              <% end %>
+            <%end %>
+          </div>
+        </dl>
+    </div>
+</section>

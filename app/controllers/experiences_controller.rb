@@ -1,6 +1,6 @@
 class ExperiencesController < ApplicationController
   before_action :set_experience, only: [:show, :edit, :update, :destroy, :add_company, :remove_company]
-  layout 'locations_theme'
+  layout 'locations_2'
   # GET /experiences
   # GET /experiences.json
   def index
@@ -10,6 +10,7 @@ class ExperiencesController < ApplicationController
   # GET /experiences/1
   # GET /experiences/1.json
   def show
+    @reservation = Reservation.new
   end
 
   # GET /experiences/new

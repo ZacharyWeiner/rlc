@@ -1,0 +1,16 @@
+<section>
+    <div class="gallery detail">
+        <div class="owl-carousel" data-owl-nav="0" data-owl-dots="1">
+            <% unless @experience.header_image.nil?%>
+              <div class="image">
+                <div class="bg-transfer"><%= image_tag @experience.header_image %></div>
+              </div>
+            <% end %>
+            <% @experience.images.each do |image|%>
+            <div class="image">
+                <div class="bg-transfer"><%= image_tag image.file %></div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</section>

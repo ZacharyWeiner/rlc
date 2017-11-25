@@ -1,0 +1,14 @@
+<!-- form_tag({controller: "people", action: "search"}, method: "get", class: "nifty_form") -->
+<%= form_for @reservation do |form| %>
+    <% options = []%>
+    <% (experience_occurance.available_tickets + 1).times  do |i| %>
+      <% options << [i, i] %>
+    <% end %>
+    <div class='col-md-2 col-sm-2'>
+      <%= form.select :count, options_for_select(options), style:'padding-top: 6px'%>
+    </div>
+    <%= form.hidden_field :experience_occurance_id, :value => experience_occurance.id %>
+  <div class='col-md-3 col-sm-3'>
+    <%= form.submit "Book Now", class: 'btn btn-primary pull-right' %>
+  </div>
+<% end %>

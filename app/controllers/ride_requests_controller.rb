@@ -1,6 +1,7 @@
 class RideRequestsController < ApplicationController
   before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear]
   layout 'shuttle_layout'
+  #autocomplete :pickup_location, :name
   # GET /ride_requests
   # GET /ride_requests.json
   def index
@@ -14,6 +15,13 @@ class RideRequestsController < ApplicationController
 
   # GET /ride_requests/new
   def new
+    # @lat = request.location.latitude
+    # @long = request.location.longitude
+
+    @lat = Location.first.latitude
+    @long = Location.first.longitude
+
+    @ordered_locations = Location.near([@lat, @long], 30)
     @ride_request = RideRequest.new
   end
 
@@ -29,6 +37,9 @@ class RideRequestsController < ApplicationController
     @ride_request.completed = false
     respond_to do |format|
       if @ride_request.save
+        if params[:redirect]
+          return redirect_to ride_request_manager_path
+        end
         if @ride_request.shuttle.nil?
           format.html { redirect_to @ride_request, notice: 'Ride request was successfully created.' }
         else
@@ -67,7 +78,11 @@ class RideRequestsController < ApplicationController
   end
 
   def manager
+    @lat = Location.first.latitude
+    @long = Location.first.longitude
     @ride_requests = RideRequest.where.not(completed: true)
+    @ride_request = RideRequest.new
+    @ordered_locations = Location.near([@lat, @long], 30)
   end
 
   def assign_to_shuttle

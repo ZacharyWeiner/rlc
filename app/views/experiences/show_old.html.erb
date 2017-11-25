@@ -1,77 +1,29 @@
-
-<p id="notice"><%= notice %></p>
-<div class='row'>
-  <div class='col-md-6'>
-    <p>
-      <strong>Title:</strong>
-      <%= @experience.title %>
-    </p>
-
-    <p>
-      <strong>Cost:</strong>
-      <%= @experience.cost %> per person
-    </p>
-
-     <p>
-      <strong>Start:</strong>
-      <%= @experience.start_date %>
-    </p>
-
-    <p>
-      <strong>End:</strong>
-      <%= @experience.end_date %>
-    </p>
-
-    <p>
-      <strong>Recurrs Every:</strong>
-      <%= @experience.recurrs_every %>
-    </p>
-
-    <p>
-      <strong>Duration:</strong>
-      <%= @experience.duration %>
-    </p>
-
-    <p>
-      <strong>Capacity:</strong>
-      <%= @experience.capacity %>
-    </p>
-
-    <p>
-      <strong>Description:</strong>
-      <%= @experience.description %>
-    </p>
-
-    <%= link_to 'Edit', edit_experience_path(@experience) %> |
-    <%= link_to 'Back', experiences_path %>
-  </div>
-  <div class='col-md-6'>
-    <%= render 'experiences/partials/assign_company'%>
-  </div>
+<div class="page-wrapper">
+    <div id="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+                    <%= render 'experiences/partials/show/title'%>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+                            <%= render 'experiences/partials/show/gallery' %>
+                            <%= render 'experiences/partials/show/description' %>
+                            <%= render 'experiences/partials/reviews' %>
+                            <%= render 'experiences/partials/review_form' %>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <section>
+                                <div class="detail-sidebar">
+                                   <%= render :partial => 'experiences/partials/business_details', :locals => {:experience => @experience}  %>
+                                </div>
+                                <!--end detail-sidebar-->
+                            </section>
+                            <%= render 'experiences/partials/categories' %>
+                        </div>
+                    </div>
+                </div>
+                <%= render 'experiences/partials/details_sidebar' %>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class='row'>
-  <% @experience.businesses.each do |b| %>
-    <%= b.name %>
-  <% end %>
-</div>
-
-<%if @experience.images.count > 0 %>
-  <% @experience.images.each do |image| %>
-    <%= image_tag image.file %>
-  <% end %>
-<% end %>
-
-<%@experience.experience_occurances.each do |eo| %>
-<div class='row'>
-  <div class='col-md-6'>
-
-      <%= eo.date %>
-
-  </div>
-  <div class='col-md-6'>
-    <%= link_to "Reserve My Spot", new_experience_occurance_reservation_path(eo) %>
-  </div>
-</div>
-<% end %>
-

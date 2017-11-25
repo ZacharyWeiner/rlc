@@ -1,91 +1,35 @@
-<div class="page-wrapper">
-
-
-    <div id="page-content">
+<div id="page-content">
         <div class="container">
-            <!-- <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Pages</a></li>
-                <li class="active">Contact</li>
-            </ol> -->
-
             <div class="row">
                 <div class="col-md-9 col-sm-9">
-                    <section class="page-title">
-                        <div class="pull-left">
-                            <h1><%= @experience.title %></h1>
-                            <h3>Pickup Location: Your Hotel</h3>
-                            <div class="rating-passive" data-rating="4">
-                                <span class="stars"></span>
-                                <span class="reviews">6</span>
-                            </div>
-                        </div>
-                        <!--end page-title-->
-                        <a href="#write-a-review" class="btn btn-primary btn-framed btn-rounded btn-light-frame icon scroll pull-right"><i class="fa fa-star"></i>Write a review</a>
-                    </section>
-
+                  <%=  render 'experiences/partials/show/title'%>
                     <div class="row">
                         <div class="col-md-8 col-sm-12">
-                            <section>
-                                <div class="gallery detail">
-                                    <div class="owl-carousel" data-owl-nav="0" data-owl-dots="1">
-                                        <% unless @experience.header_image.nil?%>
-                                            <div class="image">
-                                            <div class="bg-transfer"><%= image_tag @experience.header_image %></div>
-                                        </div>
-                                        <% end %>
-                                        <% @experience.images.each do |image|%>
-                                        <div class="image">
-                                            <div class="bg-transfer"><%= image_tag image.file %></div>
-                                        </div>
-                                        <% end %>
-                                    </div>
-                                    <!--end owl-carousel-->
-                                </div>
-                                <!--end gallery-->
-                            </section>
-
-                            <section>
-                                <section>
-                                    <h2>Description</h2>
-                                    <p>
-                                       <%= @experience.description%>
-                                    </p>
-                                </section>
-                            </section>
-
-
-
-                            <%= render 'experiences/partials/reviews' %>
-                            <%= render 'experiences/partials/review_form' %>
-
+                            <%= render 'experiences/partials/show/gallery' %>
+                            <%= render 'experiences/partials/show/description' %>
+                            <%= render 'experiences/partials/show/available_dates'%>
+                            <%= render 'experiences/partials/show/reviews' %>
+                            <%= render 'experiences/partials/review_form'%>
                         </div>
                         <!--end col-md-6-->
                         <div class="col-md-4 col-sm-12">
                             <section>
-                                <div class="detail-sidebar">
-                                   <%= render :partial => 'experiences/partials/business_details', :locals => {:experience => @experience}  %>
-
-                                </div>
-                                <!--end detail-sidebar-->
+                              <%= render 'experiences/partials/show/detail_sidebar'%>
                             </section>
-                            <%= render 'experiences/partials/categories' %>
-                            <!-- <section>
-                                <h2>Social Share</h2>
-                                <div class="social-share"></div>
-                            </section> -->
+                            <section>
+                              <%= render 'experiences/partials/categories' %>
+                            </section>
                         </div>
-                        <!--end col-md-3-->
                     </div>
-                    <!--end row-->
                 </div>
-                <!--end col-md-9-->
-
-                <%= render 'experiences/partials/details_sidebar' %>
-
+                <div class="col-md-3 col-sm-3">
+                    <aside class="sidebar">
+                        <%= render 'experiences/partials/show/recent_items' %>
+                    </aside>
+                    <!--end sidebar-->
+                </div>
                 <!--end col-md-3-->
             </div>
         </div>
         <!--end container-->
     </div>
-    <!--end page-content-->

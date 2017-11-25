@@ -1,0 +1,26 @@
+<div class="detail-sidebar">
+  <section class="shadow">
+    <div class="map height-250px" id="map-detail"></div>
+    <div class="content">
+      <div class="vertical-aligned-elements">
+        <div class="element">
+          <img src="assets/img/logo-2.png" alt="">
+        </div>
+      </div>
+      <% business_counter = 0 %>
+      <% business_count = @experience.businesses.count %>
+      <% @experience.businesses.each do |business| %>
+        <% business_counter = business_counter + 1 %>
+        <address>
+          <figure><i class="fa fa-user"></i><%= business.name %> </figure>
+          <figure><i class="fa fa-map-marker"></i><%= business.location.address %> </figure>
+          <figure><i class="fa fa-phone"></i><%= business.contact_phone %></figure>
+          <figure><i class="fa fa-globe"></i><a href="<%= business.website %>">website</a></figure>
+        </address>
+        <% unless business_count == business_counter %>
+          <hr>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+</div>
