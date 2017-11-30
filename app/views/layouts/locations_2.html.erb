@@ -9,11 +9,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <%= javascript_include_tag 'locations_theme' %>
   </head>
-  <% if current_page?(controller: 'experiences', action: 'show') %>
-    <body class="subpage-detail">
-  <% else %>
-    <body>
-  <% end %>
+  <body>
     <div class="page-wrapper">
       <%= render 'shared/rlc/header' %>
       <%= yield %>

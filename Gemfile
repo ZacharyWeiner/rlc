@@ -40,6 +40,7 @@ gem 'geocoder'
 gem 'jquery-rails'
 gem 'gmaps-autocomplete-rails'
 gem 'simple_form'
+gem 'rails-jquery-autocomplete'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

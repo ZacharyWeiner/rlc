@@ -20,12 +20,12 @@
     <div class='col-md-4'>
       <%= form.text_field :requester_name, id: :ride_request_requester_name, class: 'form-control', placeholder: "Rider Name" %>
        <%= form.label :pickup_location %>
-     <%= form.select(:pickup_address, options_for_select(locations)) %>
+     <%= form.select(:pickup_address, options_for_select(locations), {}, { :class => 'ride-select'}) %>
     </div>
     <div class='col-md-4'>
       <%= form.text_field :phone, id: :ride_request_phone,  class: 'form-control', placeholder:'Phone Number...'  %>
        <%= form.label :dropoff_location %>
-     <%= form.select(:dropoff_address, options_for_select(locations)) %>
+     <%= form.select(:dropoff_address, options_for_select(locations), {}, { :class => 'ride-select'}) %>
     </div>
     <div class='col-md-4'>
       <%= form.label :rider_count %>
