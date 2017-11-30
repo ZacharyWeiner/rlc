@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :shuttle_stops
   resources :shuttles
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
+  get 'driver', to:'shuttles#driver', as: 'driver'
   resources :images
   resources :experience_occurances do
     resources :reservations

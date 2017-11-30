@@ -70,6 +70,11 @@ class ShuttlesController < ApplicationController
   def shuttle_locations
   end
 
+  def driver
+    @lat = request.location.latitude
+    @long = request.location.longitude
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shuttle
