@@ -1,8 +1,9 @@
-
-
 <section class="page-title">
     <h1>Ride Requests</h1>
 </section>
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, class: "flash #{key}" %>
+<% end %>
 <div class='container'>
 <div class='row'>
   <%= render 'ride_requests/manager_form' %>
@@ -27,6 +28,10 @@
                     <li><%= link_to "Assign to #{shuttle.name}", ride_request_assign_shuttle_path(request, shuttle.id) %></li>
                     <% end %>
                 </ul>
+              <% elsif request.status == "Dispatched" %>
+                <ul>
+                   <li><%= link_to "Set Rolling", ride_request_advance_status_path(request) %></li>
+                 </ul>
               <% else %>
                  <ul>
                    <li><%= link_to "Mark Clear", ride_request_mark_clear_path(request) %></li>

@@ -75,10 +75,34 @@ class ShuttlesController < ApplicationController
     @long = request.location.longitude
   end
 
+  def set_location
+    set_shuttle
+    puts @shuttle.id
+    respond_to do |format|
+      @shuttle.previous_lat = @shuttle.current_lat
+      @shuttle.previous_long = @shuttle.current_long
+      @shuttle.current_lat = params[:lat]
+      @shuttle.current_long = params[:long]
+      if @shuttle.save
+        format.json { render json: "success", status: :success}
+      else
+        format.json { render json: "error", status: :unprocessable_entity}
+      end
+
+    end
+  end
+
+  def assign_drivers
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shuttle
-      @shuttle = Shuttle.find(params[:id])
+      if params[:shuttle_id]
+        @shuttle = Shuttle.find(params[:shuttle_id])
+      else
+        @shuttle = Shuttle.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

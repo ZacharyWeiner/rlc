@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :ride_requests do
     get '/assign/:shuttle_id', to: 'ride_requests#assign_to_shuttle', as: 'assign_shuttle'
     get '/mark_clear', to: 'ride_requests#mark_clear', as: 'mark_clear'
+    get 'advance_status', to:'ride_requests#advance_status', as: 'advance_status'
     get :autocomplete_pickup_location_name, :on => :collection
   end
   get 'ride_request/manager', to: "ride_requests#manager", as:'ride_request_manager'
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
   resources :shuttles
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
   get 'driver', to:'shuttles#driver', as: 'driver'
+  post 'driver/:id/set_location', to:'shuttles#set_location', as: 'set_location'
+  get 'assign_drivers', to: 'shuttles#assign_drivers', as: 'assign_drivers'
   resources :images
   resources :experience_occurances do
     resources :reservations

@@ -1,3 +1,5 @@
+<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+<% shuttle_id = '1' %>
 <script type="text/javascript">
 $(document).ready(function($) {
   initGeolocation();
@@ -16,14 +18,36 @@ $(document).ready(function($) {
 function errorCallback() {}
 
 function successCallback(position) {
-      var mapUrl = "http://maps.google.com/maps/api/staticmap?center=";
-      mapUrl = mapUrl + position.coords.latitude + ',' + position.coords.longitude;
-      mapUrl = mapUrl + '&zoom=15&size=512x512&maptype=roadmap&sensor=false';
-      var imgElement = document.getElementById("static-map");
-      imgElement.src = mapUrl;
-      $('.lat').append(position.coords.latitude);
-      $('.long').append(position.coords.longitude);
-    }
+  var mapUrl = "http://maps.google.com/maps/api/staticmap?center=";
+  mapUrl = mapUrl + position.coords.latitude + ',' + position.coords.longitude;
+  mapUrl = mapUrl + '&zoom=15&size=512x512&maptype=roadmap&sensor=false';
+  var imgElement = document.getElementById("static-map");
+  imgElement.src = mapUrl;
+  $('.lat').append(position.coords.latitude);
+  $('.long').append(position.coords.longitude);
+  makeRequest(position.coords.latitude, position.coords.longitude, 1)
+}
+
+function makeRequest(latitude, longitude, shuttleID){
+  $.ajax({
+      url:'/driver/' + shuttleID + '/set_location',
+      type:'POST',
+      dataType:'json',
+      data:{
+          shuttle_id: shuttleID,
+          lat: latitude,
+          long: longitude,
+          authenticity_token: window._token
+      },
+      success:function(data){
+          debugger;
+      },
+      error:function(data){
+          debugger;
+      }
+  });
+}
+
 </script>
 <label class='lat'></label>
 <label class='long'></label>

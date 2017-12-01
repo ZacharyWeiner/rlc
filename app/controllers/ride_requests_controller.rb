@@ -1,5 +1,5 @@
 class RideRequestsController < ApplicationController
-  before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear]
+  before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear, :advance_status]
   layout 'shuttle_layout'
   #autocomplete :pickup_location, :name
   # GET /ride_requests
@@ -37,7 +37,8 @@ class RideRequestsController < ApplicationController
     @ride_request.completed = false
     respond_to do |format|
       if @ride_request.save
-        if params[:redirect]
+        byebug
+        if params[:ride_request][:redirect]
           return redirect_to ride_request_manager_path
         end
         if @ride_request.shuttle.nil?
@@ -47,6 +48,11 @@ class RideRequestsController < ApplicationController
           format.json { render :show, status: :created, location: @ride_request }
         end
       else
+        byebug
+        if params[:ride_request][:redirect]
+          flash[:notice] = @ride_request.errors.full_messages.to_sentence
+          return redirect_to ride_request_manager_path
+        end
         format.html { render :new }
         format.json { render json: @ride_request.errors, status: :unprocessable_entity }
       end
@@ -88,7 +94,7 @@ class RideRequestsController < ApplicationController
   def assign_to_shuttle
     @shuttle = Shuttle.find(params[:shuttle_id])
     @ride_request.shuttle = @shuttle
-    @ride_request.status = "Rolling"
+    @ride_request.advance_status(@ride_request.status)
     respond_to do |format|
       if @ride_request.save
         format.html { redirect_to ride_request_manager_path, notice: 'Ride request was successfully assigned.' }
@@ -98,10 +104,14 @@ class RideRequestsController < ApplicationController
     end
   end
 
+  def advance_status
+
+    @ride_request.advance_status(@ride_request.status)
+    redirect_to ride_request_manager_path
+  end
+
   def mark_clear
-    @ride_request.status = "Completed"
-    @ride_request.completed = true
-    @ride_request.save
+    @ride_request.advance_status(@ride_request.status)
     redirect_to ride_request_manager_path
   end
 
