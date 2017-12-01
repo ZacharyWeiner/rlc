@@ -30,11 +30,11 @@
 
   <div class='form-group'>
      <%= form.label :pickup_location %>
-     <%= form.select(:pickup_address, options_for_select(locations)) %>
+     <%= form.select(:pickup_address, options_for_select(locations), {}, { :class => 'ride-select'}) %>
   </div>
   <div class='form-group'>
      <%= form.label :dropoff_location %>
-     <%= form.select(:dropoff_address, options_for_select(locations)) %>
+     <%= form.select(:dropoff_address, options_for_select(locations), {}, { :class => 'ride-select'}) %>
   </div>
 
 
