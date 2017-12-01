@@ -15,13 +15,13 @@ class RideRequestsController < ApplicationController
 
   # GET /ride_requests/new
   def new
-    # @lat = request.location.latitude
-    # @long = request.location.longitude
-
-    @lat = Location.first.latitude
-    @long = Location.first.longitude
-
-    @ordered_locations = Location.near([@lat, @long], 30)
+    @lat = session[:latitude]
+    @long = session[:longitude]
+    if @lat.nil?
+      @ordered_locations = Location.all
+    else
+      @ordered_locations = Location.near([@lat, @long], 30)
+    end
     @ride_request = RideRequest.new
   end
 
@@ -37,7 +37,9 @@ class RideRequestsController < ApplicationController
     @ride_request.completed = false
     respond_to do |format|
       if @ride_request.save
-        byebug
+        if ride_request_params[:shuttle_id]
+          @ride_request.advance_status(@ride_request.status)
+        end
         if params[:ride_request][:redirect]
           return redirect_to ride_request_manager_path
         end
@@ -80,6 +82,45 @@ class RideRequestsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to ride_requests_url, notice: 'Ride request was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def set_rider_info
+    if params[:name]
+      session[:name] = params[:name]
+    end
+    if params[:phone]
+      session[:phone] = params[:phone]
+    end
+    if params[:email]
+      session[:email] = params[:email]
+    end
+    return redirect_to new_ride_request_path
+  end
+  def clear_rider_info
+    session[:name] = nil
+    session[:phone] = nil
+    session[:email] = nil
+  end
+
+  def set_rider_location
+    refresh = false
+    if params[:lat]
+      unless session[:latitude] == params[:lat]
+        session[:latitude] = params[:lat]
+        refresh = true
+        puts "set lat: #{session[:latitude]}"
+      end
+    end
+    if params[:long]
+      unless session[:longitude] == params[:long]
+        session[:longitude] = params[:long]
+        puts "set long: #{session[:longitude]}"
+        refresh = true
+      end
+    end
+    if refresh
+      return redirect_to new_ride_request_path
     end
   end
 

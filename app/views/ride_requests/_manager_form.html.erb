@@ -30,6 +30,8 @@
     <div class='col-md-4'>
       <%= form.label :rider_count %>
       <%= form.number_field :riders, id: :ride_request_riders, class: 'form-control' %>
+      <%= form.label :shuttle %>
+      <%= form.select(:shuttle_id, Shuttle.all.map{|s| [s.name, s.id]}, {}, { :class => 'ride-select'}) %>
       <%= form.hidden_field :redirect, :value => "manager" %>
       <%= form.submit "Request Ride", class: "btn btn-primary" %>
     </div>

@@ -4,14 +4,15 @@
 
  <% location_count = 1 %>
    <% location_placement = ""%>
-   <% @ordered_locations.reverse.take(3).each do |ol| %>
+   <% @ordered_locations.take(3).each do |ol| %>
+   <%= puts "['#{ol.name}', #{ol.latitude}, #{ol.longitude}, #{location_count}], "%>
    <% location_placement = location_placement + "['#{ol.name}', #{ol.latitude}, #{ol.longitude}, #{location_count}], " %>
    <% location_count = location_count +1 %>
  <% end %>
 <% location_placement = location_placement[0...-2] %>
  <br>
   <br>
-  <% my_location =  @ordered_locations.reverse.take(4).last %>
+<%= session[:latitude] %>, <%= session[:longitude] %>
  <div id="map" style="height: 400px; width: 500px;"></div>
   <% content_for :js do %>
 
@@ -23,7 +24,7 @@
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 14,
-      center: new google.maps.LatLng(<%= my_location.latitude %>, <%= my_location.longitude %>),
+      center: new google.maps.LatLng(<%= session[:latitude] %>, <%= session[:longitude] %>),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 

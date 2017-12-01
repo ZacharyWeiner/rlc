@@ -1,4 +1,35 @@
+<% if session[:name].nil? || (session[:phone].nil? && session[:email].nil?) %>
+  <div class="row">
+      <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
+          <section class="page-title">
+              <h1>Who Are You?</h1>
+          </section>
+          <!--end page-title-->
+          <section>
+            <%= form_for(:ride_request, url: "/ride_requests/rider/set_rider_info", class:"form inputs-underline") do |f| %>
 
+                  <div class="form-group">
+                      <label for="Name">Name</label>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="Your Name">
+                  </div>
+                  <!--end form-group-->
+                  <div class="form-group">
+                      <label for="phone">Phone Number</label>
+                      <input type="text" class="form-control" name="phone" id="phone" placeholder="Your phone number" text='<%= session[:phone] %>' >
+                  </div>
+                  <div class="form-group">
+                      <label for="email">Email Address</label>
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Your email">
+                  </div>
+                  <div class="form-group center">
+                      <button type="submit" class="btn btn-primary width-100">Send Me A Shuttle</button>
+                  </div>
+              <% end %>
+              <hr>
+          </section>
+      </div>
+  </div>
+<% else %>
 <h1>New Ride Request</h1>
 <div class='row'>
   <div class='col-md-10'>
@@ -20,8 +51,48 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function() {
-        $('.ride-select').select2();
-      });
+    initGeolocation();
+    $('.ride-select').select2();
+
+  });
 </script>
 
+<script type="text/javascript">
+
+ function initGeolocation() {
+
+     if (navigator && navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+            } else {
+                console.log('Geolocation is not supported');
+            }
+      }
+
+function errorCallback() {}
+
+function successCallback(position) {
+  makeRequest(position.coords.latitude, position.coords.longitude, 1)
+}
+
+function makeRequest(latitude, longitude, shuttleID){
+  $.ajax({
+      url:'/ride_requests/rider/set_location',
+      type:'POST',
+      dataType:'json',
+      data:{
+          lat: latitude,
+          long: longitude,
+          authenticity_token: window._token
+      },
+      success:function(data){
+
+      },
+      error:function(data){
+
+      }
+  });
+}
+
+</script>
+<% end %>
 

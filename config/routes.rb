@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
   get 'driver', to:'shuttles#driver', as: 'driver'
   post 'driver/:id/set_location', to:'shuttles#set_location', as: 'set_location'
+  post 'ride_requests/rider/set_location', to:'ride_requests#set_rider_location', as: 'set_rider_location'
+  post 'ride_requests/rider/set_rider_info', to:'ride_requests#set_rider_info', as: 'set_rider_info'
+  get 'ride_requests/rider/clear_session', to: 'ride_requests#clear_rider_info', as: 'clear_rider_info'
   get 'assign_drivers', to: 'shuttles#assign_drivers', as: 'assign_drivers'
   resources :images
   resources :experience_occurances do
