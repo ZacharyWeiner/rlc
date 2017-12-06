@@ -26,8 +26,8 @@ function successCallback(position) {
   mapUrl = mapUrl + '&zoom=15&size=512x512&maptype=roadmap&sensor=false';
   var imgElement = document.getElementById("static-map");
   imgElement.src = mapUrl;
-  $('.lat').append(position.coords.latitude);
-  $('.long').append(position.coords.longitude);
+  $('.lat').text(position.coords.latitude);
+  $('.long').text(position.coords.longitude);
   makeRequest(position.coords.latitude, position.coords.longitude, 1)
 }
 

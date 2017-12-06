@@ -89,13 +89,17 @@ class ShuttlesController < ApplicationController
       @shuttle.current_lat = params[:lat]
       @shuttle.current_long = params[:long]
       if @shuttle.save
+        p "shuttle save success "
+        Tracker.create!(shuttle: @shuttle, lat: params[:lat], long: params[:long])
         format.json { render json: "success", status: :success}
       else
+        p "shuttle save error"
         format.json { render json: "error", status: :unprocessable_entity}
       end
 
     end
   end
+
 
   def assign_drivers
   end
