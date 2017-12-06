@@ -4,13 +4,16 @@
 $(document).ready(function($) {
   initGeolocation();
 
+  setInterval(initGeolocation, 30000);
+
 });
 
  function initGeolocation() {
-
      if (navigator && navigator.geolocation) {
+          /*alert('setting geolocation'); */
           navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
             } else {
+                alert('Geolocation is not supported');
                 console.log('Geolocation is not supported');
             }
       }
