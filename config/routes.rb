@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :shuttle_stops
   resources :shuttles
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
+  get 'shuttle/trackers', to: 'shuttles#trackers', as: 'shuttle_trackers'
   get 'driver', to:'shuttles#driver', as: 'driver'
   post 'driver/:id/set_location', to:'shuttles#set_location', as: 'set_location'
   post 'ride_requests/rider/set_location', to:'ride_requests#set_rider_location', as: 'set_rider_location'

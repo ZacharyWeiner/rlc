@@ -1,0 +1,27 @@
+<style>
+  td {padding-left: 6px; padding-right: 6px;}
+  th {padding-left: 6px; padding-right: 6px;}
+</style>
+<h1>Shuttles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shuttle</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Added On</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trackers.each do |tracker| %>
+      <tr>
+        <td><%= tracker.shuttle.name %></td>
+        <td><%= tracker.lat %></td>
+        <td><%= tracker.long %></td>
+        <td><%= tracker.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

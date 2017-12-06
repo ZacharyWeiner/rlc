@@ -104,6 +104,10 @@ class ShuttlesController < ApplicationController
   def assign_drivers
   end
 
+  def trackers
+    @trackers = Tracker.all.reverse
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shuttle
