@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get '/assign/:shuttle_id', to: 'ride_requests#assign_to_shuttle', as: 'assign_shuttle'
     get '/mark_clear', to: 'ride_requests#mark_clear', as: 'mark_clear'
     get 'advance_status', to:'ride_requests#advance_status', as: 'advance_status'
+    get 'reset_status', to:'ride_requests#reset_status', as: 'reset_status'
     get :autocomplete_pickup_location_name, :on => :collection
   end
   get 'ride_request/manager', to: "ride_requests#manager", as:'ride_request_manager'

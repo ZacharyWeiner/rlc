@@ -1,51 +1,130 @@
-<p id="notice"><%= notice %></p>
+<section class="page-title center">
+    <h1>Your Ride Request</h1>
+</section>
+<section>
+  <div class="row">
+      <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
+          <form class="form inputs-underline">
+              <section>
+                  <div class="user-details box">
+                      <div class="user-image" >
+                          <div class="image">
+                              <div class="bg-transfer" style="background-image: url(&quot;assets/img/person-01.jpg&quot;); ">
+                                <iframe
+                                    width="300"
+                                    height="200"
+                                    frameborder="0" style="border:0"
+                                    src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
+                                    &origin=<%= URI.encode(@ride_request.pickup_address) %>
+                                    &destination=<%= URI.encode(@ride_request.dropoff_address)%>
+                                    &avoid=tolls|highways" allowfullscreen>
+                                  </iframe>
+                              </div>
+                              <!--end bg-transfer-->
+                              <div class="single-file-input" >
+                                 <!--  <input type="file" id="user_image" name="user_image"> -->
+                                  <div>
+                                    <!-- Upload a picture<i class="fa fa-upload"></i> -->
+                                    <%=@ride_request.status %><br>
 
-<p>
-  <strong>Pickup address:</strong>
-  <%= @ride_request.pickup_address %>
-</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <!--end image-->
 
-<p>
-  <strong>Dropoff address:</strong>
-  <%= @ride_request.dropoff_address %>
-</p>
+                      </div>
+                      <!--end user-image-->
+                      <div class="description clearfix">
+                          <h3>Your Pickup Location</h3>
+                          <h4><%=@ride_request.pickup_address %></h4>
+                         <!--  <a href="#" class="btn btn-default btn-rounded btn-xs">Change</a> -->
+                         <% if @ride_request.shuttle %>
+                            <%= link_to "Track My Shuttle", shuttle_path(@ride_request.shuttle), class: "btn btn-default btn-rounded btn-xs" %>
+                          <% end %>
+                          <hr>
+                          <figure>
+                              <div class="pull-left"><strong>Contact Method:</strong></div>
+                              <div class="pull-right"><%=@ride_request.phone %></div>
+                          </figure>
+                      </div>
+                      <!--end description-->
+                  </div>
+              </section>
+              <!--end user-details-->
+              <section>
+                <div class="form-group">
+                      <!-- <label for="message">Your Ride </label> -->
+                       <%="<h3>Dropoff:</h3><br> #{@ride_request.dropoff_address}".html_safe %>
+                  </div>
+                  <h3>About You</h3>
+                  <div class="row">
+                      <div class="col-md-6 col-sm-6">
+                          <div class="form-group">
+                              <label for="first_name">Name</label>
+                              <input type="text" class="form-control" name="first_name" id="first_name" value="<%= @ride_request.requester_name%>" disabled>
+                          </div>
+                          <!--end form-group-->
+                      </div>
+                      <!--end col-md-6-->
+                      <div class="col-md-6 col-sm-6">
+                          <div class="form-group">
+                              <label for="last_name">Riders</label>
+                              <input type="text" class="form-control" name="last_name" id="last_name" value="<%= @ride_request.riders%>" disabled>
+                          </div>
+                          <!--end form-group-->
+                      </div>
+                      <!--end col-md-6-->
+                      <div class="col-md-6 col-sm-6">
+                          <div class="form-group">
+                              <label for="email">Email</label>
+                              <input type="email" class="form-control" name="email" id="email" value="<%= %>" disabled>
+                          </div>
+                          <!--end form-group-->
+                      </div>
+                      <!--end col-md-6-->
+                      <div class="col-md-6 col-sm-6">
+                          <div class="form-group">
+                              <label for="phone">Phone</label>
+                              <input type="text" class="form-control" name="phone" id="phone" value="<%= @ride_request.phone%>" disabled>
+                          </div>
+                          <!--end form-group-->
+                      </div>
+                      <!--end col-md-6-->
+                  </div>
+                  <!--end row-->
 
-<p>
-  <strong>Riders:</strong>
-  <%= @ride_request.riders %>
-</p>
+                  <!--end form-group-->
+              </section>
+              <section class="center">
+                <h3>This Is The Ride You've Requested:</h3>
+                  <div class="form-group">
+                      <!-- <button type="submit" class="btn btn-primary btn-rounded">Save Changes</button> -->
 
-<p>
-  <strong>Requester name:</strong>
-  <%= @ride_request.requester_name %>
-</p>
+                          <iframe
+                            width="500"
+                            height="400"
+                            frameborder="0" style="border:0"
+                            src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
+                            &origin=<%= URI.encode(@ride_request.pickup_address) %>
+                            &destination=<%= URI.encode(@ride_request.dropoff_address)%>
+                            &avoid=tolls|highways" allowfullscreen>
+                          </iframe>
+                  </div>
+                  <!--end form-group-->
+              </section>
+          </form>
+          <!--end form-->
+          <hr>
+      </div>
+      <!--end col-md-6-->
 
-<p>
-  <strong>Shuttle:</strong>
-  <% if @ride_request.shuttle.nil? %>
-    <p>Unassigned</p>
-  <% else %>
-    <%= @ride_request.shuttle.name %>
-  <% end %>
-</p>
-<p>
-  <strong>Status:</strong>
-  <%= @ride_request.status %>
-</p>
-<p>
-  <strong>Completed:</strong>
-  <%= @ride_request.completed %>
-</p>
+  </div>
+    <!--end row-->
+</section>
 
-<%= link_to 'Edit', edit_ride_request_path(@ride_request) %> |
-<%= link_to 'Back', ride_requests_path %>
 
-<iframe
-  width="600"
-  height="450"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
-  &origin=<%= @ride_request.pickup_address%>
-  &destination=<%= @ride_request.dropoff_address%>
-  &avoid=tolls|highways" allowfullscreen>
-</iframe>
+
+<% link_to 'Edit', edit_ride_request_path(@ride_request) %> |
+<% link_to 'Back', ride_requests_path %>
+
+

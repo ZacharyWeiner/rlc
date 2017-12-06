@@ -1,16 +1,20 @@
+<div class='container'>
 <% if session[:name].nil? || (session[:phone].nil? && session[:email].nil?) %>
   <div class="row">
-      <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
-          <section class="page-title">
-              <h1>Who Are You?</h1>
+      <div class="col-md-4 col-sm-6  col-xs-8 col-md-offset-4 col-sm-offset-3 col-xs-offset-2">
+          <section class="page-title text-center">
+              <h1>Need A Ride?</h1>
           </section>
-          <!--end page-title-->
+          <%= link_to  "tel:1-877-302-2628", class: 'btn btn-primary width-100' do %>
+            <i class='fa fa-phone'></i> Call For Ride
+          <% end %>
+          <h2 class='text-center' style='padding-top: 6px; padding-bottom: 6px;'>OR</h2>
           <section>
             <%= form_for(:ride_request, url: "/ride_requests/rider/set_rider_info", class:"form inputs-underline") do |f| %>
 
                   <div class="form-group">
                       <label for="Name">Name</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="Your Name">
+                      <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"  text='<%= session[:name] %>'>
                   </div>
                   <!--end form-group-->
                   <div class="form-group">
@@ -22,7 +26,7 @@
                       <input type="email" class="form-control" name="email" id="email" placeholder="Your email">
                   </div>
                   <div class="form-group center">
-                      <button type="submit" class="btn btn-primary width-100">Send Me A Shuttle</button>
+                      <button type="submit" class="btn btn-primary width-100">Find My Shuttle</button>
                   </div>
               <% end %>
               <hr>
@@ -33,7 +37,7 @@
 <h1>New Ride Request</h1>
 <div class='row'>
   <div class='col-md-10'>
-    <%= link_to '< Back', ride_requests_path %>
+    <% link_to '< Back', ride_requests_path %>
   </div>
   <div class='col-md-2'>
     <%= link_to  "tel:1-877-302-2628", class: 'btn btn-primary' do %>
@@ -43,10 +47,10 @@
 </div>
 <div class='row'>
   <div class='col-md-6'>
-    <%= render 'shared/rlc/locations/closest_locations'%>
+    <%= render 'transpo_form', ride_request: @ride_request %>
   </div>
   <div class='col-md-6'>
-    <%= render 'transpo_form', ride_request: @ride_request %>
+    <%= render 'shared/rlc/locations/closest_locations'%>
   </div>
 </div>
 <script type="text/javascript">
@@ -95,4 +99,5 @@ function makeRequest(latitude, longitude, shuttleID){
 
 </script>
 <% end %>
+</div>
 

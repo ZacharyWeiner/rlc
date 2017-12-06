@@ -4,6 +4,7 @@ class ShuttlesController < ApplicationController
   # GET /shuttles
   # GET /shuttles.json
   def index
+    return redirect_to new_ride_request_path
     @shuttles = Shuttle.all
     # @lat = request.location.latitude
     # @long = request.location.longitude
@@ -16,6 +17,7 @@ class ShuttlesController < ApplicationController
   # GET /shuttles/1.json
   def show
     @ride_requests = @shuttle.ride_requests.where.not(completed: true)
+    @ordered_stops = @shuttle.get_ordered_stops
   end
 
   # GET /shuttles/new
@@ -48,6 +50,9 @@ class ShuttlesController < ApplicationController
   def update
     respond_to do |format|
       if @shuttle.update(shuttle_params)
+        if params[:redirect]
+          format.html { redirect_to assign_drivers_path, notice: 'Shuttle was successfully updated.' }
+        end
         format.html { redirect_to @shuttle, notice: 'Shuttle was successfully updated.' }
         format.json { render :show, status: :ok, location: @shuttle }
       else
@@ -107,6 +112,6 @@ class ShuttlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shuttle_params
-      params.require(:shuttle).permit(:current_lat, :current_long, :previous_lat, :previous_long, :name, :address)
+      params.require(:shuttle).permit(:current_lat, :current_long, :previous_lat, :previous_long, :name, :address, :plate_number)
     end
 end

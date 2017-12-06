@@ -1,10 +1,11 @@
 class RideRequestsController < ApplicationController
-  before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear, :advance_status]
+  before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear, :advance_status, :reset_status]
   layout 'shuttle_layout'
   #autocomplete :pickup_location, :name
   # GET /ride_requests
   # GET /ride_requests.json
   def index
+    return redirect_to new_ride_request_path
     @ride_requests = RideRequest.all
   end
 
@@ -35,6 +36,12 @@ class RideRequestsController < ApplicationController
     @ride_request = RideRequest.new(ride_request_params)
     @ride_request.status = "In Queue"
     @ride_request.completed = false
+    if session[:name]
+      @ride_request.requester_name = session[:name]
+    end
+    if session[:phone]
+      @ride_request.phone = session[:phone]
+    end
     respond_to do |format|
       if @ride_request.save
         if ride_request_params[:shuttle_id]
@@ -64,10 +71,17 @@ class RideRequestsController < ApplicationController
   # PATCH/PUT /ride_requests/1
   # PATCH/PUT /ride_requests/1.json
   def update
+    if @ride_request.status != "In Queue"
+      return format.html { redirect_to @ride_request, notice: 'Ride cant be updated after the shuttle has been dispatched.' }
+    end
     respond_to do |format|
       if @ride_request.update(ride_request_params)
+        if @ride_request.shuttle
         format.html { redirect_to @ride_request.shuttle, notice: 'Ride request was successfully updated.' }
         format.json { render :show, status: :ok, location: @ride_request }
+        else
+          format.html { redirect_to @ride_request, notice: 'Ride request was successfully updated.' }
+        end
       else
         format.html { render :edit }
         format.json { render json: @ride_request.errors, status: :unprocessable_entity }
@@ -127,7 +141,12 @@ class RideRequestsController < ApplicationController
   def manager
     @lat = Location.first.latitude
     @long = Location.first.longitude
-    @ride_requests = RideRequest.where.not(completed: true)
+    if params[:driver]
+      @shuttle = Shuttle.where(name: params[:driver]).first
+      @ride_requests = RideRequest.where.not(completed: true).where(shuttle_id: @shuttle.id)
+    else
+      @ride_requests = RideRequest.where.not(completed: true)
+    end
     @ride_request = RideRequest.new
     @ordered_locations = Location.near([@lat, @long], 30)
   end
@@ -145,14 +164,22 @@ class RideRequestsController < ApplicationController
     end
   end
 
-  def advance_status
+  def reset_status
+    @ride_request.status = "In Queue"
+    @ride_request.shuttle = nil?
+    @ride_request.save
 
+    redirect_to ride_request_manager_path
+
+  end
+
+  def advance_status
     @ride_request.advance_status(@ride_request.status)
     redirect_to ride_request_manager_path
   end
 
   def mark_clear
-    @ride_request.advance_status(@ride_request.status)
+    @ride_request.advance_status("Rolling")
     redirect_to ride_request_manager_path
   end
 

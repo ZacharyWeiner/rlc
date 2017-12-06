@@ -12,8 +12,9 @@
 <% location_placement = location_placement[0...-2] %>
  <br>
   <br>
-<%= session[:latitude] %>, <%= session[:longitude] %>
- <div id="map" style="height: 400px; width: 500px;"></div>
+
+ <div id="map" style="height: 400px; min-width:400px; width: 100%;" class='center'></div>
+
   <% content_for :js do %>
 
   <script type="text/javascript">

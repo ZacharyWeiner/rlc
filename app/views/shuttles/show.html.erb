@@ -18,46 +18,74 @@
     }
 </style>
 <p id="notice"><%= notice %></p>
-<h1>Shuttle Route</h1>
+<h1>Shuttle Info</h1>
 <div class='container'>
   <div class='row'>
     <div class='col-md-6'>
       <p>
-        <strong>Name:</strong>
+        <strong>Driver Name:</strong>
         <%= @shuttle.name %>
       </p>
 
       <p>
-        <strong>Address:</strong>
+        <strong>Current Address:</strong>
         <%= @shuttle.address %>
+      </p>
+       <p>
+        <strong>Your Phone:</strong>
+        <%= session[:phone] %>
       </p>
 
 
       <%= waypoints = ""%>
-      <% unless @ride_requests.first.nil?%>
-        <% @ride_requests.each do |rr|%>
-          <% waypoints = waypoints + rr.pickup_address.gsub!(' ','+') + "|" %>
-          <% waypoints = waypoints + rr.dropoff_address.gsub!(' ','+') + "|" %>
+      <% os_count = @ordered_stops.count %>
+      <% os_counter = 0 %>
+      <% complete = false %>
+      <% @destination = nil %>
+      <% unless @ordered_stops.first.nil?%>
+        <% @ordered_stops.each do |os|%>
+          <% if (os_counter != os_count) && (complete == false) %>
+            <% waypoints = waypoints + os.address.gsub!(' ','+') + "|" %>
+            <% if session[:phone] == os.phone && os.stop_type == 'pickup' %>
+              <% complete = true %>
+            <% end %>
+            <% os_counter = os_counter + 1 %>
+          <%elsif os_counter == 0 %>
+            <% os_counter = os_counter + 1 %>
+          <% end %>
         <% end %>
       <% end %>
       <div style='max-width: 1000px'>
         <% waypoints = waypoints[0...-1] %>
+        <% waypoints %>
       </div>
-      <% request_count = 0%>
-      <% unless @ride_requests.first.nil?%>
-        <% @ride_requests.each do |rr|%>
-          <% request_count = request_count + 1 %>
-          <h4> Ride Request #<%= request_count %></h4>
+
+
+       <% complete = false %>
+      <% stops_count = 1 %>
+      <% @last_stop_for_display = RideAndDistance.new(address: "1475 Pine Grove Rd, Steamboat Springs, CO 80477") %>
+      <h2>Stop List</h2>
+      <!-- Ordered Stops List -->
+      <% @ordered_stops.each do |os| %>
+        <% if (os_counter != os_count) && (complete == false) %>
           <div class='row'>
-            <div class='col-md-6'>
-              Pickup:<br> <%= rr.pickup_address.gsub!('+',' ') %>
-            </div>
-            <div class='col-md-6'>
-               Dropoff:<br> <%= rr.dropoff_address.gsub!('+',' ') %>
-            </div>
+            <h4> Stop #<%= stops_count %> <%= os.stop_type %></h4>
+             <%= os.name %><br/>
+             <% if os.address.include?("+") %>
+                <%= os.address.gsub!('+',' ')%>
+             <% else %>
+                <%= os.address%>
+             <% end %>
+             <% stops_count = stops_count + 1 %>
+             <% if session[:phone] == os.phone && os.stop_type == 'pickup' %>
+              <% complete = true %>
+              <% @last_stop_for_display = os %><br>
+              <%= link_to "edit", edit_ride_request_path(RideRequest.find(os.ride_id)), class: 'btn btn-primary' %>
+             <% end %>
           </div>
         <% end %>
       <% end %>
+
     </div>
     <div class='col-md-6'>
       <div class="google-maps">
@@ -65,8 +93,8 @@
           width="100%"
           frameborder="0" style="border:0"
           src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
-          &origin=<%= @ride_requests.first.pickup_address%>
-          &destination=<%= @ride_requests.last.dropoff_address%>
+          &origin=<%= URI.encode(@shuttle.address)%>
+          &destination=<%= URI.encode(@last_stop_for_display.address)%>
           &waypoints=<%= waypoints %>
           &avoid=tolls|highways" allowfullscreen>
         </iframe>
