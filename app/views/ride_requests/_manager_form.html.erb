@@ -65,8 +65,13 @@
           <%= form.number_field :riders, id: :ride_request_riders, class: 'form-control', style: 'max-width:50px' %>
         </div>
         <div class='col-md-9'>
+            <% shuttles = [] %>
+              <% shuttles << ["-- Please Select --", "-- Please Select --"]%>
+              <%  Shuttle.all.each do |s|  %>
+              <% shuttles << [s.name, "#{s.id}"] %>
+            <% end %>
            <%= form.label :shuttle %><br>
-          <%= form.select(:shuttle_id, Shuttle.all.map{|s| [s.name, s.id]}, {}, { :class => 'ride-select'}) %>
+          <%= form.select(:shuttle_id, options_for_select(shuttles), {}, { :class => 'ride-select'}) %>
         </div>
     </div>
     <div class='row'>

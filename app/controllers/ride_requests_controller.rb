@@ -34,6 +34,9 @@ class RideRequestsController < ApplicationController
   # POST /ride_requests.json
   def create
     @ride_request = RideRequest.new(ride_request_params)
+    if ride_request_params[:shuttle_id] == "-- Please Select --"
+      @ride_request.shuttle = nil
+    end
     @ride_request.status = "In Queue"
     @ride_request.completed = false
     if session[:name]
@@ -44,7 +47,7 @@ class RideRequestsController < ApplicationController
     end
     respond_to do |format|
       if @ride_request.save
-        if ride_request_params[:shuttle_id]
+        unless @ride_request.shuttle.nil?
           @ride_request.advance_status(@ride_request.status)
         end
         if params[:ride_request][:redirect]
