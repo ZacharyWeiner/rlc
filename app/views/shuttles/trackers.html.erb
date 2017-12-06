@@ -4,6 +4,12 @@
 </style>
 <h1>Shuttles</h1>
 
+<p>
+
+ <% @trackers.each do |tracker| %>
+  <%= tracker.lat %>,<%= tracker.long %>|
+ <% end %>
+</p>
 <table>
   <thead>
     <tr>
