@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   resources :charges
 
 
+  get 'test_text', to: 'twilios#send_test', as: 'twilio_test'
 
   get 'right_column_list', to: 'pages#right_column_list', as: 'right_column_list'
   root "pages#index"
