@@ -103,11 +103,11 @@ class RideRequestsController < ApplicationController
   end
 
   def set_rider_info
-
+    puts "************* setting session info ****************"
     if params[:name]
       session[:name] = params[:name]
     end
-    puts "name set"
+    puts "*************name set****************"
     if params[:phone]
       fixed_number = params[:phone]
       fixed_number = fixed_number.tr("-", "")
@@ -120,14 +120,14 @@ class RideRequestsController < ApplicationController
       end
       session[:phone] = prefix.to_s + fixed_number.to_s
     end
-    puts "phone set"
+    puts "**********phone set **********"
     if params[:email]
       session[:email] = params[:email]
     end
-    puts "email set"
+    puts " ********** email set **********"
     if params['redirect-shuttle']
       @shuttle = Shuttle.find(params['redirect-shuttle'])
-      puts "redirecting..."
+      puts "**********redirecting...****************"
       return redirect_to shuttle_path(@shuttle)
     else
       return redirect_to new_ride_request_path

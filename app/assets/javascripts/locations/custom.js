@@ -21,9 +21,9 @@ $(document).ready(function($) {
     }
 
     if( customizerEnabled == 1 ){
-        $.getScript( "assets/misc/customizer.js", function( data, textStatus, jqxhr ) {
-            loadColor("load_default_color");
-        });
+        // $.getScript( "/customizer.js", function( data, textStatus, jqxhr ) {
+        //     loadColor("load_default_color");
+        // });
     }
 
     if( $(".tse-scrollable").length ){
