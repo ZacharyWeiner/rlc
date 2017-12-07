@@ -121,7 +121,6 @@ class RideRequestsController < ApplicationController
     if params[:email]
       session[:email] = params[:email]
     end
-    byebug
     if params['redirect-shuttle']
       @shuttle = Shuttle.find(params['redirect-shuttle'])
       redirect_to shuttle_path(@shuttle)
