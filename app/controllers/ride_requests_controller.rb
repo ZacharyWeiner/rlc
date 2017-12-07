@@ -107,12 +107,27 @@ class RideRequestsController < ApplicationController
       session[:name] = params[:name]
     end
     if params[:phone]
-      session[:phone] = params[:phone]
+      fixed_number = params[:phone]
+      fixed_number = fixed_number.tr("-", "")
+      prefix = ""
+      unless fixed_number[0] == "+"
+        prefix = "+"
+      end
+      unless fixed_number[0] == "1" || fixed_number[1] =="1"
+        prefix = prefix + "1"
+      end
+      session[:phone] = prefix.to_s + fixed_number.to_s
     end
     if params[:email]
       session[:email] = params[:email]
     end
-    return redirect_to new_ride_request_path
+    byebug
+    if params['redirect-shuttle']
+      @shuttle = Shuttle.find(params['redirect-shuttle'])
+      redirect_to shuttle_path(@shuttle)
+    else
+      return redirect_to new_ride_request_path
+    end
   end
   def clear_rider_info
     session[:name] = nil

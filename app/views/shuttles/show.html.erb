@@ -18,6 +18,39 @@
     }
 </style>
 <p id="notice"><%= notice %></p>
+<% if session[:phone].nil?  %>
+  <div class="row">
+      <div class="col-md-4 col-sm-6  col-xs-8 col-md-offset-4 col-sm-offset-3 col-xs-offset-2">
+          <section>
+            <%= form_for(:ride_request, url: "/ride_requests/rider/set_rider_info", class:"form inputs-underline", :html => {:id => "rider-form"}) do |f| %>
+
+                  <div class="form-group">
+                      <label for="Name">Name</label>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"  text='<%= session[:name] %>'>
+                  </div>
+                  <!--end form-group-->
+                  <div class="form-group">
+                      <label for="phone">Phone Number</label>
+                      <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone number" text='<%= session[:phone] %>' >
+                  </div>
+                  <div class="form-group">
+                      <label for="email">Email Address</label>
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
+                  </div>
+                  <div class="form-group center">
+                      <input type="hidden" name="redirect-shuttle" value="<%= @shuttle.id %>">
+                      <button type="submit" id='submit' class="btn btn-primary width-100">Find My Shuttle</button>
+                  </div>
+              <% end %>
+              <hr>
+          </section>
+      </div>
+  </div>
+<% else %>
+
+
+
+
 <h1>Shuttle Info</h1>
 <div class='container'>
   <div class='row'>
@@ -105,7 +138,39 @@
 
  <%= render 'shared/locations_theme/promoted_locations' %>
 
+<% end %>
 
+<script>
+  $(document).ready(function () {
 
+    $('#rider-form').validate({
+        rules: {
+            name: {
+                required: true
+            },
+            phone: {
+                required: true,
+                phoneUS: true
+            },
+            email: {
+                required: true,
+                email: true
+            }
+        }
+    });
+
+    jQuery.validator.addMethod("phoneUS", function (phone_number, element) {
+        phone_number = phone_number.replace(/\s+/g, "");
+        return this.optional(element) || phone_number.length > 9 && phone_number.match(/^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+    }, "Please specify a valid phone number");
+
+    // programmatically check the entire form using the `.valid()` method.
+
+    $('#submit').on('click', function () {
+        $('#rider-form').valid();
+    });
+
+});
+</script>
 
 
