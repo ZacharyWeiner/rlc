@@ -103,9 +103,11 @@ class RideRequestsController < ApplicationController
   end
 
   def set_rider_info
+
     if params[:name]
       session[:name] = params[:name]
     end
+    puts "name set"
     if params[:phone]
       fixed_number = params[:phone]
       fixed_number = fixed_number.tr("-", "")
@@ -118,12 +120,15 @@ class RideRequestsController < ApplicationController
       end
       session[:phone] = prefix.to_s + fixed_number.to_s
     end
+    puts "phone set"
     if params[:email]
       session[:email] = params[:email]
     end
+    puts "email set"
     if params['redirect-shuttle']
       @shuttle = Shuttle.find(params['redirect-shuttle'])
-      redirect_to shuttle_path(@shuttle)
+      puts "redirecting..."
+      return redirect_to shuttle_path(@shuttle)
     else
       return redirect_to new_ride_request_path
     end
