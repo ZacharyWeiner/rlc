@@ -7678,6 +7678,9 @@ body::before {
     font-weight: 200;
 
   }
+  .page-title {
+    padding-top: 15%;
+  }
 
   .categories-list .list-item .title h3 {
     display: block;
@@ -7723,6 +7726,10 @@ body::before {
   body::before {
     content: "xs";
   }
+  .page-title {
+    padding-top: 20%;
+  }
+
   h1{ font-size: 52px; }
   .homepage h2{ font-size: 52px; }
 
