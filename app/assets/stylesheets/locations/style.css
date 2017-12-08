@@ -2355,13 +2355,13 @@ h1 {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
   color: #4611a7;
-  font-size: 36px;
+  font-size: 48px;
   font-weight: lighter;
   margin-top: 5px;
 }
 
 h2 {
-  font-size: 26px;
+  font-size: 32px;
   color: #4611a7;
   font-weight: lighter;
   margin-top: 5px;
@@ -7639,6 +7639,15 @@ body::before {
 @media (min-width: 992px) and (max-width: 1199px) {
   body::before {
     content: "md";
+
+  }
+  h1{ font-size: 64px; }
+  .homepage h2{ font-size: 52px; }
+  .form-group > label {
+    font-size: 28px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 200;
+
   }
 
   .hero-section.has-sidebar.sidebar-grid .map-wrapper, .hero-section.has-sidebar.sidebar-grid .results-wrapper {
@@ -7660,6 +7669,14 @@ body::before {
 @media (min-width: 768px) and (max-width: 991px) {
   body::before {
     content: "sm";
+  }
+  h1{ font-size: 64px; }
+  .homepage > h2{ font-size: 52px; }
+  .form-group > label {
+    font-size: 28px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 200;
+
   }
 
   .categories-list .list-item .title h3 {
@@ -7705,6 +7722,14 @@ body::before {
 @media (max-width: 767px) {
   body::before {
     content: "xs";
+  }
+  h1{ font-size: 52px; }
+  .homepage h2{ font-size: 52px; }
+
+  .form-group > label {
+    font-size: 24px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 200;
   }
 
   body .primary-nav a i, body .secondary-nav a i {
