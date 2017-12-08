@@ -7752,10 +7752,10 @@ body::before {
 
   .form.inputs-underline label:not(.no-margin), .input-group.inputs-underline label:not(.no-margin)
   {
-    font-size: 24px;
+    font-size: 32px;
   }
   .form.inputs-underline input[type="text"]{
-    font-size: 18px;
+    font-size: 24px;
   }
   body .primary-nav a i, body .secondary-nav a i {
     display: inline-block;

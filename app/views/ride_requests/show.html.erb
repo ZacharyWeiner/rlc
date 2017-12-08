@@ -9,7 +9,7 @@
                   <div class="user-details box">
                       <div class="user-image" >
                           <div class="image">
-                              <div class="bg-transfer" style="background-image: url(&quot;assets/img/person-01.jpg&quot;); ">
+                              <div class="bg-transfer" >
                                 <iframe
                                     width="300"
                                     height="200"
@@ -52,9 +52,9 @@
               </section>
               <!--end user-details-->
               <section>
-                <div class="form-group">
+                <div class="form-group text-center">
                       <!-- <label for="message">Your Ride </label> -->
-                       <%="<h3>Dropoff:</h3><br> <label style='font-weight:400'>#{@ride_request.dropoff_address}</label>".html_safe %>
+                       <%="<h3>Dropoff:</h3><br> <label style='font-weight:400'>#{@ride_request.dropoff_address}</label>".gsub!(',', '<br>').html_safe %>
                   </div>
                   <h3>About You</h3>
                   <div class="row">
@@ -101,8 +101,8 @@
                       <!-- <button type="submit" class="btn btn-primary btn-rounded">Save Changes</button> -->
 
                           <iframe
-                            width="500"
-                            height="400"
+                            width="100%"
+                            height="500"
                             frameborder="0" style="border:0"
                             src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
                             &origin=<%= URI.encode(@ride_request.pickup_address) %>
