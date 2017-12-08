@@ -36,15 +36,23 @@
       </div>
   </div>
 <% else %>
-<h1>New Ride Request</h1>
+<div class='row'>
+  <div class='col-md-10 col-sm-10'>
+<h1>Request a Shuttle</h1>
+</div>
+<div class='col-md-2 col-sm-2'>
+   <%= link_to  "tel:1-877-302-2628", class: 'btn btn-primary', style:'margin-top: 16px;' do %>
+    <i class='fa fa-phone'></i> Call For Ride
+    <% end %>
+</div>
+
+</div>
 <div class='row'>
   <div class='col-md-10'>
     <% link_to '< Back', ride_requests_path %>
   </div>
   <div class='col-md-2'>
-    <%= link_to  "tel:1-877-302-2628", class: 'btn btn-primary' do %>
-    <i class='fa fa-phone'></i> Call For Ride
-    <% end %>
+
   </div>
 </div>
 <div class='row'>

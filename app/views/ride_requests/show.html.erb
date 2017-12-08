@@ -52,21 +52,31 @@
               </section>
               <!--end user-details-->
               <section>
-                <div class="form-group text-center">
+                <div class='row'>
+                  <div class=" col-md-6 col-sm-6 text-center">
                       <!-- <label for="message">Your Ride </label> -->
-                       <%="<h3>Dropoff:</h3><br> <label style='font-weight:400'>#{@ride_request.dropoff_address}</label>".gsub!(',', '<br>').html_safe  %>
+                       <%="<h3 style='padding-top:12px'>From:</h3><br> <label class='address-label'>#{@ride_request.pickup_address}</label>".gsub!(',', '<br>').html_safe  %>
+
                   </div>
-                  <h3>About You</h3>
+                  <div class="col-md-6 col-sm-6 text-center">
+                      <!-- <label for="message">Your Ride </label> -->
+                       <%="<h3 style='padding-top:12px'>To:</h3><br> <label class='address-label'>#{@ride_request.dropoff_address}</label>".gsub!(',', '<br>').html_safe  %>
+
+                  </div>
+                </div>
+                <hr>
+
+                  <h3 class='text-center'>About You</h3>
                   <div class="row">
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-6 col-sm-12">
                           <div class="form-group">
-                              <label for="first_name">Name</label>
+                              <label for="first_name" >Name</label>
                               <input type="text" class="form-control" name="first_name" id="first_name" value="<%= @ride_request.requester_name%>" disabled>
                           </div>
                           <!--end form-group-->
                       </div>
                       <!--end col-md-6-->
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-6 col-sm-12">
                           <div class="form-group">
                               <label for="last_name">Riders</label>
                               <input type="text" class="form-control" name="last_name" id="last_name" value="<%= @ride_request.riders%>" disabled>
@@ -74,18 +84,18 @@
                           <!--end form-group-->
                       </div>
                       <!--end col-md-6-->
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-6 col-sm-12">
                           <div class="form-group">
                               <label for="email">Email</label>
-                              <input type="email" class="form-control" name="email" id="email" value="<%= %>" disabled>
+                              <input type="email" class="form-control" name="email" id="email" value="<%= session[:email]%>" disabled>
                           </div>
                           <!--end form-group-->
                       </div>
                       <!--end col-md-6-->
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-6 col-sm-12">
                           <div class="form-group">
                               <label for="phone">Phone</label>
-                              <input type="text" class="form-control" name="phone" id="phone" value="<%= @ride_request.phone%>" disabled>
+                              <input type="email" class="form-control" name="phone" id="phone" value="<%= @ride_request.phone%>" disabled>
                           </div>
                           <!--end form-group-->
                       </div>

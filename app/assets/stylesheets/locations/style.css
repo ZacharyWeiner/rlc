@@ -7641,6 +7641,7 @@ body::before {
     content: "md";
 
   }
+  /**********Custom ****************/
   h1{ font-size: 64px; }
   .homepage h2{ font-size: 52px; }
   .homepage h3{ font-size: 42px; }
@@ -7650,7 +7651,14 @@ body::before {
     font-weight: 200;
 
   }
+  .form.inputs-underline label:not(.no-margin), .input-group.inputs-underline label:not(.no-margin)
+  {
+    font-size: 24px;
+    text-align: center;
+    font-weight:100;
+  }
 
+  /**********Custom ****************/
   .hero-section.has-sidebar.sidebar-grid .map-wrapper, .hero-section.has-sidebar.sidebar-grid .results-wrapper {
     width: 50%;
   }
@@ -7671,15 +7679,20 @@ body::before {
   body::before {
     content: "sm";
   }
+  /**********Custom ****************/
   h1{ font-size: 64px; }
+
   .homepage > h2{ font-size: 52px; }
-   h3{ font-size: 42px; }
-   .form > h3{ font-size: 42px; }
+  .homepage h3{ font-size: 42px; }
+  .form > h3{ font-size: 42px; }
   .form-group > label {
     font-size: 28px;
     font-family: 'Lato', sans-serif;
     font-weight: 200;
 
+  }
+  .address-label {
+    font-weight: normal;
   }
   .page-title {
     padding-top: 15%;
@@ -7687,10 +7700,16 @@ body::before {
   .form.inputs-underline label:not(.no-margin), .input-group.inputs-underline label:not(.no-margin)
   {
     font-size: 24px;
+    text-align: center;
+    font-weight: 200;
   }
   .form.inputs-underline input[type="text"]{
-    font-size: 18px;
+    font-size: 24px;
   }
+  .form.inputs-underline input[type="email"]{
+    font-size: 24px;
+  }
+  /**********Custom ****************/
 
   .categories-list .list-item .title h3 {
     display: block;
@@ -7736,6 +7755,7 @@ body::before {
   body::before {
     content: "xs";
   }
+  /**********Custom ****************/
   .page-title {
     padding-top: 20%;
   }
@@ -7753,10 +7773,18 @@ body::before {
   .form.inputs-underline label:not(.no-margin), .input-group.inputs-underline label:not(.no-margin)
   {
     font-size: 32px;
+    font-weight: 100;
   }
   .form.inputs-underline input[type="text"]{
     font-size: 24px;
   }
+  .form.inputs-underline input[type="email"]{
+    font-size: 24px;
+  }
+  /***
+  /**********Custom ****************/
+
+
   body .primary-nav a i, body .secondary-nav a i {
     display: inline-block;
   }
