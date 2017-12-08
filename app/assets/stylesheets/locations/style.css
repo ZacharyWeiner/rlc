@@ -7643,6 +7643,7 @@ body::before {
   }
   h1{ font-size: 64px; }
   .homepage h2{ font-size: 52px; }
+  .homepage h3{ font-size: 42px; }
   .form-group > label {
     font-size: 28px;
     font-family: 'Lato', sans-serif;
@@ -7672,6 +7673,8 @@ body::before {
   }
   h1{ font-size: 64px; }
   .homepage > h2{ font-size: 52px; }
+   h3{ font-size: 42px; }
+   .form > h3{ font-size: 42px; }
   .form-group > label {
     font-size: 28px;
     font-family: 'Lato', sans-serif;
@@ -7680,6 +7683,13 @@ body::before {
   }
   .page-title {
     padding-top: 15%;
+  }
+  .form.inputs-underline label:not(.no-margin), .input-group.inputs-underline label:not(.no-margin)
+  {
+    font-size: 24px;
+  }
+  .form.inputs-underline input[type="text"]{
+    font-size: 18px;
   }
 
   .categories-list .list-item .title h3 {
@@ -7732,13 +7742,21 @@ body::before {
 
   h1{ font-size: 52px; }
   .homepage h2{ font-size: 52px; }
-
+  .homepage h3{ font-size: 42px; }
+  .homepage h4{ font-size: 24px; }
   .form-group > label {
     font-size: 24px;
     font-family: 'Lato', sans-serif;
     font-weight: 200;
   }
 
+  .form.inputs-underline label:not(.no-margin), .input-group.inputs-underline label:not(.no-margin)
+  {
+    font-size: 24px;
+  }
+  .form.inputs-underline input[type="text"]{
+    font-size: 18px;
+  }
   body .primary-nav a i, body .secondary-nav a i {
     display: inline-block;
   }

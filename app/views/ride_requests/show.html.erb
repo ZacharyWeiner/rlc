@@ -36,7 +36,7 @@
                       <!--end user-image-->
                       <div class="description clearfix">
                           <h3>Your Pickup Location</h3>
-                          <h4><%=@ride_request.pickup_address %></h4>
+                          <h4 style='font-weight: 200'><%=@ride_request.pickup_address %></h4>
                          <!--  <a href="#" class="btn btn-default btn-rounded btn-xs">Change</a> -->
                          <% if @ride_request.shuttle %>
                             <%= link_to "Track My Shuttle", shuttle_path(@ride_request.shuttle), class: "btn btn-default btn-rounded btn-xs" %>
@@ -54,7 +54,7 @@
               <section>
                 <div class="form-group">
                       <!-- <label for="message">Your Ride </label> -->
-                       <%="<h3>Dropoff:</h3><br> #{@ride_request.dropoff_address}".html_safe %>
+                       <%="<h3>Dropoff:</h3><br> <label style='font-weight:400'>#{@ride_request.dropoff_address}</label>".html_safe %>
                   </div>
                   <h3>About You</h3>
                   <div class="row">
