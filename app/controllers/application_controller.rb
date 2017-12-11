@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def direct_to_app
-    p request.domain
+    p "Domain " + request.domain
     if  request.subdomains.include?('shuttle')
-      p request.subdomains
+      p "Subdomains: " + request.subdomains
       if request.original_url == "resortlodgingcompany.com"
-        p request.original_url
+        p 'Original Url' + request.original_url
         redirect_to new_ride_request_path
       end
     end
