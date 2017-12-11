@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   def direct_to_app
     p "Domain " + request.domain
     if  request.subdomains.include?('shuttle')
-      p "Subdomains: " + request.subdomains
+      p "Subdomains: " + request.subdomains.first
       if request.original_url == "resortlodgingcompany.com"
         p 'Original Url' + request.original_url
         redirect_to new_ride_request_path
