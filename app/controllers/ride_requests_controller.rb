@@ -137,6 +137,8 @@ class RideRequestsController < ApplicationController
     session[:name] = nil
     session[:phone] = nil
     session[:email] = nil
+    session[:latitude] = nil
+    session[:longitude] = nil
   end
 
   def set_rider_location
