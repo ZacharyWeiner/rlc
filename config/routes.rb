@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users do
+     get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
+
   resources :ride_requests do
     get '/assign/:shuttle_id', to: 'ride_requests#assign_to_shuttle', as: 'assign_shuttle'
     get '/mark_clear', to: 'ride_requests#mark_clear', as: 'mark_clear'

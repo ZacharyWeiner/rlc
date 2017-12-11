@@ -1,14 +1,16 @@
     <header id="page-header">
         <nav>
             <div class="left">
-                <a href="index.html" class="brand">RLC Experiences</a>
+                <a href="index.html" class="brand">RLC Extras</a>
             </div>
             <!--end left-->
             <div class="right">
                 <div class="primary-nav has-mega-menu">
                     <ul class="navigation">
                         <!-- <li class='active'><% link_to "Home", root_path %></li> -->
+
                         <li><%= link_to "Shuttles", shuttles_path %></li>
+                        <%= render 'shared/rlc/menu_items/devise' %>
                     </ul>
                     <!--end navigation-->
                 </div>

@@ -6321,6 +6321,7 @@ input[type="text"], input[type="email"], input[type="date"], input[type="time"],
   outline: none !important;
   width: 100%;
   height: inherit;
+  min-height: 44px;
   padding: 12px;
   -moz-transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;

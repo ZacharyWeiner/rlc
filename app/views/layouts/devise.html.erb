@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rlc</title>
+    <%= csrf_meta_tags %>
+     <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900,400italic' rel='stylesheet' type='text/css'>
+     <script src="https://use.fontawesome.com/1494e0c4f8.js"></script>
+    <%= stylesheet_link_tag 'locations_maps' %>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe_etF6ggVPrcWv7TAIW9wxyGrFGD0IJI"
+  type="text/javascript"></script>
+    <%= javascript_include_tag 'locations_maps' %>
+    <%= yield :head %>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+  </head>
+
+  <body class="nav-btn-only homepage">
+    <div class="page-wrapper">
+      <%= render 'shared/rlc/header' %>
+      <div id="page-content">
+      <%= yield %>
+    </div>
+    <%= render 'shared/locations_theme/footer' %>
+    </div>
+
+
+
+    <%= yield :js %>
+  </body>
+</html>
+
+
