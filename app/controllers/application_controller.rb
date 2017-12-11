@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     if  request.subdomains.include?('shuttle')
       p "Subdomains: " + request.subdomains.first
       p 'Original Url' + request.original_url
-      if request.original_url == "resortlodgingcompany.com"
+      if request.original_url == "http://shuttle.resortlodgingcompany.com/"
         redirect_to new_ride_request_path
       end
     end
