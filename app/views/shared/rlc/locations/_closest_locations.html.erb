@@ -6,7 +6,7 @@
    <% location_placement = ""%>
    <% @ordered_locations.take(3).each do |ol| %>
    <%= puts "['#{ol.name}', #{ol.latitude}, #{ol.longitude}, #{location_count}], "%>
-   <% location_placement = location_placement + "['#{ol.name}', #{ol.latitude}, #{ol.longitude}, #{location_count}], " %>
+   <% location_placement = location_placement + "['" + URI.encode(ol.name) + "', #{ol.latitude}, #{ol.longitude}, #{location_count}], " %>
    <% location_count = location_count +1 %>
  <% end %>
 <% location_placement = location_placement[0...-2] %>
