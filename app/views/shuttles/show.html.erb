@@ -100,9 +100,10 @@
       <h2>Stop List</h2>
       <!-- Ordered Stops List -->
       <% @ordered_stops.each do |os| %>
+        <% unless os.nil? %>
         <% if (os_counter != os_count) && (complete == false) %>
           <div class='row'>
-            <h4> Stop #<%= stops_count %> <%= os.stop_type %></h4>
+            <h4> Stop #<%= stops_count unless stops_count.nil? %> <%= os.stop_type unless os.nil?%></h4>
              <%= os.name %><br/>
              <% if os.address.include?("+") %>
                 <%= os.address.gsub!('+',' ')%>
@@ -116,6 +117,7 @@
               <%= link_to "edit", edit_ride_request_path(RideRequest.find(os.ride_id)), class: 'btn btn-primary' %>
              <% end %>
           </div>
+        <% end %>
         <% end %>
       <% end %>
 
