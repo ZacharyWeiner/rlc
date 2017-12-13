@@ -205,7 +205,7 @@ Shuttle.create(name: "John", plate_number: "PBJ-4", current_lat: mk.latitude, cu
 Shuttle.create(name: "Jim", plate_number: "PBJ-5", current_lat: annies.latitude, current_long: annies.longitude, capacity: 24)
 
 
-
+User.create!(email: 'admin@resortlodgingcompany.com', password: 'SteamboatSprings#1')
 
 #Business.create!(name: "Butcher Knife Brewery", location: bkb, category_id: adult.id, contact_name: "", contact_phone: "", business_type: "Brewery")
 #Business.create!(name: "Storm Peak Brewery", location: spb, category_id: adult.id, contact_name: "", contact_phone: "", business_type: "Brewery")
