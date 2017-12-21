@@ -52,9 +52,7 @@ class ShuttlesController < ApplicationController
   def update
     respond_to do |format|
       if @shuttle.update(shuttle_params)
-
         if params[:manager]
-          byebug
             return redirect_to ride_request_manager_path
         end
         if params[:redirect]
