@@ -1,0 +1,20 @@
+
+  <% Shuttle.all.each do |shuttle| %>
+    <div class='row'>
+      <%= form_for shuttle do |f|%>
+        <div class='col-md-1'>
+          <%= shuttle.id %>
+        </div>
+        <div class='col-md-4'>
+           <%= f.text_field :plate_number, id: :shuttle_plate_number, class: 'form-control', placeholder: 'plate #' %>
+        </div>
+        <div class='col-md-4'>
+          <%= f.text_field :name, id: :shuttle_name, class: 'form-control' %>
+        </div>
+        <%= hidden_field :redirect, value: 'manager'%>
+        <div class='col-md-3'>
+          <%= f.submit "Update", class: 'btn btn-primary'%>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
