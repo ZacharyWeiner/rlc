@@ -173,7 +173,7 @@ class RideRequestsController < ApplicationController
       @ride_requests = RideRequest.where.not(completed: true)
     end
     @ride_request = RideRequest.new
-    @ordered_locations = Location.near([@lat, @long], 30)
+    @ordered_locations = Location.all
   end
 
   def assign_to_shuttle
