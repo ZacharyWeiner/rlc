@@ -139,6 +139,6 @@ class ShuttlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shuttle_params
-      params.require(:shuttle).permit(:current_lat, :current_long, :previous_lat, :previous_long, :name, :address, :plate_number, :is_looping)
+      params.require(:shuttle).permit(:current_lat, :current_long, :previous_lat, :previous_long, :name, :address, :plate_number, :is_looping )
     end
 end
