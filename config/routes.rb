@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   end
   get 'ride_request/manager', to: "ride_requests#manager", as:'ride_request_manager'
   resources :shuttle_stops
-  resources :shuttles
+  resources :shuttles do
+    get 'set_looping', to: 'shuttles#set_looping', as:'set_looping'
+    get 'stop_looping', to: 'shuttles#stop_looping', as:'stop_looping'
+  end
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
   get 'shuttle/trackers', to: 'shuttles#trackers', as: 'shuttle_trackers'
   get 'driver', to:'shuttles#driver', as: 'driver'

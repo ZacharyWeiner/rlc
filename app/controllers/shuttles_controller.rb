@@ -113,6 +113,20 @@ class ShuttlesController < ApplicationController
     @trackers = Tracker.all.reverse
   end
 
+  def set_looping
+    set_shuttle
+    @shuttle.is_looping = true
+    @shuttle.save
+    redirect_to ride_request_manager_path
+  end
+
+  def stop_looping
+    set_shuttle
+    @shuttle.is_looping = false
+    @shuttle.save
+    redirect_to ride_request_manager_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shuttle
@@ -125,6 +139,6 @@ class ShuttlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shuttle_params
-      params.require(:shuttle).permit(:current_lat, :current_long, :previous_lat, :previous_long, :name, :address, :plate_number)
+      params.require(:shuttle).permit(:current_lat, :current_long, :previous_lat, :previous_long, :name, :address, :plate_number, :is_looping)
     end
 end
