@@ -15,49 +15,152 @@
 </div>
 </div>
 <br>
-<div class='container' >
+<% queue = @ride_requests.where(status: 'In Queue') %>
+<% dispatched = @ride_requests.where(status: 'Dispatched') %>
+<% rolling = @ride_requests.where(status: 'Rolling') %>
+<div class='' style='padding:24px;' >
     <div class='row'>
         <div class='col-md-8'>
-        <% @ride_requests.each do |request| %>
-          <div class="item item-row1" >
-                <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
-                 <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
-                 <% unless request.note.nil? %>
-                <div class="description">
-                  Note: <%= request.note %>
-                </div>
+          <!-- Table -->
+
+            <div class='row'>
+              <div class='col-md-4'>
+                  <h3 style='color:black'>In Queue</h3>
+                  <% queue.each do |request| %>
+                    <div class="item item-row1" style='background-color: #f4e59a'>
+                          <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
+                           <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
+                           <% unless request.note.nil? %>
+                          <div class="description">
+                            Note: <%= request.note %>
+                          </div>
+                          <% end %>
+                          <div class="description">
+                              <strong>Pickup:</strong> <%= request.pickup_address.split(',')[0] %><span style="margin-left:10px;margin-right:10px;"></span><strong>DropOff:</strong><%= request.dropoff_address.split(',')[0]%>
+                          </div>
+                      <div class="controls-more">
+                        <% if request.status == "In Queue" %>
+                          <ul>
+                              <% Shuttle.all.each do |shuttle| %>
+                              <li><%= link_to "Assign to #{shuttle.name}", ride_request_assign_shuttle_path(request, shuttle.id) %></li>
+                              <% end %>
+                          </ul>
+                        <% elsif request.status == "Dispatched" %>
+                          <ul>
+                             <li><%= link_to "Set Rolling", ride_request_advance_status_path(request) %></li>
+                           </ul>
+                        <% else %>
+                           <ul>
+                             <li><%= link_to "Mark Clear", ride_request_mark_clear_path(request) %></li>
+                           </ul>
+                        <% end %>
+                      </div>
+                      <div>
+                        <%= link_to ride_request_path(request) do %> <i class='fa fa-eye'></i><%end%>
+                        <span style="margin-right:10px;"></span>
+                        <%= link_to edit_ride_request_path(request) do %> <i class='fa fa-edit'></i><%end%>
+                        <span style="margin-right:10px;"></span>
+                        <%= link_to ride_request_mark_clear_path(request) do %> <i class='fa fa-trash'></i><%end%>
+                        <span style="margin-right:10px;"></span>
+                        <%= link_to  ride_request_reset_status_path(request) do %> <i class='fa fa-recycle'></i><%end%>
+                      </div>
+                    </div>
+                  <% end %>
+              </div>
+              <div class='col-md-4'>
+                <h3 style='color:black'>Dispatched</h3>
+                <% dispatched.each do |request| %>
+                  <div class="item item-row1" style='background-color: #99dbf4' >
+                        <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
+                         <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
+                         <% unless request.note.nil? %>
+                        <div class="description">
+                          Note: <%= request.note %>
+                        </div>
+                        <% end %>
+                        <div class="description">
+                            <strong>Pickup:</strong> <%= request.pickup_address.split(',')[0] %><span style="margin-left:10px;margin-right:10px;"></span><strong>DropOff:</strong><%= request.dropoff_address.split(',')[0]%>
+                        </div>
+                    <div class="controls-more">
+                      <% if request.status == "In Queue" %>
+                        <ul>
+                            <% Shuttle.all.each do |shuttle| %>
+                            <li><%= link_to "Assign to #{shuttle.name}", ride_request_assign_shuttle_path(request, shuttle.id) %></li>
+                            <% end %>
+                        </ul>
+                      <% elsif request.status == "Dispatched" %>
+                        <ul>
+                           <li><%= link_to "Set Rolling", ride_request_advance_status_path(request) %></li>
+                         </ul>
+                      <% else %>
+                         <ul>
+                           <li><%= link_to "Mark Clear", ride_request_mark_clear_path(request) %></li>
+                         </ul>
+                      <% end %>
+                    </div>
+                    <div>
+                      <%= link_to ride_request_path(request) do %> <i class='fa fa-eye'></i><%end%>
+                      <span style="margin-right:10px;"></span>
+                      <%= link_to edit_ride_request_path(request) do %> <i class='fa fa-edit'></i><%end%>
+                      <span style="margin-right:10px;"></span>
+                      <%= link_to ride_request_mark_clear_path(request) do %> <i class='fa fa-trash'></i><%end%>
+                      <span style="margin-right:10px;"></span>
+                      <%= link_to  ride_request_reset_status_path(request) do %> <i class='fa fa-recycle'></i><%end%>
+                    </div>
+                  </div>
                 <% end %>
-                <div class="description">
-                    <strong>Pickup:</strong> <%= request.pickup_address.split(',')[0] %><span style="margin-left:10px;margin-right:10px;"></span><strong>DropOff:</strong><%= request.dropoff_address.split(',')[0]%>
-                </div>
-            <div class="controls-more">
-              <% if request.status == "In Queue" %>
-                <ul>
-                    <% Shuttle.all.each do |shuttle| %>
-                    <li><%= link_to "Assign to #{shuttle.name}", ride_request_assign_shuttle_path(request, shuttle.id) %></li>
-                    <% end %>
-                </ul>
-              <% elsif request.status == "Dispatched" %>
-                <ul>
-                   <li><%= link_to "Set Rolling", ride_request_advance_status_path(request) %></li>
-                 </ul>
-              <% else %>
-                 <ul>
-                   <li><%= link_to "Mark Clear", ride_request_mark_clear_path(request) %></li>
-                 </ul>
-              <% end %>
+              </div>
+              <div class='col-md-4'>
+                <h3 style='color:black'>Rolling</h3>
+                <% rolling.each do |request| %>
+                  <div class="item item-row1" style='background-color: #99f4a3'>
+                        <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
+                         <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
+                         <% unless request.note.nil? %>
+                        <div class="description">
+                          Note: <%= request.note %>
+                        </div>
+                        <% end %>
+                        <div class="description">
+                            <strong>Pickup:</strong> <%= request.pickup_address.split(',')[0] %><span style="margin-left:10px;margin-right:10px;"></span><strong>DropOff:</strong><%= request.dropoff_address.split(',')[0]%>
+                        </div>
+                    <div class="controls-more">
+                      <% if request.status == "In Queue" %>
+                        <ul>
+                            <% Shuttle.all.each do |shuttle| %>
+                            <li><%= link_to "Assign to #{shuttle.name}", ride_request_assign_shuttle_path(request, shuttle.id) %></li>
+                            <% end %>
+                        </ul>
+                      <% elsif request.status == "Dispatched" %>
+                        <ul>
+                           <li><%= link_to "Set Rolling", ride_request_advance_status_path(request) %></li>
+                         </ul>
+                      <% else %>
+                         <ul>
+                           <li><%= link_to "Mark Clear", ride_request_mark_clear_path(request) %></li>
+                         </ul>
+                      <% end %>
+                    </div>
+                    <div>
+                      <%= link_to ride_request_path(request) do %> <i class='fa fa-eye'></i><%end%>
+                      <span style="margin-right:10px;"></span>
+                      <%= link_to edit_ride_request_path(request) do %> <i class='fa fa-edit'></i><%end%>
+                      <span style="margin-right:10px;"></span>
+                      <%= link_to ride_request_mark_clear_path(request) do %> <i class='fa fa-trash'></i><%end%>
+                      <span style="margin-right:10px;"></span>
+                      <%= link_to  ride_request_reset_status_path(request) do %> <i class='fa fa-recycle'></i><%end%>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
             </div>
-            <div>
-              <%= link_to ride_request_path(request) do %> <i class='fa fa-eye'></i><%end%>
-              <span style="margin-right:10px;"></span>
-              <%= link_to edit_ride_request_path(request) do %> <i class='fa fa-edit'></i><%end%>
-              <span style="margin-right:10px;"></span>
-              <%= link_to ride_request_mark_clear_path(request) do %> <i class='fa fa-trash'></i><%end%>
-              <span style="margin-right:10px;"></span>
-              <%= link_to  ride_request_reset_status_path(request) do %> <i class='fa fa-recycle'></i><%end%>
-            </div>
-          </div>
-        <% end %>
+
+          <!-- Table -->
+
+
+
+
+
     </div>
     <div class='col-md-4'>
 
