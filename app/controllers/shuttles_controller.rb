@@ -4,7 +4,9 @@ class ShuttlesController < ApplicationController
   # GET /shuttles
   # GET /shuttles.json
   def index
-    return redirect_to new_ride_request_path
+    if current_user.nil?
+      return redirect_to new_ride_request_path
+    end
     @shuttles = Shuttle.all
     # @lat = request.location.latitude
     # @long = request.location.longitude

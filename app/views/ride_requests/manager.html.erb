@@ -22,6 +22,11 @@
           <div class="item item-row1" >
                 <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
                  <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
+                 <% unless request.note.nil? %>
+                <div class="description">
+                  Note: <%= request.note %>
+                </div>
+                <% end %>
                 <div class="description">
                     <strong>Pickup:</strong> <%= request.pickup_address.split(',')[0] %><span style="margin-left:10px;margin-right:10px;"></span><strong>DropOff:</strong><%= request.dropoff_address.split(',')[0]%>
                 </div>

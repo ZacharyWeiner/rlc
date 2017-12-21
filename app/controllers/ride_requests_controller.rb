@@ -222,6 +222,6 @@ class RideRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ride_request_params
-      params.require(:ride_request).permit(:pickup_address, :dropoff_address, :riders, :requester_name, :shuttle_id, :completed, :phone)
+      params.require(:ride_request).permit(:pickup_address, :dropoff_address, :riders, :requester_name, :shuttle_id, :completed, :phone, :note)
     end
 end
