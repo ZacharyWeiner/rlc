@@ -61,7 +61,6 @@ class RideRequestsController < ApplicationController
           format.json { render :show, status: :created, location: @ride_request }
         end
       else
-        byebug
         if params[:ride_request][:redirect]
           flash[:notice] = @ride_request.errors.full_messages.to_sentence
           return redirect_to ride_request_manager_path
