@@ -5,11 +5,11 @@ class Shuttle < ApplicationRecord
 
 
   def available_seats
-    riders = 0
-    self.ride_requests.where(status: "Rolling").each do |request|
-      riders = riders + request.riders
-    end
-    return self.capacity - riders
+    # riders = 0
+    # self.ride_requests.where(status: "Rolling").each do |request|
+    #   riders = riders + request.riders
+    # end
+    return self.capacity # - riders
   end
 
   def continue_ordering(pickups, dropoffs)
