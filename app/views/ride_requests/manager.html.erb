@@ -1,6 +1,11 @@
 <section class="page-title">
     <h1>Ride Requests</h1>
+    <span class='pull-right'>
+      <%= render 'ride_requests/kill_switch' %>
+    </span>
+
 </section>
+
 <% flash.each do |key, value| %>
   <%= content_tag :div, value, class: "flash #{key}" %><br/>
 <% end %>
@@ -8,6 +13,7 @@
 <br>
 <div class='container' style='margin-top: -60px;'>
 <div class='row'>
+
   <button onclick="window.location.href='/ride_request/manager'"  class='btn btn-primary'>All</button>
   <% Shuttle.all.each do |s|%>
     <button onclick="window.location.href='/ride_request/manager?driver=<%= s.name%>'"  class='btn btn-primary'><%= s.name%></button>
@@ -22,6 +28,7 @@
     <div class='row'>
         <div class='col-md-8'>
           <!-- Table -->
+
 
             <div class='row'>
               <div class='col-md-4'>
@@ -163,11 +170,7 @@
 
     </div>
     <div class='col-md-4'>
-    <% if BusinessSetting.first.ride_request_active %>
-      <%= link_to "Turn Off User Input", business_setting_deactivate_ride_requests_path(BusinessSetting.first), class: 'btn btn-warning' %>
-    <% else %>
-      <%= link_to "Turn On User Input", business_setting_activate_ride_requests_path(BusinessSetting.first), class: 'btn btn-success' %>
-    <% end %>
+
     <%= render 'ride_requests/manager_form' %>
     <br>
     <br>
