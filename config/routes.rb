@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
+  resources :business_settings do
+    get 'activate_ride_requests', to: 'business_settings#activate_ride_requests', as: 'activate_ride_requests'
+    get 'deactivate_ride_requests', to: 'business_settings#deactivate_ride_requests', as: 'deactivate_ride_requests'
+  end
+  resources :kill_switches
   devise_for :users do
      get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
+  get 'ride_requests/inactive', to:'ride_requests#inactive', as: 'inactive'
 
   resources :ride_requests do
     get '/assign/:shuttle_id', to: 'ride_requests#assign_to_shuttle', as: 'assign_shuttle'
@@ -10,6 +16,7 @@ Rails.application.routes.draw do
     get 'advance_status', to:'ride_requests#advance_status', as: 'advance_status'
     get 'reset_status', to:'ride_requests#reset_status', as: 'reset_status'
     get :autocomplete_pickup_location_name, :on => :collection
+
   end
   get 'ride_request/manager', to: "ride_requests#manager", as:'ride_request_manager'
   resources :shuttle_stops

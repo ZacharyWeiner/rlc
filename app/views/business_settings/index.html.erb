@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Business Settings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ride request active</th>
+      <th>Title</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @business_settings.each do |business_setting| %>
+      <tr>
+        <td><%= business_setting.ride_request_active %></td>
+        <td><%= business_setting.title %></td>
+        <td><%= link_to 'Show', business_setting %></td>
+        <td><%= link_to 'Edit', edit_business_setting_path(business_setting) %></td>
+        <td><%= link_to 'Destroy', business_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Business Setting', new_business_setting_path %>

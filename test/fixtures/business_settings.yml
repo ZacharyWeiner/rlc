@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ride_request_active: false
+  title: MyString
+
+two:
+  ride_request_active: false
+  title: MyString

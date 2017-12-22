@@ -1,0 +1,2 @@
+class KillSwitch < ApplicationRecord
+end

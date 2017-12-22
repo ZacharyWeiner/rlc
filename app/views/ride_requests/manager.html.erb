@@ -163,7 +163,11 @@
 
     </div>
     <div class='col-md-4'>
-
+    <% if BusinessSetting.first.ride_request_active %>
+      <%= link_to "Turn Off User Input", business_setting_deactivate_ride_requests_path(BusinessSetting.first), class: 'btn btn-warning' %>
+    <% else %>
+      <%= link_to "Turn On User Input", business_setting_activate_ride_requests_path(BusinessSetting.first), class: 'btn btn-success' %>
+    <% end %>
     <%= render 'ride_requests/manager_form' %>
     <br>
     <br>

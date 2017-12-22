@@ -1,6 +1,8 @@
 class RideRequestsController < ApplicationController
   before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear, :advance_status, :reset_status]
-  before_action :authenticate_user!, except: [:new, :create, :show, :edit, :update, :set_rider_info]
+  before_action :authenticate_user!, except: [:new, :create, :show, :edit, :update, :set_rider_info, :inactive]
+  before_action :check_active, except: [:manager, :inactive]
+
   layout 'shuttle_layout'
   #autocomplete :pickup_location, :name
   # GET /ride_requests
@@ -210,6 +212,9 @@ class RideRequestsController < ApplicationController
     redirect_to ride_request_manager_path
   end
 
+  def inactive
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ride_request
@@ -224,5 +229,12 @@ class RideRequestsController < ApplicationController
     def ride_request_params
 
       params.require(:ride_request).permit(:pickup_address, :dropoff_address, :riders, :requester_name, :shuttle_id, :completed, :phone, :note)
+    end
+
+    def check_active
+      if BusinessSetting.first.ride_request_active
+      else
+        redirect_to inactive_path
+      end
     end
 end

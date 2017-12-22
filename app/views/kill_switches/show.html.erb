@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @kill_switch.is_active %>
+</p>
+
+<%= link_to 'Edit', edit_kill_switch_path(@kill_switch) %> |
+<%= link_to 'Back', kill_switches_path %>

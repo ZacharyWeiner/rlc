@@ -1,0 +1,2 @@
+module BusinessSettingsHelper
+end

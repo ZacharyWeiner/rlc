@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Kill Switches</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Is active</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kill_switches.each do |kill_switch| %>
+      <tr>
+        <td><%= kill_switch.is_active %></td>
+        <td><%= link_to 'Show', kill_switch %></td>
+        <td><%= link_to 'Edit', edit_kill_switch_path(kill_switch) %></td>
+        <td><%= link_to 'Destroy', kill_switch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kill Switch', new_kill_switch_path %>

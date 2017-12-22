@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ride request active:</strong>
+  <%= @business_setting.ride_request_active %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @business_setting.title %>
+</p>
+
+<%= link_to 'Edit', edit_business_setting_path(@business_setting) %> |
+<%= link_to 'Back', business_settings_path %>
