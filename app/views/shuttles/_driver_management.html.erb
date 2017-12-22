@@ -2,14 +2,14 @@
   <% Shuttle.all.each do |shuttle| %>
     <div class='row'>
       <%= form_for shuttle do |f|%>
-
+        <div class="col-md-1"><%= shuttle.id %></div>
         <div class='col-md-3'>
            <%= f.text_field :plate_number, id: :shuttle_plate_number, class: 'form-control', placeholder: 'plate #' %>
         </div>
         <div class='col-md-3'>
           <%= f.text_field :name, id: :shuttle_name, class: 'form-control' %>
         </div>
-        <div class='col-md-4'>
+        <div class='col-md-3'>
           <% if shuttle.is_looping %>
             <%= link_to "Stop Looping", shuttle_stop_looping_path(shuttle), class: 'btn btn-warning'  %>
           <% else %>
@@ -17,7 +17,7 @@
           <% end %>
         </div>
           <%= hidden_field :manager, value: 'manager'%>
-        <div class='col-md-2'>
+        <div class='col-md-1'>
           <%= f.submit "Update", class: 'btn btn-primary'%>
         </div>
       <% end %>
