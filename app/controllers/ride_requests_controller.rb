@@ -185,7 +185,11 @@ class RideRequestsController < ApplicationController
     @ride_request.advance_status(@ride_request.status)
     respond_to do |format|
       if @ride_request.save
-        message = "Your ride is on its way. You can track the shuttle here: http://shuttle.resortlodgingcompany.com/shuttles/" + @ride_request.shuttle_id.to_s
+        if @shuttle.is_looping
+          message = "Your ride is on its way. Please meet at the pickup address"
+        else
+          message = "Your ride is on its way. You can track the shuttle here: http://shuttle.resortlodgingcompany.com/shuttles/" + @ride_request.shuttle_id.to_s
+        end
         sms = SmsManager.new(to_number: @ride_request.phone, message: message)
         sms.send_message
         format.html { redirect_to ride_request_manager_path, notice: 'Ride request was successfully assigned.' }
