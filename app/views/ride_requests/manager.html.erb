@@ -37,7 +37,7 @@
                     <div class="item item-row1" style='background-color: #f4e59a'>
                           <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
                            <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
-                           <% unless request.note.nil? %>
+                           <% if request.note.nil? == false && request.note != ""%>
                           <div class="description">
                             Note: <%= request.note %>
                           </div>
@@ -80,7 +80,7 @@
                   <div class="item item-row1" style='background-color: #99dbf4' >
                         <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
                          <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
-                         <% unless request.note.nil? %>
+                        <% if request.note.nil? == false && request.note != ""%>
                         <div class="description">
                           Note: <%= request.note %>
                         </div>
@@ -123,7 +123,7 @@
                   <div class="item item-row1" style='background-color: #99f4a3'>
                         <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
                          <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
-                         <% unless request.note.nil? %>
+                         <% if request.note.nil? == false && request.note != ""%>
                         <div class="description">
                           Note: <%= request.note %>
                         </div>
