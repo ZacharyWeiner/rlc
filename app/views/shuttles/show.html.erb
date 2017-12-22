@@ -145,6 +145,20 @@
 <script>
   $(document).ready(function () {
 
+    if(location.search == '?q=driver'){
+      setInterval(initGeolocation, 30000);
+    };
+
+     function initGeolocation() {
+     if (navigator && navigator.geolocation) {
+          /*alert('setting geolocation'); */
+          navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+            } else {
+                alert('Geolocation is not supported');
+                console.log('Geolocation is not supported');
+            }
+      }
+
     $('#rider-form').validate({
         rules: {
             name: {
@@ -167,12 +181,45 @@
     }, "Please specify a valid phone number");
 
     // programmatically check the entire form using the `.valid()` method.
-
-    $('#submit').on('click', function () {
+    $("#rider-form").on('click', '#submit', function () {
         $('#rider-form').valid();
     });
 
 });
+
+function errorCallback() {}
+
+function successCallback(position) {
+  // var mapUrl = "http://maps.google.com/maps/api/staticmap?center=";
+  // mapUrl = mapUrl + position.coords.latitude + ',' + position.coords.longitude;
+  // mapUrl = mapUrl + '&zoom=15&size=512x512&maptype=roadmap&sensor=false';
+  // var imgElement = document.getElementById("static-map");
+  // imgElement.src = mapUrl;
+  $('.lat').text(position.coords.latitude);
+  $('.long').text(position.coords.longitude);
+  makeRequest(position.coords.latitude, position.coords.longitude, <%= @shuttle.id %>)
+}
+
+function makeRequest(latitude, longitude, shuttleID){
+  $.ajax({
+      url:'/driver/' + shuttleID + '/set_location',
+      type:'POST',
+      dataType:'json',
+      data:{
+          shuttle_id: shuttleID,
+          lat: latitude,
+          long: longitude,
+          authenticity_token: window._token
+      },
+      success:function(data){
+        alert('set position');
+
+      },
+      error:function(data){
+
+      }
+  });
+}
 </script>
 
 

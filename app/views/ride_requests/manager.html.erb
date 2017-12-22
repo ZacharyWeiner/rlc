@@ -34,7 +34,11 @@
               <div class='col-md-4'>
                   <h3 style='color:black'>In Queue</h3>
                   <% queue.each do |request| %>
-                    <div class="item item-row1" style='background-color: #f4e59a'>
+                    <% color = "#f4e59a" %>
+                    <% if request.origin == "user" %>
+                      <% color = "#f97b72" %>
+                    <% end %>
+                    <div class="item item-row1" style="background-color:<%= color %> ">
                           <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
                            <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
                            <% if request.note.nil? == false && request.note != ""%>
@@ -170,16 +174,40 @@
 
     </div>
     <div class='col-md-4'>
-
+    <div id='appender'></div>
     <%= render 'ride_requests/manager_form' %>
     <br>
     <br>
     <br>
     <%= render 'shuttles/driver_management' %>
+    <%= @last_request_id %>
     <script type="text/javascript">
       $(document).ready(function() {
             $('.ride-select').select2();
+            window.setInterval(check_for_new, 10000);
           });
+
+
+      function check_for_new(){
+        $.ajax({
+            url:'/ride_request/check_last_ride/<%= @last_request_id %>',
+            type:'GET',
+            dataType:'json',
+            data:{
+
+            },
+            success:function(data){
+             console.log(data);
+             console.log(data["message"])
+             if (data["message"] == "refresh"){
+                location.reload();
+             }
+            },
+            error:function(data){
+
+            }
+        });
+      }
     </script>
 
 

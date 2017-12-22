@@ -40,8 +40,12 @@
      <%= form.label :dropoff_location %><br>
      <%= form.select(:dropoff_address, options_for_select(locations), {}, { :class => 'ride-select'}) %>
   </div>
-
+      <%= form.hidden_field :origin, value: 'user' %>
 
   <%= form.submit "Request Ride", class: "btn btn-primary" %>
 <% end %>
 
+
+<script>
+    $('.ride-select').select2();
+</script>

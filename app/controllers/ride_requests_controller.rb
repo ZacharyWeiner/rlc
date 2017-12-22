@@ -66,9 +66,10 @@ class RideRequestsController < ApplicationController
         if params[:ride_request][:redirect]
           flash[:notice] = @ride_request.errors.full_messages.to_sentence
           return redirect_to ride_request_manager_path
+        else
+          format.html { redirect_to new_ride_request_path, notice: 'Ride request must have an Origin and Destination' }
+          format.json { render json: @ride_request.errors, status: :unprocessable_entity }
         end
-        format.html { render :new }
-        format.json { render json: @ride_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -175,6 +176,7 @@ class RideRequestsController < ApplicationController
     end
     @ride_request = RideRequest.new
     @ordered_locations = Location.all
+    @last_request_id  = RideRequest.last.id
   end
 
   def assign_to_shuttle
@@ -215,6 +217,22 @@ class RideRequestsController < ApplicationController
   def inactive
   end
 
+  def check_last_ride
+    last_id = RideRequest.last.id
+    if params[:id] == last_id.to_s
+      respond_to do |format|
+        msg = { :status => "ok", :message => "no new"}
+         format.json { render json: msg }
+      end
+    else
+      respond_to do |format|
+        msg = { :status => "ok", :message => "refresh"}
+        format.json { render json: msg }
+      end
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ride_request
@@ -227,8 +245,7 @@ class RideRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ride_request_params
-
-      params.require(:ride_request).permit(:pickup_address, :dropoff_address, :riders, :requester_name, :shuttle_id, :completed, :phone, :note)
+      params.require(:ride_request).permit(:pickup_address, :dropoff_address, :riders, :requester_name, :shuttle_id, :completed, :phone, :note, :origin)
     end
 
     def check_active

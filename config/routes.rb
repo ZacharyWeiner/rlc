@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   end
   get 'ride_request/manager', to: "ride_requests#manager", as:'ride_request_manager'
+  get 'ride_request/check_last_ride/:id', to: "ride_requests#check_last_ride", as:'last_ride'
   resources :shuttle_stops
   resources :shuttles do
     get 'set_looping', to: 'shuttles#set_looping', as:'set_looping'
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
   get 'shuttle/trackers', to: 'shuttles#trackers', as: 'shuttle_trackers'
   get 'driver', to:'shuttles#driver', as: 'driver'
+  get 'driver/:id', to:'shuttles#driver', as: 'driver_id'
   post 'driver/:id/set_location', to:'shuttles#set_location', as: 'set_location'
   post 'ride_requests/rider/set_location', to:'ride_requests#set_rider_location', as: 'set_rider_location'
   post 'ride_requests/rider/set_rider_info', to:'ride_requests#set_rider_info', as: 'set_rider_info'
