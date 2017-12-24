@@ -11,7 +11,6 @@ class PagesController < ApplicationController
   end
 
   def send_sms
-    byebug
     number = params[:phone_number]
     number = number.gsub('-', "")
     sms = SmsManager.new(to_number: number, message: "Thank You For Staying at an RLC Property. To order a shuttle online please visit: http://bit.ly/2DDmP5F")
