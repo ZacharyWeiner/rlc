@@ -61,6 +61,8 @@ Rails.application.routes.draw do
   get 'test_text', to: 'twilios#send_test', as: 'twilio_test'
 
   get 'right_column_list', to: 'pages#right_column_list', as: 'right_column_list'
+  get 'front_desk', to: 'pages#front_desk', as: 'front_desk'
+  post 'pages/front_desk/send_sms', to: 'pages#send_sms', as: 'pages_send_sms'
   root "pages#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
