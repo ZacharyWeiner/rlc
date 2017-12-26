@@ -1,8 +1,5 @@
 <section class="page-title">
-    <h1>Ride Requests</h1>
-    <span class='pull-right'>
-      <%= render 'ride_requests/kill_switch' %>
-    </span>
+
 
 </section>
 
@@ -14,10 +11,17 @@
 <div class='container' style='margin-top: -60px;'>
 <div class='row'>
 
-  <button onclick="window.location.href='/ride_request/manager'"  class='btn btn-primary'>All</button>
-  <% Shuttle.all.each do |s|%>
-    <button onclick="window.location.href='/ride_request/manager?driver=<%= s.name%>'"  class='btn btn-primary'><%= s.name%></button>
+  <button onclick="window.location.href='/ride_request/manager'"  class='btn btn-success'>All</button>
+  <% Shuttle.ordered_by_clear.each do |s|%>
+    <% if s.ride_count == 0 %>
+      <button onclick="window.location.href='/ride_request/manager?driver=<%= s.name%>'"  class='btn btn-secondary'><%= s.name%></button>
+    <% else %>
+      <button onclick="window.location.href='/ride_request/manager?driver=<%= s.name%>'"  class='btn btn-primary'><%= s.name%></button>
+    <% end %>
   <% end %>
+  <span class='pull-right'>
+      <%= render 'ride_requests/kill_switch' %>
+    </span>
 </div>
 </div>
 <br>
@@ -28,8 +32,6 @@
     <div class='row'>
         <div class='col-md-8'>
           <!-- Table -->
-
-
             <div class='row'>
               <div class='col-md-4'>
                   <h3 style='color:black'>In Queue</h3>
@@ -39,16 +41,22 @@
                       <% color = "#f97b72" %>
                     <% end %>
                     <div class="item item-row1" style="background-color:<%= color %> ">
-                          <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
-                           <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
-                           <% if request.note.nil? == false && request.note != ""%>
-                          <div class="description">
-                            Note: <%= request.note %>
-                          </div>
-                          <% end %>
-                          <div class="description">
-                              <strong>Pickup:</strong> <%= request.pickup_address.split(',')[0] %><span style="margin-left:10px;margin-right:10px;"></span><strong>DropOff:</strong><%= request.dropoff_address.split(',')[0]%>
-                          </div>
+                      <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>
+                        <span style="margin-left:10px;margin-right:10px;"></span>
+                        Created: <div class="label label-default"><%= time_ago_in_words(request.created_at) %> ago</div>
+                      </h3>
+                       <b>Name:</b>
+                       <%= request.requester_name %>
+                       <span style="margin-left:10px;margin-right:10px;"></span>
+                       Riders: <%= request.riders %>
+                       <% if request.note.nil? == false && request.note != ""%>
+                        <div class="description">
+                          Note: <%= request.note %>
+                        </div>
+                      <% end %>
+                      <div class="description">
+                          <strong>Pickup:</strong> <%= request.pickup_address.split(',')[0] %><span style="margin-left:10px;margin-right:10px;"></span><strong>DropOff:</strong><%= request.dropoff_address.split(',')[0]%>
+                      </div>
                       <div class="controls-more">
                         <% if request.status == "In Queue" %>
                           <ul>
@@ -82,8 +90,13 @@
                 <h3 style='color:black'>Dispatched</h3>
                 <% dispatched.each do |request| %>
                   <div class="item item-row1" style='background-color: #99dbf4' >
-                        <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
-                         <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
+                        <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>
+                          <span style="margin-left:10px;margin-right:10px;"></span>
+                          Created: <div class="label label-default"><%= time_ago_in_words(request.created_at) %> ago</div>
+                        </h3>
+                         <b>Name:</b> <%= request.requester_name %>
+                         <span style="margin-left:10px;margin-right:10px;"></span>
+                         Riders: <%= request.riders %>
                         <% if request.note.nil? == false && request.note != ""%>
                         <div class="description">
                           Note: <%= request.note %>
@@ -125,12 +138,17 @@
                 <h3 style='color:black'>Rolling</h3>
                 <% rolling.each do |request| %>
                   <div class="item item-row1" style='background-color: #99f4a3'>
-                        <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>  <span style="margin-left:10px;margin-right:10px;"></span>    Status: <div class="label label-default"><%= request.status %></div> </h3>
-                         <b>Name:</b> <%= request.requester_name %><span style="margin-left:10px;margin-right:10px;"></span>Riders: <%= request.riders %>
+                        <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>
+                          <span style="margin-left:10px;margin-right:10px;"></span>
+                          Created: <div class="label label-default"><%= time_ago_in_words(request.created_at) %> ago</div>
+                        </h3>
+                         <b>Name:</b> <%= request.requester_name %>
+                         <span style="margin-left:10px;margin-right:10px;">
+                         </span>Riders: <%= request.riders %>
                          <% if request.note.nil? == false && request.note != ""%>
-                        <div class="description">
-                          Note: <%= request.note %>
-                        </div>
+                          <div class="description">
+                            Note: <%= request.note %>
+                          </div>
                         <% end %>
                         <div class="description">
                             <strong>Pickup:</strong> <%= request.pickup_address.split(',')[0] %><span style="margin-left:10px;margin-right:10px;"></span><strong>DropOff:</strong><%= request.dropoff_address.split(',')[0]%>

@@ -120,4 +120,12 @@ class Shuttle < ApplicationRecord
     end
     @ordered_stops
   end
+
+  def ride_count
+    self.ride_requests.where(status: ['In Queue','Rolling', 'Dispatched']).count
+  end
+
+  def self.ordered_by_clear
+    all.order(:clear_time)
+  end
 end

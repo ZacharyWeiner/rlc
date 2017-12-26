@@ -15,17 +15,6 @@
   <%  @ordered_locations.each do |l|  %>
   <% locations << [l.name, "#{l.name}, #{l.address}"] %>
   <% end %>
-
-
-    <div class='row'>
-      <%= form.label :name %>
-      <%= form.text_field :requester_name, id: :ride_request_requester_name, class: 'form-control', placeholder: "Rider Name" %>
-    </div>
-    <div class='row'>
-      <%= form.label :phone %>
-      <%= form.text_field :phone, id: :ride_request_phone,  class: 'form-control', placeholder:'Phone Number...'  %>
-
-    </div>
     <div class="row">
       <%= form.label :origin %><br>
       <div class='origin'>
@@ -77,6 +66,15 @@
     <div class='row'>
       <%= form.label :note %>
       <%= form.text_field :note, id: :ride_request_note,  class: 'form-control', rows: 4, placeholder:'Note...'    %>
+    </div>
+    <div class='row'>
+      <%= form.label :name %>
+      <%= form.text_field :requester_name, id: :ride_request_requester_name, class: 'form-control', placeholder: "Rider Name" %>
+    </div>
+    <div class='row'>
+      <%= form.label :phone %>
+      <%= form.text_field :phone, id: :ride_request_phone,  class: 'form-control', placeholder:'Phone Number...'  %>
+
     </div>
     <div class='row'>
       <br>
