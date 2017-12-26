@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :shuttles do
     get 'set_looping', to: 'shuttles#set_looping', as:'set_looping'
     get 'stop_looping', to: 'shuttles#stop_looping', as:'stop_looping'
+    get 'set_active', to: 'shuttles#set_active', as:'set_active'
+    get 'set_inactive', to: 'shuttles#set_inactive', as:'set_inactive'
   end
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
   get 'shuttle/trackers', to: 'shuttles#trackers', as: 'shuttle_trackers'

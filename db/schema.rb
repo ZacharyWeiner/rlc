@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226190920) do
+ActiveRecord::Schema.define(version: 20171226193529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(version: 20171226190920) do
     t.string "plate_number"
     t.boolean "is_looping"
     t.datetime "clear_time"
+    t.boolean "is_active"
   end
 
   create_table "trackers", force: :cascade do |t|

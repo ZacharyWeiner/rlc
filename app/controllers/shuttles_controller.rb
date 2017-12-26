@@ -127,6 +127,20 @@ class ShuttlesController < ApplicationController
     redirect_to ride_request_manager_path
   end
 
+  def set_active
+    set_shuttle
+    @shuttle.is_active = true
+    @shuttle.save
+    redirect_to ride_request_manager_path
+  end
+
+  def set_inactive
+    set_shuttle
+    @shuttle.is_active = false
+    @shuttle.save
+    redirect_to ride_request_manager_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shuttle

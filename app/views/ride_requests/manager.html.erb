@@ -12,7 +12,7 @@
 <div class='row'>
 
   <button onclick="window.location.href='/ride_request/manager'"  class='btn btn-success'>All</button>
-  <% Shuttle.ordered_by_clear.each do |s|%>
+  <% Shuttle.ordered_by_clear.where(is_active: true).each do |s|%>
     <% if s.ride_count == 0 %>
       <button onclick="window.location.href='/ride_request/manager?driver=<%= s.name%>'"  class='btn btn-secondary'><%= s.name%></button>
     <% else %>
@@ -60,7 +60,7 @@
                       <div class="controls-more">
                         <% if request.status == "In Queue" %>
                           <ul>
-                              <% Shuttle.all.each do |shuttle| %>
+                              <% Shuttle.where(is_active: true).each do |shuttle| %>
                               <li><%= link_to "Assign to #{shuttle.name}", ride_request_assign_shuttle_path(request, shuttle.id) %></li>
                               <% end %>
                           </ul>
@@ -108,7 +108,7 @@
                     <div class="controls-more">
                       <% if request.status == "In Queue" %>
                         <ul>
-                            <% Shuttle.all.each do |shuttle| %>
+                            <% Shuttle.where(is_active: true).each do |shuttle| %>
                             <li><%= link_to "Assign to #{shuttle.name}", ride_request_assign_shuttle_path(request, shuttle.id) %></li>
                             <% end %>
                         </ul>
@@ -156,7 +156,7 @@
                     <div class="controls-more">
                       <% if request.status == "In Queue" %>
                         <ul>
-                            <% Shuttle.all.each do |shuttle| %>
+                            <% Shuttle.where(is_active: true).each do |shuttle| %>
                             <li><%= link_to "Assign to #{shuttle.name}", ride_request_assign_shuttle_path(request, shuttle.id) %></li>
                             <% end %>
                         </ul>
