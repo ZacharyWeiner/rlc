@@ -1,0 +1,18 @@
+<h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>
+  <span style="margin-left:10px;margin-right:10px;"></span>
+  Created: <div class="label label-default"><%= time_ago_in_words(request.created_at) %> ago</div>
+</h3>
+
+Pickup:<strong style="margin-left:6px;"><%= request.pickup_address.split(',')[0] %></strong>
+<span style="margin-left:10px;margin-right:10px;"></span>
+DropOff:<strong style="margin-left:6px;"><%= request.dropoff_address.split(',')[0]%></strong>
+
+<% if request.note.nil? == false && request.note != ""%>
+<div class="description">
+  Note: <%= request.note %>
+</div>
+<% end %>
+<div class="description">
+  <b>Name:</b> <%= request.requester_name %>
+ <span style="margin-left:10px;margin-right:10px;"></span>
+ Riders: <%= request.riders %>

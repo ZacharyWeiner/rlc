@@ -9,8 +9,11 @@
                 <div class="primary-nav has-mega-menu">
                     <ul class="navigation">
                         <!-- <li class='active'><% link_to "Home", root_path %></li> -->
-
-                        <li><%= link_to "Shuttles", shuttles_path %></li>
+                        <% if current_user %>
+                            <li><%= link_to "Shuttles", ride_request_manager_path %></li>
+                        <% else %>
+                        <li><%= link_to "New Ride", new_ride_request_path %></li>
+                        <% end %>
                         <%= render 'shared/rlc/menu_items/devise' %>
                     </ul>
                     <!--end navigation-->

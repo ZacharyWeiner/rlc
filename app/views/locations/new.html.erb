@@ -82,8 +82,10 @@
     </style>
 
 <h1>New Location</h1>
-<%= link_to '< Back', locations_path %>
+<div class='container'>
 <%= render 'form', location: @location %>
+<%= link_to '< Back', locations_path %>
+</div>
 
 
 

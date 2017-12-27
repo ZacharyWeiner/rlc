@@ -12,7 +12,7 @@
   <% end %>
   <% locations = [] %>
   <% locations << ["-- Please Select --", "-- Please Select --"]%>
-  <%  @ordered_locations.each do |l|  %>
+  <% Location.all.order(:priority).each do |l|  %>
   <% locations << [l.name, "#{l.name}, #{l.address}"] %>
   <% end %>
     <div class="row">
@@ -20,7 +20,7 @@
       <div class='origin'>
         <div class="row">
           <div class='col-md-9'>
-            <%= form.select(:pickup_address, options_for_select(locations), {}, { :class => 'ride-select'}) %>
+            <%= form.select(:pickup_address, options_for_select(locations), {}, {:tabindex => 1,  :class => 'ride-select'}) %>
           </div>
           <div class='col-md-3'>
             <button type='button' onclick="showCustomPickupAddress()">custom</button>
@@ -36,7 +36,7 @@
       <div class='destination'>
         <div class="row">
           <div class='col-md-9'>
-            <%= form.select(:dropoff_address, options_for_select(locations), {}, { :class => 'ride-select'}) %>
+            <%= form.select(:dropoff_address, options_for_select(locations), {}, {:tabindex => 2,  :class => 'ride-select'}) %>
           </div>
           <div class='col-md-3'>
             <button type='button' onclick="showCustomDropoffAddress()">custom</button>
@@ -50,7 +50,7 @@
     <div class='row'>
         <div class='col-md-3'>
           <%= form.label :riders %>
-          <%= form.number_field :riders, id: :ride_request_riders, class: 'form-control', style: 'max-width:50px' %>
+          <%= form.number_field :riders, id: :ride_request_riders, class: 'form-control', style: 'max-width:50px', :tabindex => 3 %>
         </div>
         <div class='col-md-9'>
             <% shuttles = [] %>
@@ -59,27 +59,27 @@
               <% shuttles << [s.name, "#{s.id}"] %>
             <% end %>
            <%= form.label :shuttle %><br>
-          <%= form.select(:shuttle_id, options_for_select(shuttles), {}, { :class => 'ride-select'}) %>
+          <%= form.select(:shuttle_id, options_for_select(shuttles), {:tabindex => 4}, { :class => 'ride-select'}) %>
         </div>
     </div>
     <br>
     <div class='row'>
       <%= form.label :note %>
-      <%= form.text_field :note, id: :ride_request_note,  class: 'form-control', rows: 4, placeholder:'Note...'    %>
+      <%= form.text_field :note, id: :ride_request_note,  class: 'form-control', rows: 4, placeholder:'Note...', :tabindex => 5    %>
     </div>
     <div class='row'>
       <%= form.label :name %>
-      <%= form.text_field :requester_name, id: :ride_request_requester_name, class: 'form-control', placeholder: "Rider Name" %>
+      <%= form.text_field :requester_name, id: :ride_request_requester_name, class: 'form-control', placeholder: "Rider Name", :tabindex => 6 %>
     </div>
     <div class='row'>
       <%= form.label :phone %>
-      <%= form.text_field :phone, id: :ride_request_phone,  class: 'form-control', placeholder:'Phone Number...'  %>
+      <%= form.text_field :phone, id: :ride_request_phone,  class: 'form-control', placeholder:'Phone Number...', :tabindex => 7  %>
 
     </div>
     <div class='row'>
       <br>
       <%= form.hidden_field :redirect, :value => "manager" %>
-      <%= form.submit "Request Ride", class: "btn btn-primary pull-right" %>
+      <%= form.submit "Request Ride", class: "btn btn-primary pull-right", :tabindex => 8 %>
     </div>
 <% end %>
 <script type="text/javascript">
@@ -94,9 +94,9 @@
 
   };
 
-  $("form").on("keypress", function (e) {
-    if (e.keyCode == 13) {
-        return false;
-    }
-});
+//   $("form").on("keypress", function (e) {
+//     if (e.keyCode == 13) {
+//         return false;
+//     }
+// });
 </script>

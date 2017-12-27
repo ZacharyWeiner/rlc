@@ -11,20 +11,20 @@
     </div>
   <% end %>
   <div class='row' style='padding-bottom:24px;' >
-    <div class='col-md-1'>
-        <%= form.label :name %>
-    </div>
     <div class="col-md-4">
-        <%= form.text_field :name, id: :location_name, class: 'form-control' %>
-    </div>
-    <div class='col-md-1'>
-        <%= form.label :address %>
+       <%= form.label :name %>
+        <%= form.text_field :name, id: :location_name, class: 'form-control', placeholder: 'Name of Place' %>
     </div>
     <div class='col-md-4'>
-      <%= form.text_field :address, id: :location_address, class: 'form-control' %>
+      <%= form.label :address %>
+      <%= form.text_field :address, id: :location_address, class: 'form-control', placeholder: 'Address' %>
+    </div>
+    <div class='col-md-2'>
+      <%= form.label :priority %>
+      <%= form.number_field :priority, id: :location_priority, class: 'form-control' %>
     </div>
      <div class="col-md-2">
-      <%= form.submit "Add", class: 'btn btn-primary v-center' %>
+      <%= form.submit "Add", class: 'btn btn-primary v-center', style: 'margin-top:24px;' %>
     </div>
   </div>
 
