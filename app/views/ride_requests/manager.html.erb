@@ -42,12 +42,8 @@
                     <% end %>
                     <div class="item item-row1" style="background-color:<%= color %> ">
                       <h3 style="margin-left:6px;"><%= request.pickup_address.split(',')[0] %> <i class='fa fa-arrow-right'></i> <%= request.dropoff_address.split(',')[0]%>
-                        <i class='fa fa-calendar pull-right'></i> <div class="label label-default pull-right"><%= time_ago_in_words(request.created_at) %> ago</div>
+                         <div class="label label-default pull-right"><%= time_ago_in_words(request.created_at) %> ago</div>
                       </h3>
-                      <h5> <i class='fa fa-truck'></i><%= request.shuttle.name unless request.shuttle.nil? %>
-                        <span style="margin-left:10px;margin-right:10px;"></span>
-                      </h5>
-
                       <% if request.note.nil? == false && request.note != ""%>
                       <div class="description">
                         Note: <%= request.note %>
@@ -92,9 +88,9 @@
                 <% dispatched.each do |request| %>
                   <div class="item item-row1" style='background-color: #99dbf4' >
                      <h3 style="margin-left:6px;"><%= request.pickup_address.split(',')[0] %> <i class='fa fa-arrow-right'></i> <%= request.dropoff_address.split(',')[0]%>
-                        <i class='fa fa-calendar pull-right'></i> <div class="label label-default pull-right"><%= time_ago_in_words(request.created_at) %> ago</div>
+                        <div class="label label-default pull-right"><%= time_ago_in_words(request.created_at) %> ago</div>
                       </h3>
-                      <h5> <i class='fa fa-truck'></i><%= request.shuttle.name unless request.shuttle.nil? %>
+                      <h5> <i class='fa fa-truck'></i><span style="margin-left:10px;"></span><%= request.shuttle.name unless request.shuttle.nil? %>
                         <span style="margin-left:10px;margin-right:10px;"></span>
                       </h5>
 
@@ -142,14 +138,12 @@
                 <h3 style='color:black'>Rolling</h3>
                 <% rolling.each do |request| %>
                   <div class="item item-row1" style='background-color: #99f4a3'>
-                      <h3>Driver: <%= request.shuttle.name unless request.shuttle.nil? %>
-                        <span style="margin-left:10px;margin-right:10px;"></span>
-                        Created: <div class="label label-default"><%= time_ago_in_words(request.created_at) %> ago</div>
+                      <h3 style="margin-left:6px;"><%= request.pickup_address.split(',')[0] %> <i class='fa fa-arrow-right'></i> <%= request.dropoff_address.split(',')[0]%>
+                        <div class="label label-default pull-right"><%= time_ago_in_words(request.created_at) %> ago</div>
                       </h3>
-
-                      Pickup:<strong style="margin-left:6px;"><%= request.pickup_address.split(',')[0] %></strong>
-                      <span style="margin-left:10px;margin-right:10px;"></span>
-                      DropOff:<strong style="margin-left:6px;"><%= request.dropoff_address.split(',')[0]%></strong>
+                      <h5> <i class='fa fa-truck'></i><span style="margin-left:10px;"></span><%= request.shuttle.name unless request.shuttle.nil? %>
+                        <span style="margin-left:10px;margin-right:10px;"></span>
+                      </h5>
 
                       <% if request.note.nil? == false && request.note != ""%>
                       <div class="description">
@@ -160,6 +154,7 @@
                         <b>Name:</b> <%= request.requester_name %>
                        <span style="margin-left:10px;margin-right:10px;"></span>
                        Riders: <%= request.riders %>
+
                     </div>
                     <div class="controls-more">
                       <% if request.status == "In Queue" %>
