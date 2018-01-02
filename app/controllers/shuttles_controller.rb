@@ -81,6 +81,8 @@ class ShuttlesController < ApplicationController
   end
 
   def driver
+    set_shuttle
+    @ordered_stops = @shuttle.get_ordered_stops
     @lat = request.location.latitude
     @long = request.location.longitude
   end
