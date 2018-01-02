@@ -40,11 +40,11 @@
       <% @last_stop_for_display = RideAndDistance.new(address: "1475 Pine Grove Rd, Steamboat Springs, CO 80477") %>
       <h2>Stops</h2>
       <!-- Ordered Stops List -->
-      <div class='container'>
+      <div class=''>
         <% @ordered_stops.each do |os| %>
           <% unless os.nil? %>
-            <div class='row'>
-              <h4> Stop #<%= stops_count unless stops_count.nil? %> <%= os.stop_type unless os.nil?%></h4>
+            <div class="item item-row1" >
+              <h3> <%= os.address.split(',')[0].gsub!('+', ' ')%></h3>
                <%= os.name %><br/>
                <% if os.address.include?("+") %>
                   <%= os.address.gsub!('+',' ')%>
@@ -114,14 +114,14 @@ $(document).ready(function($) {
 function errorCallback() {}
 
 function successCallback(position) {
-  var mapUrl = "http://maps.google.com/maps/api/staticmap?center=";
-  mapUrl = mapUrl + position.coords.latitude + ',' + position.coords.longitude;
-  mapUrl = mapUrl + '&zoom=15&size=512x512&maptype=roadmap&sensor=false';
-  var imgElement = document.getElementById("static-map");
-  imgElement.src = mapUrl;
+  // var mapUrl = "http://maps.google.com/maps/api/staticmap?center=";
+  // mapUrl = mapUrl + position.coords.latitude + ',' + position.coords.longitude;
+  // mapUrl = mapUrl + '&zoom=15&size=512x512&maptype=roadmap&sensor=false';
+  // var imgElement = document.getElementById("static-map");
+  // imgElement.src = mapUrl;
   $('.lat').text(position.coords.latitude);
   $('.long').text(position.coords.longitude);
-  makeRequest(position.coords.latitude, position.coords.longitude, driver)
+  makeRequest(position.coords.latitude, position.coords.longitude, <%= @shuttle.id %>)
 }
 
 function makeRequest(latitude, longitude, shuttleID){
@@ -139,7 +139,7 @@ function makeRequest(latitude, longitude, shuttleID){
 
       },
       error:function(data){
-
+        alert('There was a problem making the request!');
       }
   });
 }

@@ -98,10 +98,10 @@ class ShuttlesController < ApplicationController
       if @shuttle.save
         p "shuttle save success "
         Tracker.create!(shuttle: @shuttle, lat: params[:lat], long: params[:long])
-        format.json { render json: "success", status: :success}
+        return format.json { render json: "success", status: :success}
       else
         p "shuttle save error"
-        format.json { render json: "error", status: :unprocessable_entity}
+        return format.json { render json: "error", status: :unprocessable_entity}
       end
 
     end
