@@ -20,7 +20,7 @@
       <% unless @ordered_stops.first.nil?%>
         <% @ordered_stops.each do |os|%>
           <% if (os_counter != os_count) && (complete == false) %>
-            <% waypoints = waypoints + os.address.gsub!(' ','+') + "|" %>
+            <% waypoints = waypoints + os.address.gsub!(' ','+').gsub('&', 'and') + "|" %>
             <% if session[:phone] == os.phone && os.stop_type == 'pickup' %>
               <% complete = true %>
             <% end %>
@@ -44,7 +44,7 @@
         <% @ordered_stops.each do |os| %>
           <% unless os.nil? %>
             <div class="item item-row1" >
-              <h3> <%= os.address.split(',')[0].gsub!('+', ' ')%></h3>
+              <h3> <%= os.address.split(',')[0].gsub('+', ' ')%></h3>
                <%= os.name %><br/>
                <% if os.address.include?("+") %>
                   <%= os.address.gsub!('+',' ')%>
