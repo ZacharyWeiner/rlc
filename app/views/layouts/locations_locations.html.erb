@@ -8,7 +8,7 @@
     <%= stylesheet_link_tag 'locations_maps' %>
 
 
-
+     <%= yield :head %>
     <!-- Latest compiled and minified JavaScript -->
   </head>
 
@@ -18,7 +18,7 @@
       <div id="page-content">
       <%= yield %>
     </div>
-    <%= render 'shared/locations_theme/footer' %>
+    <%= render 'shared/rlc/content/footer' %>
     </div>
 
     <%= javascript_include_tag 'locations_locations' %>
@@ -28,5 +28,6 @@
     </script>
   </body>
 </html>
+
 
 
