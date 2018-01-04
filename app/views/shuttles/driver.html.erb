@@ -93,7 +93,8 @@ $(document).ready(function($) {
   var driver = <%= @shuttle.id %> ;
   initGeolocation();
 
-  setInterval(initGeolocation, 30000);
+  // setInterval(initGeolocation, 30000);
+  setInterval(refresh_page, 60000);
 
 });
   function set_driver(){
@@ -101,6 +102,7 @@ $(document).ready(function($) {
     driver = $("#driver_id").val()
   }
 
+ function refresh_page(){alert('refreshing');location.reload();}
  function initGeolocation() {
      if (navigator && navigator.geolocation) {
           /*alert('setting geolocation'); */
