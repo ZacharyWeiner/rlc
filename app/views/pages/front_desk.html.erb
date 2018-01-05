@@ -5,6 +5,9 @@
             </section>
             <!--end page-title-->
             <section>
+                <% flash.each do |key, value| %>
+                  <%= content_tag :div, value, class: "flash #{key}" %><br/>
+                <% end %>
                 <div class="row">
                     <div class="col-md-8 cols-m-8 col-md-offset-2">
                         <div class="step">
@@ -14,44 +17,24 @@
                                 <div class="circle-bg opacity-30"></div>
                             </div>
                             <div class="box">
-                                <h2>Shuttle Info </h2>
+                                <h2>Domesitc Numbers </h2>
                                 <form action="/pages/front_desk/send_sms" method="post">
                                    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
                                   <p><input  name="phone_number" class='form-control' placeholder="Enter Phone Number"></p>
+                                  <p><button type="submit" class='btn btn-default btn-rounded shadow'>Send Info</button></p>
+                                </form>
+                                <br> <br>
+                                <h2>International  Numbers </h2>
+                                <form action="/pages/front_desk/send_sms_intl" method="post">
+                                   <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+                                  <p><input  name="phone_number" class='form-control' placeholder="Enter Phone Number" value="+"></p>
+                                  <p> + Country Code - Area Code - Phone Number </p>
                                   <p><button type="submit" class='btn btn-default btn-rounded shadow'>Send Info</button></p>
                                 </form>
 
 
                             </div>
                         </div>
-                        <!--end step-->
-                       <!--  <div class="step">
-                            <div class="circle">
-                                <figure>2</figure>
-                                <i class="fa fa-bus "></i>
-                                <div class="circle-bg opacity-60"></div>
-                            </div>
-                            <div class="box">
-                                <h2>Find A City Bus </h2>
-                                <p>Steamboat Springs has a totally free bus service that loops from morning 'till night
-                                </p>
-                                <a href="https://steamboatspringstransit.routematch.com/fixedroute/" class="btn btn-default btn-rounded shadow btn-xs"><i class='fa fa-globe' ></i> Visit the Website</a>
-                            </div>
-                        </div> -->
-                        <!--end step-->
-                        <!-- <div class="step">
-                            <div class="circle">
-                                <figure>3</figure>
-                                <i class="fa fa-taxi"></i>
-                                <div class="circle-bg opacity-90"></div>
-                            </div>
-                            <div class="box">
-                                <h2>Call A Taxi</h2>
-                                <p>Call the local taxi service
-                                </p>
-                            </div>
-                        </div> -->
-                        <!--end step-->
                     </div>
                     <!--end col-md-8-->
                 </div>
