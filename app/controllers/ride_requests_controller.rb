@@ -22,9 +22,9 @@ class RideRequestsController < ApplicationController
     @lat = session[:latitude]
     @long = session[:longitude]
     if @lat.nil?
-      @ordered_locations = Location.all
+      @ordered_locations = Location.all.order(:priority)
     else
-      @ordered_locations = Location.near([@lat, @long], 30)
+      @ordered_locations = Location.all.order(:priority)#Location.near([@lat, @long], 30)
     end
     @ride_request = RideRequest.new
   end
