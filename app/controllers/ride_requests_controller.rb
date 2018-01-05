@@ -215,8 +215,10 @@ class RideRequestsController < ApplicationController
 
   def mark_clear
     @ride_request.advance_status("Rolling")
-    @ride_request.shuttle.clear_time = DateTime.now
-    @ride_request.shuttle.save
+    if @ride_request.shuttle.nil? == false
+      @ride_request.shuttle.clear_time = DateTime.now
+      @ride_request.shuttle.save
+    end
     redirect_to ride_request_manager_path
   end
 
