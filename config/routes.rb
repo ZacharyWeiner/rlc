@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     get 'set_active', to: 'shuttles#set_active', as:'set_active'
     get 'set_inactive', to: 'shuttles#set_inactive', as:'set_inactive'
     get 'driver', to: "shuttles#driver", as: "driver"
+    get 'clear_all', to: "shuttles#clear_all", as: "clear_all"
+    get 'all_rolling', to: "shuttles#all_rolling", as: "all_rolling"
   end
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
   get 'shuttle/trackers', to: 'shuttles#trackers', as: 'shuttle_trackers'

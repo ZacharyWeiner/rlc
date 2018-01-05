@@ -143,6 +143,26 @@ class ShuttlesController < ApplicationController
     redirect_to ride_request_manager_path
   end
 
+  def clear_all
+    set_shuttle
+    rides = @shuttle.ride_requests.where(status: "Rolling")
+    rides.each do |ride|
+      ride.advance_status(ride.status)
+      ride.save
+    end
+    redirect_to ride_request_manager_path
+  end
+
+  def all_rolling
+    set_shuttle
+    rides = @shuttle.ride_requests.where(status: "Dispatched")
+    rides.each do |ride|
+      ride.advance_status(ride.status)
+      ride.save
+    end
+    redirect_to ride_request_manager_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shuttle

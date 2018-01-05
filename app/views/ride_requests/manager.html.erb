@@ -114,6 +114,8 @@
                         </ul>
                       <% elsif request.status == "Dispatched" %>
                         <ul>
+                          <li><%= link_to "All Rolling", shuttle_all_rolling_path(request.shuttle) %></li>
+                          <li><span style='margin:10px;'></span></li>
                            <li><%= link_to "Set Rolling", ride_request_advance_status_path(request) %></li>
                          </ul>
                       <% else %>
@@ -169,6 +171,8 @@
                          </ul>
                       <% else %>
                          <ul>
+                          <li><%= link_to "Clear All", shuttle_clear_all_path(request.shuttle) %></li>
+                          <li><span style='margin:10px;'></span></li>
                            <li><%= link_to "Mark Clear", ride_request_mark_clear_path(request) %></li>
                          </ul>
                       <% end %>
