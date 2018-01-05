@@ -2,8 +2,8 @@
   <% Shuttle.all.each do |shuttle| %>
     <div class='row'>
       <%= form_for shuttle do |f|%>
-        <div class="col-md-1"><%= shuttle.id %></div>
-        <div class='col-md-3'>
+        <div class="col-md-2"><i class='fa fa-tablet fa-2x'> </i><span style='padding:4px;'></span><%= shuttle.id %></div>
+        <div class='col-md-2'>
            <%= f.text_field :plate_number, id: :shuttle_plate_number, class: 'form-control', placeholder: 'plate #' %>
         </div>
         <div class='col-md-3'>
