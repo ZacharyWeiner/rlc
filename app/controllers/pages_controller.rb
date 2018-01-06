@@ -15,18 +15,20 @@ class PagesController < ApplicationController
     number = number.gsub('-', "")
     sms = SmsManager.new(to_number: number, message: "Thank You For Staying at an RLC Property. To order a shuttle online please visit: http://bit.ly/2DDmP5F")
     sms.send_message
-    respond_to do |format|
-      return format.html { redirect_to redirect_to front_desk_path, notice: 'Text Message Sent' }
-    end
+    redirect_to text_message_sent_path
   end
 
    def send_sms_intl
-    number = params[:phone_number]
+    if params[:intl_phone_number]
+      number = params[:intl_phone_number]
+    else
+      number = params[:phone_number]
+    end
     number = number.gsub('-', "")
     sms = SmsManager.new(to_number: number, message: "Thank You For Staying at an RLC Property. To order a shuttle online please visit: http://bit.ly/2DDmP5F")
     sms.send_message
     respond_to do |format|
-      return format.html { redirect_to redirect_to front_desk_path, notice: 'Text Message Sent' }
+      return format.html { redirect_to text_message_sent_path, notice: 'Text Message Sent' }
     end
    end
 end

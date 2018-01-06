@@ -1,0 +1,32 @@
+ <ol class="breadcrumb">
+            <section class="center page-title">
+                <h1>Front Desk</h1>
+                <h3 class="subtitle">Resort Lodging Company</h3>
+            </section>
+            <!--end page-title-->
+            <section>
+                <% flash.each do |key, value| %>
+                  <%= content_tag :div, value, class: "flash #{key}" %><br/>
+                <% end %>
+                <div class="row">
+                    <div class="col-md-8 cols-m-8 col-md-offset-2">
+                        <div class="step">
+                            <div class="circle">
+                                <figure>1</figure>
+                                <i class="fa fa-mobile-phone"></i>
+                                <div class="circle-bg opacity-30"></div>
+                            </div>
+                            <div class="box">
+                                <h2> The Text Message Has Been Sent. </h2>
+                                <%= link_to front_desk_path, class: 'btn btn-default btn-rounded shadow ' do %>
+                                  <i class='fa fa-arrow-left'></i>  Back
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end col-md-8-->
+                </div>
+                <!--end row-->
+            </section>
+            <hr>
+        </ol>
