@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   resources :categories
 
   resources :charges
-
+  get 'set_play_sound', to: "business_settings#set_play_sound", as: 'set_play_sound'
 
   get 'test_text', to: 'twilios#send_test', as: 'twilio_test'
 

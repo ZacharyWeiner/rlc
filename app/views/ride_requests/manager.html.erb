@@ -21,6 +21,13 @@
   <% end %>
   <span class='pull-right'>
       <%= render 'ride_requests/kill_switch' %>
+      <%= link_to set_play_sound_path do %>
+        <% if BusinessSetting.first.play_sound %>
+         <i class='fa fa-volume-up fa-2x' style='padding:6px;'></i>On
+        <% else %>
+          <i class='fa fa-volume-down fa-2x'  style='padding:6px;'></i>Off
+        <% end %>
+      <% end %>
     </span>
 </div>
 </div>
@@ -214,6 +221,11 @@
             window.setInterval(check_for_new, 10000);
           });
 
+      function play_sound(){
+        var audio = new Audio('https://s3-us-west-2.amazonaws.com/rlc-experience/sounds/ding-sound-effect_1.mp3');
+        audio.play();
+      }
+
 
       function check_for_new(){
         $.ajax({
@@ -227,7 +239,14 @@
              console.log(data);
              console.log(data["message"])
              if (data["message"] == "refresh"){
-                location.reload();
+              <% if BusinessSetting.first.play_sound %>
+                var audio = new Audio('https://s3-us-west-2.amazonaws.com/rlc-experience/sounds/ding-sound-effect_1.mp3');
+                audio.play();
+              <% end %>
+                setTimeout(function(){
+                    location.reload();
+                }, 2000);
+
              }
             },
             error:function(data){

@@ -73,6 +73,18 @@ class BusinessSettingsController < ApplicationController
     redirect_to ride_request_manager_path
   end
 
+  def set_play_sound
+    bs = BusinessSetting.first
+    if bs.play_sound == true
+      bs.play_sound = false;
+      bs.save
+    else
+      bs.play_sound = true
+      bs.save
+    end
+    redirect_to ride_request_manager_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_business_setting
