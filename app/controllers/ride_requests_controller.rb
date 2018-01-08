@@ -118,7 +118,7 @@ class RideRequestsController < ApplicationController
       unless fixed_number[0] == "+"
         prefix = "+"
       end
-      unless fixed_number[0] == "1" || fixed_number[1] =="1"
+      unless fixed_number[0] == "1" || (fixed_number[0] == "+" && fixed_number[1] == "1")
         prefix = prefix + "1"
       end
       session[:phone] = prefix.to_s + fixed_number.to_s
@@ -142,6 +142,7 @@ class RideRequestsController < ApplicationController
     session[:email] = nil
     session[:latitude] = nil
     session[:longitude] = nil
+    redirect_to new_ride_request_path
   end
 
   def set_rider_location
