@@ -36,14 +36,15 @@ class Shuttle < ApplicationRecord
 
       distance_between_stops = Geocoder::Calculations.distance_between([pickup_location.latitude, pickup_location.longitude], [dropoff_location.latitude, dropoff_location.longitude])
 
-      @pickups_with_distance << RideAndDistance.new(ride_id: ride.id,
-        stop_type: "pickup",
-        address: ride.pickup_address,
-        name: ride.requester_name,
-        phone: ride.phone,
-        lat: pickup_location.latitude,
-        long:pickup_location.longitude,
-        distance: Geocoder::Calculations.distance_between([self.current_lat,self.current_long], [pickup_location.latitude, pickup_location.longitude]))
+        pu = RideAndDistance.new(ride_id: ride.id,
+          stop_type: "pickup",
+          address: ride.pickup_address,
+          name: ride.requester_name,
+          phone: ride.phone,
+          lat: pickup_location.latitude,
+          long:pickup_location.longitude,
+          distance: Geocoder::Calculations.distance_between([self.current_lat,self.current_long], [pickup_location.latitude, pickup_location.longitude]))
+        @pickups_with_distance << pu
 
       @do =  RideAndDistance.new(ride_id: ride.id,
         stop_type: "dropoff",

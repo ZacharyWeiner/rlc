@@ -20,7 +20,10 @@
       <% unless @ordered_stops.first.nil?%>
         <% @ordered_stops.each do |os|%>
           <% if (os_counter != os_count) && (complete == false) %>
+            <% if os.stop_type == 'pickup' &&  RideRequest.find(os.ride_id).status == 'Rolling' %>
+            <% else %>
             <% waypoints = waypoints + os.address.gsub!(' ','+').gsub('&', 'and') + "|" %>
+            <% end %>
             <% if session[:phone] == os.phone && os.stop_type == 'pickup' %>
               <% complete = true %>
             <% end %>
@@ -43,14 +46,15 @@
       <div class=''>
         <% @ordered_stops.each do |os| %>
           <% unless os.nil? %>
+            <% if os.stop_type == 'pickup' &&  RideRequest.find(os.ride_id).status == 'Rolling' %>
+            <% else %>
             <div class="item item-row1" >
-
                 <% if os.stop_type == 'pickup'%>
                  <h3 style='color:green; font-weight: bold'>
                   <i class='fa fa-crosshairs' style='color:green'></i>
                     <%= os.address.split(',')[0].gsub('+', ' ')%>
                   </h3>
-                <% else %>
+                <% elsif os.stop_type == "dropoff" %>
                   <h3 style='color:red; font-weight: bold'>
                     <i class='fa fa-map-marker' style='color:red'></i>
                     <%= os.address.split(',')[0].gsub('+', ' ')%>
@@ -67,9 +71,11 @@
                <% stops_count = stops_count + 1 %>
                <% @last_stop_for_display = os %>
             </div>
+            <% end %>
           <% end %>
         <% end %>
-        <br><br>
+        <br>
+        <br>
       </div>
     </div>
     <div class='col-md-6'>
