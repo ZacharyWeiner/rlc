@@ -44,7 +44,20 @@
         <% @ordered_stops.each do |os| %>
           <% unless os.nil? %>
             <div class="item item-row1" >
-              <h3> <%= os.address.split(',')[0].gsub('+', ' ')%></h3>
+
+                <% if os.stop_type == 'pickup'%>
+                 <h3 style='color:green; font-weight: bold'>
+                  <i class='fa fa-crosshairs' style='color:green'></i>
+                    <%= os.address.split(',')[0].gsub('+', ' ')%>
+                  </h3>
+                <% else %>
+                  <h3 style='color:red; font-weight: bold'>
+                    <i class='fa fa-map-marker' style='color:red'></i>
+                    <%= os.address.split(',')[0].gsub('+', ' ')%>
+                  </h3>
+                <% end %>
+
+
                <%= os.name %><br/>
                <% if os.address.include?("+") %>
                   <%= os.address.gsub!('+',' ')%>
