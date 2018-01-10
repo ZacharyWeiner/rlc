@@ -23,7 +23,6 @@ class RideRequestsController < ApplicationController
     @long = session[:longitude]
     t = Time.now
     hour_local_time = t.strftime("%H")
-    byebug
     if hour_local_time.to_i > 14
       @ordered_locations = Location.where(show_after_2: true).order(:priority)
     else
