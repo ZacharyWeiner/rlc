@@ -145,6 +145,9 @@
 <script>
   $(document).ready(function () {
 
+    setInterval(refresh_page, 60000);
+    function refresh_page(){location.reload();}
+
     if(location.search == '?q=driver'){
       setInterval(initGeolocation, 30000);
     };

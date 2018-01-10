@@ -21,10 +21,17 @@ class RideRequestsController < ApplicationController
   def new
     @lat = session[:latitude]
     @long = session[:longitude]
-    if @lat.nil?
-      @ordered_locations = Location.all.order(:priority)
+    t = Time.now
+    hour_local_time = t.strftime("%H")
+    byebug
+    if hour_local_time.to_i > 14
+      @ordered_locations = Location.where(show_after_2: true).order(:priority)
     else
-      @ordered_locations = Location.all.order(:priority)#Location.near([@lat, @long], 30)
+      if @lat.nil?
+        @ordered_locations = Location.all.order(:priority)
+      else
+        @ordered_locations = Location.all.order(:priority)#Location.near([@lat, @long], 30)
+      end
     end
     @ride_request = RideRequest.new
   end

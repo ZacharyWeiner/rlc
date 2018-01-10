@@ -61,10 +61,24 @@ class LocationsController < ApplicationController
     end
   end
 
+  def set_show_after_2
+    set_location
+    if @location.show_after_2 == true
+      @location.show_after_2 = false
+    else
+      @location.show_after_2 = true
+    end
+    @location.save
+    redirect_to locations_path
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location
+      if params[:location_id]
+        @location = Location.find(params[:location_id])
+      else
       @location = Location.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

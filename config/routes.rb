@@ -57,7 +57,9 @@ Rails.application.routes.draw do
 
   resources :experience_ideas
   resources :businesses
-  resources :locations
+  resources :locations do
+    get 'show_after_2', to: 'locations#set_show_after_2', as: 'show_after_2'
+  end
   resources :categories
 
   resources :charges
