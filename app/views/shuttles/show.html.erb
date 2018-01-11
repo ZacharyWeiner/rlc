@@ -101,7 +101,7 @@
       <!-- Ordered Stops List -->
       <% @ordered_stops.each do |os| %>
         <% unless os.nil? %>
-        <% if (os_counter != os_count) && (complete == false) %>
+        <% if (complete == false) %>
           <div class='row'>
             <h4> Stop #<%= stops_count unless stops_count.nil? %> <%= os.stop_type unless os.nil?%></h4>
              <%= os.name %><br/>
@@ -113,9 +113,10 @@
              <% stops_count = stops_count + 1 %>
              <% if session[:phone] == os.phone && os.stop_type == 'pickup' %>
               <% complete = true %>
-              <% @last_stop_for_display = os %><br>
+              <br>
               <%= link_to "edit", edit_ride_request_path(RideRequest.find(os.ride_id)), class: 'btn btn-primary' %>
              <% end %>
+             <% @last_stop_for_display = os %>
           </div>
         <% end %>
         <% end %>
