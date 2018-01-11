@@ -3,6 +3,7 @@ class RideRequest < ApplicationRecord
   attr_accessor :pickup_location_name
 
   validate :pickup_and_droppoff_required
+  validate :number_of_riders
 
   def pickup_and_droppoff_required
     if (pickup_address.present? == false || pickup_address == "-- Please Select --")
@@ -13,6 +14,12 @@ class RideRequest < ApplicationRecord
     end
     if pickup_address == dropoff_address
       errors.add(:dropoff_address, "Dropoff Address Must Be Different From Pickup")
+    end
+  end
+
+  def number_of_riders
+    if riders == nil || riders < 1
+      errors.add(:riders, "Must Have At Least 1 Rider")
     end
   end
 

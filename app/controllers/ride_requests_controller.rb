@@ -73,7 +73,7 @@ class RideRequestsController < ApplicationController
           flash[:notice] = @ride_request.errors.full_messages.to_sentence
           return redirect_to ride_request_manager_path
         else
-          format.html { redirect_to new_ride_request_path, notice: 'Ride request must have an Origin and Destination' }
+          format.html { redirect_to new_ride_request_path, notice: @ride_request.errors }
           format.json { render json: @ride_request.errors, status: :unprocessable_entity }
         end
       end

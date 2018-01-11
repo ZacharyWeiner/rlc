@@ -1,4 +1,4 @@
-<%= form_with(model: ride_request, local: true) do |form| %>
+<%= form_with(model: ride_request, id: :rider_form, local: true, html: { novalidate: false }) do |form| %>
   <% if ride_request.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(ride_request.errors.count, "error") %> prohibited this ride_request from being saved:</h2>
@@ -42,10 +42,28 @@
   </div>
       <%= form.hidden_field :origin, value: 'user' %>
 
-  <%= form.submit "Request Ride", class: "btn btn-primary" %>
+  <% form.submit "Request Ride", class: "btn btn-primary" %>
+  <button type="submit" id='submit' class="btn btn-primary width-100">Find My Shuttle</button>
 <% end %>
 
 
 <script>
+  $(document).ready(function () {
     $('.ride-select').select2();
+    $('#rider_form').validate({
+        rules: {
+            name: {
+                required: true,
+                min: 1,
+                number: true
+            }
+        }
+    });
+    // programmatically check the entire form using the `.valid()` method.
+    $("#rider_form").on('click', '#submit', function () {
+        $('#rider_form').valid();
+    });
+
+});
+
 </script>
