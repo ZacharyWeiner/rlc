@@ -32,7 +32,9 @@
           <%= hidden_field :manager, value: 'manager'%>
         <div class='col-md-1'>
           <%= f.submit "Update", class: 'btn btn-primary'%>
+          <p class=''><%= shuttle.updated_at.strftime("%I:%M%p") %></p>
         </div>
       <% end %>
+
     </div>
   <% end %>
