@@ -54,7 +54,7 @@ class RideRequestsController < ApplicationController
     if session[:phone]
       @ride_request.phone = session[:phone]
     end
-    if session[:email]
+    if session[:email].nil? == false && session[:email] != ""
       @ride_request.email = session[:email]
     end
     respond_to do |format|
