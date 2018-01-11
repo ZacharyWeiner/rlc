@@ -54,6 +54,9 @@ class RideRequestsController < ApplicationController
     if session[:phone]
       @ride_request.phone = session[:phone]
     end
+    if session[:email]
+      @ride_request.email = session[:email]
+    end
     respond_to do |format|
       if @ride_request.save
         unless @ride_request.shuttle.nil?
@@ -190,8 +193,9 @@ class RideRequestsController < ApplicationController
     @shuttle = Shuttle.find(params[:shuttle_id])
     @ride_request.shuttle = @shuttle
     @ride_request.advance_status(@ride_request.status)
-    respond_to do |format|
-      if @ride_request.save
+
+      if @ride_request.save!
+
         if @shuttle.is_looping
           message = "Your ride is on its way. Please meet at the pickup address"
         else
@@ -199,11 +203,10 @@ class RideRequestsController < ApplicationController
         end
         sms = SmsManager.new(to_number: @ride_request.phone, message: message)
         sms.send_message
-        format.html { redirect_to ride_request_manager_path, notice: 'Ride request was successfully assigned.' }
+        redirect_to ride_request_manager_path, notice: 'Ride request was successfully assigned.'
       else
 
       end
-    end
   end
 
   def reset_status
@@ -260,7 +263,7 @@ class RideRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ride_request_params
-      params.require(:ride_request).permit(:pickup_address, :dropoff_address, :riders, :requester_name, :shuttle_id, :completed, :phone, :note, :origin)
+      params.require(:ride_request).permit(:pickup_address, :dropoff_address, :riders, :requester_name, :shuttle_id, :completed, :phone, :email, :note, :origin)
     end
 
     def check_active
