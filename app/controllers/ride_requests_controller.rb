@@ -24,7 +24,7 @@ class RideRequestsController < ApplicationController
     t = Time.now
     hour_local_time = t.strftime("%H")
     p hour_local_time
-    if hour_local_time.to_i < 14
+    if hour_local_time.to_i > 14
       @ordered_locations = Location.where(show_after_2: true).order(:priority)
     else
       if @lat.nil?
@@ -146,6 +146,7 @@ class RideRequestsController < ApplicationController
       return redirect_to new_ride_request_path
     end
   end
+
   def clear_rider_info
     session[:name] = nil
     session[:phone] = nil
@@ -216,7 +217,6 @@ class RideRequestsController < ApplicationController
     @ride_request.save
 
     redirect_to ride_request_manager_path
-
   end
 
   def advance_status
@@ -255,8 +255,7 @@ class RideRequestsController < ApplicationController
   def send_inital_sms
     set_ride_request
     loc = Location.where(name: @ride_request.pickup_address.split(',')[0]).first
-    byebug
-    message = "Your request has been received. Your Shuttle will arrive in approx " + params[:minutes] + " minutes. Please meet at " + loc.name + " " + loc.instruction + "."
+    message = "Your request has been received. Your Shuttle will arrive in within " + params[:minutes] + " minutes. Please meet at " + loc.name + " " + loc.instruction + "."
     sender = SmsManager.new
     sender.message = message
     sender.to_number = @ride_request.phone
@@ -282,9 +281,7 @@ class RideRequestsController < ApplicationController
     def check_active
       if BusinessSetting.first.ride_request_active
       else
-        redirect_to inactive_path
+        redirect_to inactive_path and return
       end
     end
-
-
 end
