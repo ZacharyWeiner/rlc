@@ -24,7 +24,7 @@ class RideRequestsController < ApplicationController
     t = Time.now
     hour_local_time = t.strftime("%H")
     p hour_local_time
-    if hour_local_time.to_i > 14
+    if hour_local_time.to_i >= 14
       @ordered_locations = Location.where(show_after_2: true).order(:priority)
     else
       if @lat.nil?
