@@ -1,7 +1,7 @@
 class RideRequestsController < ApplicationController
   before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear, :advance_status, :reset_status]
   before_action :authenticate_user!, except: [:new, :create, :show, :edit, :update, :set_rider_info, :inactive]
-  before_action :check_active, except: [:manager, :inactive, :new_2]
+  before_action :check_active, except: [:manager, :inactive, :new_2, :create, :show]
 
   layout 'shuttle_layout'
   #autocomplete :pickup_location, :name
