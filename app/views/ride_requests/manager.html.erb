@@ -78,6 +78,18 @@
                            </ul>
                         <% end %>
                       </div>
+                      <div class='row' style="padding-top: 12px;">
+                        <div class='col-md-3'>
+                        <%= button_to "5 min", ride_request_send_inital_sms_path(request), class: 'btn-success', method: :get, params: { minutes: 5 } %>
+                        </div>
+                        <div class='col-md-3'>
+                        <%= button_to "10 min", ride_request_send_inital_sms_path(request), class: 'btn-success', method: :get, params: { minutes: 10 }%>
+                        </div>
+                        <div class='col-md-3'>
+                        <%= button_to "15 min", ride_request_send_inital_sms_path(request), class: 'btn-success', method: :get, params: { minutes: 15 }%>
+                        </div>
+                        <div class='col-md-3'></div>
+                      </div>
                       <div>
                         <%= link_to ride_request_path(request) do %> <i class='fa fa-eye'></i><%end%>
                         <span style="margin-right:10px;"></span>

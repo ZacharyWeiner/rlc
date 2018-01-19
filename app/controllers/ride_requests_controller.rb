@@ -23,7 +23,8 @@ class RideRequestsController < ApplicationController
     @long = session[:longitude]
     t = Time.now
     hour_local_time = t.strftime("%H")
-    if hour_local_time.to_i > 14
+    p hour_local_time
+    if hour_local_time.to_i < 14
       @ordered_locations = Location.where(show_after_2: true).order(:priority)
     else
       if @lat.nil?
@@ -251,6 +252,18 @@ class RideRequestsController < ApplicationController
 
   end
 
+  def send_inital_sms
+    set_ride_request
+    loc = Location.where(name: @ride_request.pickup_address.split(',')[0]).first
+    byebug
+    message = "Your request has been received. Your Shuttle will arrive in approx " + params[:minutes] + " minutes. Please meet at " + loc.name + " " + loc.instruction + "."
+    sender = SmsManager.new
+    sender.message = message
+    sender.to_number = @ride_request.phone
+    sender.send_message
+    redirect_to ride_request_manager_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ride_request
@@ -272,4 +285,6 @@ class RideRequestsController < ApplicationController
         redirect_to inactive_path
       end
     end
+
+
 end

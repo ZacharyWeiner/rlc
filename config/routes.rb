@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get '/mark_clear', to: 'ride_requests#mark_clear', as: 'mark_clear'
     get 'advance_status', to:'ride_requests#advance_status', as: 'advance_status'
     get 'reset_status', to:'ride_requests#reset_status', as: 'reset_status'
+    get 'send_inital_sms', to: 'ride_requests#send_inital_sms', as: 'send_inital_sms'
     get :autocomplete_pickup_location_name, :on => :collection
 
   end
