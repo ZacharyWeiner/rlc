@@ -112,8 +112,8 @@ $(document).ready(function($) {
   var driver = <%= @shuttle.id %> ;
   initGeolocation();
 
-  // setInterval(initGeolocation, 30000);
-  setInterval(refresh_page, 60000);
+  setInterval(initGeolocation, 30000);
+  setInterval(check_for_refresh, 15000);
 
 });
   function set_driver(){
@@ -121,7 +121,6 @@ $(document).ready(function($) {
     driver = $("#driver_id").val()
   }
 
- function refresh_page(){location.reload();}
  function initGeolocation() {
      if (navigator && navigator.geolocation) {
           /*alert('setting geolocation'); */
@@ -164,6 +163,30 @@ function makeRequest(latitude, longitude, shuttleID){
       }
   });
 }
+
+function check_for_refresh(){
+        $.ajax({
+            url:'/shuttles/<%= @shuttle.id %>/check_last_ride/<%= @last_request_id %>',
+            type:'GET',
+            dataType:'json',
+            data:{
+
+            },
+            success:function(data){
+             console.log(data);
+             console.log(data["message"])
+             if (data["message"] == "refresh"){
+                setTimeout(function(){
+                    location.reload();
+                }, 2000);
+
+             }
+            },
+            error:function(data){
+              console.log(data["message"]);
+            }
+        });
+      }
 
 </script>
 <!-- <label class='lat'></label>

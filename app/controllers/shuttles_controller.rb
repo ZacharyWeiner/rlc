@@ -85,6 +85,7 @@ class ShuttlesController < ApplicationController
     @ordered_stops = @shuttle.get_ordered_stops
     @lat = request.location.latitude
     @long = request.location.longitude
+    @last_request_id = @shuttle.ride_requests.last.id
   end
 
   def set_location
@@ -97,7 +98,7 @@ class ShuttlesController < ApplicationController
       @shuttle.current_long = params[:long]
       if @shuttle.save
         p "shuttle save success "
-        Tracker.create!(shuttle: @shuttle, lat: params[:lat], long: params[:long])
+        #Tracker.create!(shuttle: @shuttle, lat: params[:lat], long: params[:long])
         return format.json { render json: "success", status: :success}
       else
         p "shuttle save error"
@@ -161,6 +162,23 @@ class ShuttlesController < ApplicationController
       ride.save
     end
     redirect_to ride_request_manager_path
+  end
+
+  def check_last_ride
+    set_shuttle
+    last_id = @shuttle.ride_requests.last.id
+    if params[:id] == last_id.to_s
+      respond_to do |format|
+        msg = { :status => "ok", :message => "no new"}
+         format.json { render json: msg }
+      end
+    else
+      respond_to do |format|
+        msg = { :status => "ok", :message => "refresh"}
+        format.json { render json: msg }
+      end
+    end
+
   end
 
   private

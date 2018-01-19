@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get 'driver', to: "shuttles#driver", as: "driver"
     get 'clear_all', to: "shuttles#clear_all", as: "clear_all"
     get 'all_rolling', to: "shuttles#all_rolling", as: "all_rolling"
+    get 'check_last_ride/:id', to: 'shuttles#check_last_ride', as: 'check_last_ride'
   end
   get 'shuttle_locations', to: 'shuttles#shuttle_locations', as: 'shuttle_locations'
   get 'shuttle/trackers', to: 'shuttles#trackers', as: 'shuttle_trackers'

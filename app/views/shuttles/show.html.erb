@@ -48,14 +48,10 @@
   </div>
 <% else %>
 
-
-
-
-<h1>Shuttle Info</h1>
 <div class='container'>
   <div class='row'>
     <div class='col-md-6'>
-      <p>
+     <!--  <p>
         <strong>Driver Name:</strong>
         <%= @shuttle.name %>
       </p>
@@ -67,7 +63,7 @@
        <p>
         <strong>Your Phone:</strong>
         <%= session[:phone] %>
-      </p>
+      </p> -->
 
 
       <%= waypoints = ""%>
@@ -97,24 +93,35 @@
        <% complete = false %>
       <% stops_count = 1 %>
       <% @last_stop_for_display = RideAndDistance.new(address: "1475 Pine Grove Rd, Steamboat Springs, CO 80477") %>
-      <h2>Stop List</h2>
+      <h2 style='padding-bottom: 24px;'><%= @shuttle.name %>'s Stops </h2>
+
       <!-- Ordered Stops List -->
       <% @ordered_stops.each do |os| %>
         <% unless os.nil? %>
         <% if (complete == false) %>
-          <div class='row'>
-            <h4> Stop #<%= stops_count unless stops_count.nil? %> <%= os.stop_type unless os.nil?%></h4>
+          <div class="item item-row1" >
+            <% if os.stop_type == 'pickup'%>
+             <h3 style='color:green; font-weight: bold'>
+              <i class='fa fa-crosshairs' style='color:green'></i>
+                <%= os.address.split(',')[0].gsub('+', ' ')%>
+              </h3>
+            <% elsif os.stop_type == "dropoff" %>
+              <h3 style='color:red; font-weight: bold'>
+                <i class='fa fa-map-marker' style='color:red'></i>
+                <%= os.address.split(',')[0].gsub('+', ' ')%>
+              </h3>
+            <% end %>
              <%= os.name %><br/>
-             <% if os.address.include?("+") %>
-                <%= os.address.gsub!('+',' ')%>
-             <% else %>
-                <%= os.address%>
-             <% end %>
+               <% if os.address.include?("+") %>
+                  <%= os.address.gsub!('+',' ')%>
+               <% else %>
+                  <%= os.address%>
+               <% end %>
              <% stops_count = stops_count + 1 %>
              <% if session[:phone] == os.phone && os.stop_type == 'pickup' %>
               <% complete = true %>
               <br>
-              <%= link_to "edit", edit_ride_request_path(RideRequest.find(os.ride_id)), class: 'btn btn-primary' %>
+
              <% end %>
              <% @last_stop_for_display = os %>
           </div>
@@ -160,7 +167,7 @@
 <script>
   $(document).ready(function () {
 
-    setInterval(refresh_page, 60000);
+    setInterval(refresh_page, 15000);
     function refresh_page(){location.reload();}
 
     if(location.search == '?q=driver'){
