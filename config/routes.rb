@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   get 'ride_requests/inactive', to:'ride_requests#inactive', as: 'inactive'
+  get 'ride_requests/new_2', to:'ride_requests#new_2', as: 'new_2'
 
   resources :ride_requests do
     get '/assign/:shuttle_id', to: 'ride_requests#assign_to_shuttle', as: 'assign_shuttle'

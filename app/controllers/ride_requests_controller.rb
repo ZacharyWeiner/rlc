@@ -1,7 +1,7 @@
 class RideRequestsController < ApplicationController
   before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear, :advance_status, :reset_status]
   before_action :authenticate_user!, except: [:new, :create, :show, :edit, :update, :set_rider_info, :inactive]
-  before_action :check_active, except: [:manager, :inactive]
+  before_action :check_active, except: [:manager, :inactive, :new_2]
 
   layout 'shuttle_layout'
   #autocomplete :pickup_location, :name
@@ -19,6 +19,24 @@ class RideRequestsController < ApplicationController
 
   # GET /ride_requests/new
   def new
+    @lat = session[:latitude]
+    @long = session[:longitude]
+    t = Time.now
+    hour_local_time = t.strftime("%H")
+    p hour_local_time
+    if hour_local_time.to_i >= 14
+      @ordered_locations = Location.where(show_after_2: true).order(:priority)
+    else
+      if @lat.nil?
+        @ordered_locations = Location.all.order(:priority)
+      else
+        @ordered_locations = Location.all.order(:priority)#Location.near([@lat, @long], 30)
+      end
+    end
+    @ride_request = RideRequest.new
+  end
+
+    def new_2
     @lat = session[:latitude]
     @long = session[:longitude]
     t = Time.now

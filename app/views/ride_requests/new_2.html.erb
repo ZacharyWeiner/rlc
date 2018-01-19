@@ -1,0 +1,156 @@
+<div class='container'>
+<% if session[:name].nil? || (session[:phone].nil? && session[:email].nil?) %>
+  <div class="row">
+    <section class="page-title text-center">
+              <h1>Need A Ride?</h1>
+              <%= link_to  "tel:1-970-870-7711", class: 'btn btn-primary text-center' do %>
+            <i class='fa fa-phone'></i> Call For Ride
+          <% end %>
+          </section>
+      <div class="col-md-6 col-sm-10 col-xs-10 col-md-offset-3 col-sm-offset-1 col-xs-offset-1">
+
+
+          <h2 class='text-center' style='padding-top: 6px; padding-bottom: 6px;'>OR</h2>
+          <section>
+            <%= form_for(:ride_request, url: "/ride_requests/rider/set_rider_info", class: "form inputs-underline", :html => {:id => "rider-form"}) do |f| %>
+
+                  <div class="form-group">
+                      <label for="Name">Name</label>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"  text='<%= session[:name] %>'>
+                  </div>
+                  <!--end form-group-->
+                  <div class="form-group">
+                      <label for="phone">Phone Number</label>
+                      <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone number" text='<%= session[:phone] %>' >
+                  </div>
+                  <div class="form-group">
+                      <label for="email">Email Address</label>
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
+                  </div>
+                  <div class="form-group center">
+
+                      <button type="submit" id='submit' class="btn btn-primary width-100">Find My Shuttle</button>
+                  </div>
+              <% end %>
+              <hr>
+          </section>
+      </div>
+  </div>
+<% else %>
+<div class='row'>
+  <div class='col-md-10 col-sm-10'>
+<h1>Request a Shuttle</h1>
+</div>
+<div class='col-md-2 col-sm-2'>
+   <%= link_to  "tel:1-970-870-7711", class: 'btn btn-primary', style:'margin-top: 16px;' do %>
+    <i class='fa fa-phone'></i> Call For Ride
+    <% end %>
+</div>
+
+</div>
+<div class='row'>
+  <div class='col-md-10'>
+    <% link_to '< Back', ride_requests_path %>
+  </div>
+  <div class='col-md-2'>
+
+  </div>
+</div>
+<div class='row'>
+    <% flash.each do |key, value| %>
+      <% if value['pickup_address'] %>
+      <%= content_tag :div, value['pickup_address'][0], class: "flash #{key}", style: 'color:red' %>
+      <% end %>
+      <% if value['dropoff_address'] %>
+      <%= content_tag :div, value['dropoff_address'][0], class: "flash #{key}", style: 'color:red' %>
+      <% end %>
+      <% if value['riders'] %>
+      <%= content_tag :div, value['riders'][0], class: "flash #{key}", style: 'color:red' %>
+      <% end %>
+    <% end %>
+  <div class='col-md-6'>
+    <%= render 'transpo_form', ride_request: @ride_request %>
+  </div>
+  <div class='col-md-6'>
+    <%= render 'shared/rlc/locations/closest_locations'%>
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function () {
+
+  initGeolocation();
+
+});
+
+
+ function initGeolocation() {
+
+     if (navigator && navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+            } else {
+                console.log('Geolocation is not supported');
+            }
+      }
+
+function errorCallback() {}
+
+function successCallback(position) {
+  makeRequest(position.coords.latitude, position.coords.longitude, 1)
+}
+
+function makeRequest(latitude, longitude, shuttleID){
+  $.ajax({
+      url:'/ride_requests/rider/set_location',
+      type:'POST',
+      dataType:'json',
+      data:{
+          lat: latitude,
+          long: longitude,
+          authenticity_token: window._token
+      },
+      success:function(data){
+
+      },
+      error:function(data){
+
+      }
+  });
+}
+
+</script>
+<% end %>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('.ride-select').select2();
+    $('#rider-form').validate({
+        rules: {
+            name: {
+                required: true
+            },
+            phone: {
+                required: true,
+                phoneUS: true
+            },
+            email: {
+                required: true,
+                email: true
+            }
+        }
+    });
+
+    jQuery.validator.addMethod("phoneUS", function (phone_number, element) {
+        phone_number = phone_number.replace(/\s+/g, "");
+        return this.optional(element) || phone_number.length > 9 && phone_number.match(/^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+    }, "Please specify a valid phone number");
+
+    // programmatically check the entire form using the `.valid()` method.
+    $("#rider-form").on('click', '#submit', function () {
+        $('#rider-form').valid();
+    });
+
+});
+
+</script>
+
