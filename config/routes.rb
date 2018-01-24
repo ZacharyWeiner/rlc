@@ -75,6 +75,10 @@ Rails.application.routes.draw do
   post 'pages/front_desk/send_sms', to: 'pages#send_sms', as: 'pages_send_sms'
   post 'pages/front_desk/send_sms_intl', to: 'pages#send_sms_intl', as: 'pages_send_sms_intl'
   get 'message_sent', to: 'pages#text_message_sent', as: 'text_message_sent'
+
+  get 'mobile_pages/ride_request', to: 'mobile_pages#ride_request', as: 'mobile_ride_request'
+  post 'mobile_pages/create', to: 'mobile_pages#create', as: 'mobile_create_ride_request'
+  get 'mobile_pages/ride_request_details/:ride_request_id', to: 'mobile_pages#ride_request_details', as: 'mobile_ride_request_details'
   root "pages#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

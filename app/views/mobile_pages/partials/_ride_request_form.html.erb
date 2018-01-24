@@ -1,0 +1,72 @@
+
+
+<h2 class='text-center'> Request A Shuttle </h2>
+<hr>
+<%= form_with(model: ride_request, id: :rider_form, local: true, html: { novalidate: false }) do |form| %>
+<div class='row'>
+  <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group text-center'>
+    <h3><i class="fa fa-user " ></i> <%= session[:name] %></h3>
+  </div>
+  <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group text-center'>
+    <h3><i class="fa fa-mobile-phone" ></i><%= session[:phone] %></h3>
+
+  </div>
+</div>
+  <div class=''>
+
+
+  </div>
+  <% locations = [] %>
+  <% locations << ["-- Please Select --", "-- Please Select --"]%>
+  <%  @ordered_locations.each do |l|  %>
+  <% locations << [l.name, "#{l.name}, #{l.address}"] %>
+  <% end %>
+
+  <div class='container text-center'>
+     <h3 class='text-center'> Pickup From: </h3>
+     <%= form.select(:pickup_address, options_for_select(locations), {}, { :class => 'ride-select ', style: 'max-width:100%; '}) %>
+  </div>
+  <hr>
+  <div class='form-group text-center'>
+    <h3 class='text-center'> Dropoff At: </h3>
+     <%= form.select(:dropoff_address, options_for_select(locations), {}, { :class => 'ride-select'}) %>
+  </div>
+  <%= form.hidden_field :origin, value: 'user' %>
+  <%= form.hidden_field :redirect, value: 'mobile' %>
+  <hr>
+  <h3 class='text-center'> How Many People In Your Party?</h3>
+
+  <%= form.select :riders, ((0..24).map {|i| [i,i] }), class: 'text-center' %>
+  <br><br>
+  <button type="submit" id='submit' class="btn btn-success width-100", style='min-height: 50px;'>Find My Shuttle</button>
+<% end %>
+
+
+<script>
+  $(document).ready(function () {
+    $('.ride-select').select2();
+    $('#rider_form').validate({
+        rules: {
+            name: {
+                required: true,
+                min: 1,
+                number: true
+            }
+        }
+    });
+    // programmatically check the entire form using the `.valid()` method.
+    $("#rider_form").on('click', '#submit', function () {
+        $('#rider_form').valid();
+    });
+
+});
+
+</script>
+<style>
+body { font-size: 28px; }
+select {
+  text-align: center;
+  text-align-last: center;
+  /* webkit*/
+}</style>
+

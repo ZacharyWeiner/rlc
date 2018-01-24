@@ -1,0 +1,99 @@
+<div class='container'>
+  <% if session[:name].nil? || (session[:phone].nil? && session[:email].nil?) %>
+    <%= render 'mobile_pages/partials/rider_session_info' %>
+  <% else %>
+<div class='container'>
+    <div class='row'>
+       <%= link_to  "tel:1-970-870-7711", class: 'btn btn-primary btn-block', style:'margin-top: 16px; min-height:50px; padding-top:16px; ' do %>
+        <i class='fa fa-phone'></i> <span>Call For Ride</span>
+       <% end %>
+    </div>
+  </div>
+  <div class='row'>
+    <%= render 'mobile_pages/partials/flash_messages' %>
+    <%= render '/mobile_pages/partials/ride_request_form', ride_request: @ride_request %>
+  </div>
+  <br>
+  <hr>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    initGeolocation();
+
+  });
+
+
+  function initGeolocation() {
+
+   if (navigator && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  } else {
+    console.log('Geolocation is not supported');
+  }
+}
+
+function errorCallback() {}
+
+function successCallback(position) {
+  makeRequest(position.coords.latitude, position.coords.longitude, 1)
+}
+
+function makeRequest(latitude, longitude, shuttleID){
+  $.ajax({
+    url:'/ride_requests/rider/set_location',
+    type:'POST',
+    dataType:'json',
+    data:{
+      lat: latitude,
+      long: longitude,
+      authenticity_token: window._token
+    },
+    success:function(data){
+
+    },
+    error:function(data){
+
+    }
+  });
+}
+
+</script>
+<% end %>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('.ride-select').select2();
+    $('#rider-form').validate({
+      rules: {
+        name: {
+          required: true
+        },
+        phone: {
+          required: true,
+          phoneUS: true
+        },
+        email: {
+          required: true,
+          email: true
+        }
+      }
+    });
+
+    jQuery.validator.addMethod("phoneUS", function (phone_number, element) {
+      phone_number = phone_number.replace(/\s+/g, "");
+      return this.optional(element) || phone_number.length > 9 && phone_number.match(/^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+    }, "Please specify a valid phone number");
+
+    // programmatically check the entire form using the `.valid()` method.
+    $("#rider-form").on('click', '#submit', function () {
+      $('#rider-form').valid();
+    });
+
+  });
+
+</script>
+

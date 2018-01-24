@@ -1,0 +1,11 @@
+ <% flash.each do |key, value| %>
+    <% if value['pickup_address'] %>
+    <%= content_tag :div, value['pickup_address'][0], class: "flash #{key}", style: 'color:red' %>
+    <% end %>
+    <% if value['dropoff_address'] %>
+      <%= content_tag :div, value['dropoff_address'][0], class: "flash #{key}", style: 'color:red' %>
+    <% end %>
+    <% if value['riders'] %>
+      <%= content_tag :div, value['riders'][0], class: "flash #{key}", style: 'color:red' %>
+    <% end %>
+  <% end %>

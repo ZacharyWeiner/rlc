@@ -1,0 +1,34 @@
+  <div class="row">
+    <section class="page-title text-center">
+      <h1>Need A Ride?</h1>
+      <%= link_to  "tel:1-970-870-7711", class: 'btn btn-primary text-center' do %>
+      <i class='fa fa-phone'></i> Call For Ride
+      <% end %>
+    </section>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <h2 class='text-center' style='padding-top: 6px; padding-bottom: 6px;'>OR</h2>
+      <section>
+        <%= form_for(:ride_request, url: "/ride_requests/rider/set_rider_info", class: "form inputs-underline", :html => {:id => "rider-form"}) do |f| %>
+
+        <div class="form-group">
+          <label for="Name">Name</label>
+          <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"  text='<%= session[:name] %>'>
+        </div>
+        <!--end form-group-->
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone number" text='<%= session[:phone] %>' >
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
+        </div>
+        <div class="form-group center">
+          <input type="hidden" name="redirect-mobile" value="mobile">
+          <button type="submit" id='submit' class="btn btn-primary width-100">Find My Shuttle</button>
+        </div>
+        <% end %>
+        <hr>
+      </section>
+    </div>
+  </div>

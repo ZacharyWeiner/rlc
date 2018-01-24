@@ -82,7 +82,11 @@ class RideRequestsController < ApplicationController
           @ride_request.advance_status(@ride_request.status)
         end
         if params[:ride_request][:redirect]
-          return redirect_to ride_request_manager_path
+          if params[:ride_request][:redirect] == "mobile"
+            return redirect_to mobile_ride_request_details_path(@ride_request)
+          else
+            return redirect_to ride_request_manager_path
+          end
         end
         if @ride_request.shuttle.nil?
           format.html { redirect_to @ride_request, notice: 'Ride request was successfully created.' }
@@ -93,7 +97,11 @@ class RideRequestsController < ApplicationController
       else
         if params[:ride_request][:redirect]
           flash[:notice] = @ride_request.errors.full_messages.to_sentence
-          return redirect_to ride_request_manager_path
+           if params[:ride_request][:redirect] == "mobile"
+            return redirect_to mobile_ride_request_path
+          else
+            return redirect_to ride_request_manager_path
+          end
         else
           format.html { redirect_to new_ride_request_path, notice: @ride_request.errors }
           format.json { render json: @ride_request.errors, status: :unprocessable_entity }
@@ -160,6 +168,8 @@ class RideRequestsController < ApplicationController
       @shuttle = Shuttle.find(params['redirect-shuttle'])
       puts "**********redirecting...****************"
       return redirect_to shuttle_path(@shuttle)
+    elsif params['redirect-mobile']
+      redirect_to mobile_ride_request_path
     else
       return redirect_to new_ride_request_path
     end

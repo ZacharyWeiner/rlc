@@ -1,6 +1,6 @@
 class BusinessesController < ApplicationController
   before_action :set_business, only: [:show, :edit, :update, :destroy]
-
+  layout 'locations_2'
   # GET /businesses
   # GET /businesses.json
   def index
