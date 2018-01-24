@@ -4,11 +4,12 @@
   <% else %>
 <div class='container'>
     <div class='row'>
-       <%= link_to  "tel:1-970-870-7711", class: 'btn btn-primary btn-block', style:'margin-top: 16px; min-height:50px; padding-top:16px; ' do %>
+       <%= link_to  "tel:1-970-870-7711", class: 'btn btn-primary btn-block btn-rounded', style:'margin-top: 16px; min-height:100px; padding-top:33px; font-size:22px; ' do %>
         <i class='fa fa-phone'></i> <span>Call For Ride</span>
        <% end %>
     </div>
   </div>
+  <br>
   <div class='row'>
     <%= render 'mobile_pages/partials/flash_messages' %>
     <%= render '/mobile_pages/partials/ride_request_form', ride_request: @ride_request %>

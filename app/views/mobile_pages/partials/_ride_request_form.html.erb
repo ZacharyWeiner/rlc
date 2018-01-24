@@ -1,6 +1,6 @@
 
 
-<h2 class='text-center'> Request A Shuttle </h2>
+<h1 class='text-center'> Request A Shuttle </h1>
 <hr>
 <%= form_with(model: ride_request, id: :rider_form, local: true, html: { novalidate: false }) do |form| %>
 <div class='row'>
@@ -38,7 +38,7 @@
 
   <%= form.select :riders, ((0..24).map {|i| [i,i] }), class: 'text-center' %>
   <br><br>
-  <button type="submit" id='submit' class="btn btn-success width-100", style='min-height: 50px;'>Find My Shuttle</button>
+  <button type="submit" id='submit' class="btn btn-success width-100 btn-rounded", style='min-height: 100px; font-size:22px;'><i class='fa fa-truck' style='padding-right: 6px;'></i>Find My Shuttle</button>
 <% end %>
 
 
