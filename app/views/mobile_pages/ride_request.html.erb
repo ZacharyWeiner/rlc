@@ -2,22 +2,22 @@
   <% if session[:name].nil? || (session[:phone].nil? && session[:email].nil?) %>
     <%= render 'mobile_pages/partials/rider_session_info' %>
   <% else %>
-<div class='container'>
-    <div class='row'>
+    <div class='container'>
+      <div class='row'>
        <%= link_to  "tel:1-970-870-7711", class: 'btn btn-primary btn-block btn-rounded', style:'margin-top: 16px; min-height:100px; padding-top:33px; font-size:22px; ' do %>
         <i class='fa fa-phone'></i> <span>Call For Ride</span>
        <% end %>
+      </div>
     </div>
-  </div>
-  <br>
-  <div class='row'>
-    <%= render 'mobile_pages/partials/flash_messages' %>
-    <%= render '/mobile_pages/partials/ride_request_form', ride_request: @ride_request %>
-  </div>
-  <br>
-  <hr>
+    <br>
+    <div class='row'>
+      <%= render 'mobile_pages/partials/flash_messages' %>
+      <%= render '/mobile_pages/partials/ride_request_form', ride_request: @ride_request %>
+    </div>
+    <br>
+    <hr>
+  <% end %>
 </div>
-
 
 <script type="text/javascript">
   $(document).ready(function () {
@@ -62,8 +62,7 @@ function makeRequest(latitude, longitude, shuttleID){
 }
 
 </script>
-<% end %>
-</div>
+
 
 <script>
   $(document).ready(function () {
