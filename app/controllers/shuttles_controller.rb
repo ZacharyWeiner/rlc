@@ -86,6 +86,12 @@ class ShuttlesController < ApplicationController
     @lat = request.location.latitude
     @long = request.location.longitude
     @last_request_id = @shuttle.ride_requests.last.id
+    info_to_hash = ""
+    @shuttle.ride_requests.each do |rr|
+      info_to_hash += "#{rr.id}, #{rr.status}"
+    end
+    @current_hash = Digest::MD5.hexdigest(info_to_hash)
+    p @current_hash
   end
 
   def set_location
@@ -178,7 +184,28 @@ class ShuttlesController < ApplicationController
         format.json { render json: msg }
       end
     end
+  end
 
+  def check_hash
+    set_shuttle
+    info_to_hash = ""
+    last_hash = params[:hash]
+    p "last_hash: #{params[:hash]}"
+    @shuttle.ride_requests.each do |rr|
+      info_to_hash += "#{rr.id}, #{rr.status}"
+    end
+    @current_hash = Digest::MD5.hexdigest(info_to_hash)
+    if @current_hash == last_hash
+      respond_to do |format|
+        msg = { :status => "ok", :message => "no new"}
+         format.json { render json: msg }
+      end
+    else
+      respond_to do |format|
+        msg = { :status => "ok", :message => "refresh"}
+        format.json { render json: msg }
+      end
+    end
   end
 
   private
@@ -194,5 +221,8 @@ class ShuttlesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def shuttle_params
       params.require(:shuttle).permit(:current_lat, :current_long, :previous_lat, :previous_long, :name, :address, :plate_number, :is_looping )
+    end
+
+    def is_updated
     end
 end

@@ -166,7 +166,7 @@ function makeRequest(latitude, longitude, shuttleID){
 
 function check_for_refresh(){
         $.ajax({
-            url:'/shuttles/<%= @shuttle.id %>/check_last_ride/<%= @last_request_id %>',
+            url:'/shuttles/<%= @shuttle.id %>/check_hash/<%= @current_hash %>',
             type:'GET',
             dataType:'json',
             data:{
