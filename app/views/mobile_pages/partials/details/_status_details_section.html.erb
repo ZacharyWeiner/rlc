@@ -1,0 +1,42 @@
+ <section>
+  <div class="user-details box">
+    <div class="user-image" >
+      <div class="image">
+        <div class="bg-transfer" >
+          <iframe
+            width="300"
+            height="200"
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
+            &origin=<%= URI.encode(@ride_request.pickup_address) %>
+            &destination=<%= URI.encode(@ride_request.dropoff_address)%>
+            &avoid=tolls|highways" allowfullscreen>
+          </iframe>
+        </div>
+        <!--end bg-transfer-->
+        <div class="single-file-input" >
+       <!--  <input type="file" id="user_image" name="user_image"> -->
+          <div style='font-size: 24px; margin-top: 12px;'>
+        <!-- Upload a picture<i class="fa fa-upload"></i> -->
+            <%=@ride_request.status %><br>
+          </div>
+        </div>
+      </div>
+      <!--end image-->
+    </div>
+    <!--end user-image-->
+    <div class="description clearfix" >
+      <h3 style="font-size:32px;">Meet Us At</h3>
+      <h4 style='font-weight: 200; font-size:24px;'><%=@ride_request.pickup_address.split(',')[0] %> <br><%= Location.where(name: @ride_request.pickup_address.split(',')[0]).first.instruction %></h4>
+      <!--  <a href="#" class="btn btn-default btn-rounded btn-xs">Change</a> -->
+      <% if @ride_request.shuttle %>
+        <%= link_to "Track My Shuttle", shuttle_path(@ride_request.shuttle), class: "btn btn-default btn-rounded btn-xs" %>
+      <% end %>
+      <hr>
+      <figure>
+        <div class="pull-left"><strong>Contact Method:</strong></div>
+        <div class="pull-right"><%=@ride_request.phone %></div>
+      </figure>
+    </div>
+  </div>
+</section>

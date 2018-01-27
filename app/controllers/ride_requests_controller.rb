@@ -19,26 +19,27 @@ class RideRequestsController < ApplicationController
 
   # GET /ride_requests/new
   def new
-    @lat = session[:latitude]
-    @long = session[:longitude]
-    t = Time.now
-    hour_local_time = t.strftime("%H")
-    p hour_local_time
-    if hour_local_time.to_i >= 14
-      @ordered_locations = Location.where(show_after_2: true).order(:priority)
-    else
-      if @lat.nil?
-        @ordered_locations = Location.all.order(:priority)
-      else
-        @ordered_locations = Location.all.order(:priority)#Location.near([@lat, @long], 30)
-      end
-    end
-    @ride_request = RideRequest.new
+    return redirect_to mobile_ride_request_path
+    # @lat = cookies[:latitude]
+    # @long = cookies[:longitude]
+    # t = Time.now
+    # hour_local_time = t.strftime("%H")
+    # p hour_local_time
+    # if hour_local_time.to_i >= 14
+    #   @ordered_locations = Location.where(show_after_2: true).order(:priority)
+    # else
+    #   if @lat.nil?
+    #     @ordered_locations = Location.all.order(:priority)
+    #   else
+    #     @ordered_locations = Location.all.order(:priority)#Location.near([@lat, @long], 30)
+    #   end
+    # end
+    # @ride_request = RideRequest.new
   end
 
     def new_2
-    @lat = session[:latitude]
-    @long = session[:longitude]
+    @lat = cookies[:latitude]
+    @long = cookies[:longitude]
     t = Time.now
     hour_local_time = t.strftime("%H")
     p hour_local_time
@@ -67,14 +68,14 @@ class RideRequestsController < ApplicationController
     end
     @ride_request.status = "In Queue"
     @ride_request.completed = false
-    if session[:name]
-      @ride_request.requester_name = session[:name]
+    if cookies[:name]
+      @ride_request.requester_name = cookies[:name]
     end
-    if session[:phone]
-      @ride_request.phone = session[:phone]
+    if cookies[:phone]
+      @ride_request.phone = cookies[:phone]
     end
-    if session[:email].nil? == false && session[:email] != ""
-      @ride_request.email = session[:email]
+    if cookies[:email].nil? == false && cookies[:email] != ""
+      @ride_request.email = cookies[:email]
     end
     respond_to do |format|
       if @ride_request.save
@@ -142,9 +143,9 @@ class RideRequestsController < ApplicationController
   end
 
   def set_rider_info
-    puts "************* setting session info ****************"
+    puts "************* setting cookies info ****************"
     if params[:name]
-      session[:name] = params[:name]
+      cookies[:name] = params[:name]
     end
     puts "*************name set****************"
     if params[:phone]
@@ -157,11 +158,11 @@ class RideRequestsController < ApplicationController
       unless fixed_number[0] == "1" || (fixed_number[0] == "+" && fixed_number[1] == "1")
         prefix = prefix + "1"
       end
-      session[:phone] = prefix.to_s + fixed_number.to_s
+      cookies[:phone] = prefix.to_s + fixed_number.to_s
     end
     puts "**********phone set **********"
     if params[:email]
-      session[:email] = params[:email]
+      cookies[:email] = params[:email]
     end
     puts " ********** email set **********"
     if params['redirect-shuttle']
@@ -176,27 +177,27 @@ class RideRequestsController < ApplicationController
   end
 
   def clear_rider_info
-    session[:name] = nil
-    session[:phone] = nil
-    session[:email] = nil
-    session[:latitude] = nil
-    session[:longitude] = nil
+    cookies[:name] = nil
+    cookies[:phone] = nil
+    cookies[:email] = nil
+    cookies[:latitude] = nil
+    cookies[:longitude] = nil
     redirect_to new_ride_request_path
   end
 
   def set_rider_location
     refresh = false
     if params[:lat]
-      unless session[:latitude] == params[:lat]
-        session[:latitude] = params[:lat]
+      unless cookies[:latitude] == params[:lat]
+        cookies[:latitude] = params[:lat]
         refresh = true
-        puts "set lat: #{session[:latitude]}"
+        puts "set lat: #{cookies[:latitude]}"
       end
     end
     if params[:long]
-      unless session[:longitude] == params[:long]
-        session[:longitude] = params[:long]
-        puts "set long: #{session[:longitude]}"
+      unless cookies[:longitude] == params[:long]
+        cookies[:longitude] = params[:long]
+        puts "set long: #{cookies[:longitude]}"
         refresh = true
       end
     end

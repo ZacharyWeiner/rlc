@@ -18,7 +18,7 @@
     }
 </style>
 <p id="notice"><%= notice %></p>
-<% if session[:phone].nil?  && current_user.nil? %>
+<% if cookies[:phone].nil?  && current_user.nil? %>
   <div class="row">
       <div class="col-md-4 col-sm-6  col-xs-8 col-md-offset-4 col-sm-offset-3 col-xs-offset-2">
           <section>
@@ -26,12 +26,12 @@
 
                   <div class="form-group">
                       <label for="Name">Name</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"  text='<%= session[:name] %>'>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"  text='<%= cookies[:name] %>'>
                   </div>
                   <!--end form-group-->
                   <div class="form-group">
                       <label for="phone">Phone Number</label>
-                      <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone number" text='<%= session[:phone] %>' >
+                      <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone number" text='<%= cookies[:phone] %>' >
                   </div>
                   <div class="form-group">
                       <label for="email">Email Address</label>
@@ -62,7 +62,7 @@
       </p>
        <p>
         <strong>Your Phone:</strong>
-        <%= session[:phone] %>
+        <%= cookies[:phone] %>
       </p> -->
 
 
@@ -75,7 +75,7 @@
         <% @ordered_stops.each do |os|%>
           <% if (os_counter != os_count) && (complete == false) %>
             <% waypoints = waypoints + os.address.gsub!(' ','+') + "|" %>
-            <% if session[:phone] == os.phone && os.stop_type == 'pickup' %>
+            <% if cookies[:phone] == os.phone && os.stop_type == 'pickup' %>
               <% complete = true %>
             <% end %>
             <% os_counter = os_counter + 1 %>
@@ -118,7 +118,7 @@
                   <%= os.address%>
                <% end %>
              <% stops_count = stops_count + 1 %>
-             <% if session[:phone] == os.phone && os.stop_type == 'pickup' %>
+             <% if cookies[:phone] == os.phone && os.stop_type == 'pickup' %>
               <% complete = true %>
               <br>
 

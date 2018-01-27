@@ -1,5 +1,5 @@
 <div class='container'>
-<% if session[:name].nil? || (session[:phone].nil? && session[:email].nil?) %>
+<% if cookies[:name].nil? || (cookies[:phone].nil? && cookies[:email].nil?) %>
   <div class="row">
     <section class="page-title text-center">
               <h1>Need A Ride?</h1>
@@ -16,12 +16,12 @@
 
                   <div class="form-group">
                       <label for="Name">Name</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"  text='<%= session[:name] %>'>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"  text='<%= cookies[:name] %>'>
                   </div>
                   <!--end form-group-->
                   <div class="form-group">
                       <label for="phone">Phone Number</label>
-                      <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone number" text='<%= session[:phone] %>' >
+                      <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone number" text='<%= cookies[:phone] %>' >
                   </div>
                   <div class="form-group">
                       <label for="email">Email Address</label>

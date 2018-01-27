@@ -24,7 +24,7 @@
             <% else %>
             <% waypoints = waypoints + os.address.gsub!(' ','+').gsub('&', 'and') + "|" %>
             <% end %>
-            <% if session[:phone] == os.phone && os.stop_type == 'pickup' %>
+            <% if cookies[:phone] == os.phone && os.stop_type == 'pickup' %>
               <% complete = true %>
             <% end %>
             <% os_counter = os_counter + 1 %>

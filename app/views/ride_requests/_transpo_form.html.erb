@@ -14,13 +14,13 @@
     <% form.label :your_name %>
     <% form.text_field :requester_name, id: :ride_request_requester_name, class: 'form-control' %>
     <h3>For :</h3>
-    <label><%= session[:name] %></label>
+    <label><%= cookies[:name] %></label>
   </div>
   <div class='form-group'>
     <% form.label :your_phone_number %>
     <% form.text_field :phone, id: :ride_request_phone,  class: 'form-control'  %>
     <h3> Confirmation #: </h3>
-    <label><%= session[:phone] %></label>
+    <label><%= cookies[:phone] %></label>
   </div>
   <div class=''>
      <%= form.label :number_of_riders %> <span style='margin:8px;'></span>

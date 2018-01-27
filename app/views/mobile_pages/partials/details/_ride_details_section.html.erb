@@ -1,0 +1,12 @@
+<section>
+    <div class=" col-md-6 col-sm-12 text-center">
+      <!-- <label for="message">Your Ride </label> -->
+       <%="<h3 style='padding-top:12px'>From:</h3><br> <label class='address-label'>#{@ride_request.pickup_address}</label>".gsub!(',', '<br>').html_safe  %>
+    </div>
+    <div class="col-md-6 col-sm-12 text-center">
+      <!-- <label for="message">Your Ride </label> -->
+       <%="<h3 style='padding-top:12px'>To:</h3><br> <label class='address-label'>#{@ride_request.dropoff_address}</label>".gsub!(',', '<br>').html_safe  %>
+
+    </div>
+
+  </section>

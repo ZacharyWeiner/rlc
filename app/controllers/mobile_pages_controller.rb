@@ -1,8 +1,8 @@
 class MobilePagesController < ApplicationController
   layout 'shuttle_layout'
   def ride_request
-    @lat = session[:latitude]
-    @long = session[:longitude]
+    @lat = cookies[:latitude]
+    @long = cookies[:longitude]
     t = Time.now
     hour_local_time = t.strftime("%H")
     p hour_local_time
