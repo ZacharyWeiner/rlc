@@ -166,10 +166,10 @@
 
 <script>
   $(document).ready(function () {
-
+    <% if cookies[:phone].nil? == false %>
     setInterval(refresh_page, 15000);
     function refresh_page(){location.reload();}
-
+    <% end %>
     if(location.search == '?q=driver'){
       setInterval(initGeolocation, 30000);
     };

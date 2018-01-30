@@ -1,6 +1,6 @@
 class RideRequestsController < ApplicationController
   before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear, :advance_status, :reset_status]
-  before_action :authenticate_user!, except: [:new, :create, :show, :edit, :update, :set_rider_info, :inactive]
+  before_action :authenticate_user!, except: [:new, :create, :show, :edit, :update, :set_rider_info, :inactive, :clear_rider_info]
   before_action :check_active, except: [:manager, :inactive, :new_2, :create, :show]
 
   layout 'shuttle_layout'
@@ -180,9 +180,11 @@ class RideRequestsController < ApplicationController
   end
 
   def clear_rider_info
-    cookies[:name] = nil
-    cookies[:phone] = nil
-    cookies[:email] = nil
+    cookies.delete :name
+    cookies.delete :phone
+    cookies.delete :email
+    #cookies[:phone] = nil
+    #cookies[:email] = nil
     cookies[:latitude] = nil
     cookies[:longitude] = nil
     redirect_to new_ride_request_path
