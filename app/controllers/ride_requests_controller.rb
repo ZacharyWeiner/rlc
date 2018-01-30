@@ -145,7 +145,8 @@ class RideRequestsController < ApplicationController
   def set_rider_info
     puts "************* setting cookies info ****************"
     if params[:name]
-      cookies[:name] = params[:name]
+      cookies[:name] = {value: params[:name], expires: Time.now + 30.days}
+      p cookies[:name]
     end
     puts "*************name set****************"
     if params[:phone]
@@ -158,11 +159,13 @@ class RideRequestsController < ApplicationController
       unless fixed_number[0] == "1" || (fixed_number[0] == "+" && fixed_number[1] == "1")
         prefix = prefix + "1"
       end
-      cookies[:phone] = prefix.to_s + fixed_number.to_s
+      cookies[:phone] = {value: prefix.to_s + fixed_number.to_s, expires: Time.now + 30.days}
+      p cookies[:phone]
     end
     puts "**********phone set **********"
     if params[:email]
-      cookies[:email] = params[:email]
+      cookies[:email] =  {value: params[:email], expires: Time.now + 30.days}
+      p cookies[:email]
     end
     puts " ********** email set **********"
     if params['redirect-shuttle']
