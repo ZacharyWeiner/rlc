@@ -1,6 +1,6 @@
 class BusinessSettingsController < ApplicationController
   before_action :set_business_setting, only: [:show, :edit, :update, :destroy, :activate_ride_requests, :deactivate_ride_requests]
-
+  layout 'locations_2'
   # GET /business_settings
   # GET /business_settings.json
   def index
@@ -64,12 +64,14 @@ class BusinessSettingsController < ApplicationController
   def activate_ride_requests
     @business_setting.ride_request_active = true
     @business_setting.save
+    OnOffTracker.create!(status: "active")
     redirect_to ride_request_manager_path
   end
 
   def deactivate_ride_requests
     @business_setting.ride_request_active = false
     @business_setting.save
+    OnOffTracker.create!(status: "inactive")
     redirect_to ride_request_manager_path
   end
 
@@ -83,6 +85,10 @@ class BusinessSettingsController < ApplicationController
       bs.save
     end
     redirect_to ride_request_manager_path
+  end
+
+  def on_off_tracker
+    @trackers = OnOffTracker.all.reverse
   end
 
   private

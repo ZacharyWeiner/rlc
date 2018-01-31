@@ -1,0 +1,14 @@
+<div class='container'>
+  <h1> System On / Off Tracking </h1>
+<% @trackers.each do |t| %>
+  <div class='row'>
+    <% if t.status == "active" %>
+      <i class='fa fa-power-off' style='color:green'></i>
+    <% else %>
+      <i class='fa fa-ban' style='color:red'></i>
+    <% end %>
+
+    <%= t.status %> - at <%= t.updated_at.strftime("%B %d, %Y: %H:%M %Z") %>
+  </div>
+<% end %>
+</div>

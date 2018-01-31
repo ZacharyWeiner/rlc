@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :business_settings do
     get 'activate_ride_requests', to: 'business_settings#activate_ride_requests', as: 'activate_ride_requests'
     get 'deactivate_ride_requests', to: 'business_settings#deactivate_ride_requests', as: 'deactivate_ride_requests'
+    get 'on_off_tracker', to: 'business_settings#on_off_tracker', as: 'on_off_tracker'
   end
   resources :kill_switches
   devise_for :users do

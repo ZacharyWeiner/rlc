@@ -1,0 +1,2 @@
+class OnOffTracker < ApplicationRecord
+end
