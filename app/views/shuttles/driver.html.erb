@@ -41,7 +41,7 @@
 
       <% stops_count = 1 %>
       <% @last_stop_for_display = RideAndDistance.new(address: "1475 Pine Grove Rd, Steamboat Springs, CO 80477") %>
-      <h2>Stops</h2>
+      <h2><%= @shuttle.name %>'s Stops</h2>
       <!-- Ordered Stops List -->
       <div class=''>
         <% @ordered_stops.each do |os| %>
@@ -94,7 +94,9 @@
           src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
           &origin=<%= URI.encode(@shuttle.address)%>
           &destination=<%= URI.encode(@last_stop_for_display.address)%>
+          <% unless waypoints == '' %>
           &waypoints=<%= waypoints %>
+          <% end %>
           &avoid=tolls|highways" allowfullscreen>
         </iframe>
       </div>
@@ -141,6 +143,7 @@ function successCallback(position) {
   // imgElement.src = mapUrl;
   $('.lat').text(position.coords.latitude);
   $('.long').text(position.coords.longitude);
+  alert(position.coords.latitude + "&&" + position.coords.longitude)
   makeRequest(position.coords.latitude, position.coords.longitude, <%= @shuttle.id %>)
 }
 
