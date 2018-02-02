@@ -128,14 +128,17 @@ $(document).ready(function($) {
           /*alert('setting geolocation'); */
           navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
             } else {
-                alert('Geolocation is not supported');
+                console.log('Geolocation is not supported');
                 console.log('Geolocation is not supported');
             }
       }
 
-function errorCallback() {}
+function errorCallback() {
+  console.log('error callback triggered');
+}
 
 function successCallback(position) {
+  console.log('success callback triggered');
   // var mapUrl = "http://maps.google.com/maps/api/staticmap?center=";
   // mapUrl = mapUrl + position.coords.latitude + ',' + position.coords.longitude;
   // mapUrl = mapUrl + '&zoom=15&size=512x512&maptype=roadmap&sensor=false';
@@ -143,11 +146,12 @@ function successCallback(position) {
   // imgElement.src = mapUrl;
   $('.lat').text(position.coords.latitude);
   $('.long').text(position.coords.longitude);
-  alert(position.coords.latitude + "&&" + position.coords.longitude);
+  console.log(position.coords.latitude + "&&" + position.coords.longitude);
   makeRequest(position.coords.latitude, position.coords.longitude, <%= @shuttle.id %>)
 }
 
 function makeRequest(latitude, longitude, shuttleID){
+  console.log('posting to service');
   $.ajax({
       url:'/driver/' + shuttleID + '/set_location',
       type:'POST',
@@ -159,15 +163,16 @@ function makeRequest(latitude, longitude, shuttleID){
           authenticity_token: window._token
       },
       success:function(data){
-
+        console.log('make request success ');
       },
       error:function(data){
-        alert('There was a problem making the request!');
+        console.log('make request error ');
       }
   });
 }
 
 function check_for_refresh(){
+  console.log('check for refresh');
         $.ajax({
             url:'/shuttles/<%= @shuttle.id %>/check_hash/<%= @current_hash %>',
             type:'GET',
