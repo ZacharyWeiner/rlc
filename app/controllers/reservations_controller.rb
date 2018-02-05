@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
-  layout 'locations_theme'
+  layout 'reservations'
   # GET /reservations
   # GET /reservations.json
   def index

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rlc</title>
+    <%= csrf_meta_tags %>
+     <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900,400italic' rel='stylesheet' type='text/css'>
+     <script src="https://use.fontawesome.com/1494e0c4f8.js"></script>
+    <%= stylesheet_link_tag 'locations_theme' %>
+    <!-- Latest compiled and minified JavaScript -->
+  </head>
+
+  <body class="nav-btn-only homepage">
+    <div class="page-wrapper">
+      <%= render 'shared/rlc/header' %>
+      <div id="page-content">
+      <%= yield %>
+    </div>
+    </div>
+    <%= render 'shared/locations_theme/footer' %>
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDRnHEW-VBfsHmST4EGLiORjq4SZQkF2B8&libraries=places"></script>
+    <%= javascript_include_tag 'locations_locations' %>
+
+    <script>
+      autoComplete();
+    </script>
+    <%= yield :js %>
+    <%= content_for :js %>
+  </body>
+</html>
+
+
