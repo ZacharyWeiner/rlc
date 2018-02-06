@@ -71,6 +71,17 @@ class LocationsController < ApplicationController
     @location.save
     redirect_to locations_path
   end
+
+  def toggle_shuttle_stop
+    set_location
+    if @location.is_shuttle_stop
+      @location.is_shuttle_stop = false
+    else
+      @location.is_shuttle_stop = true
+    end
+    @location.save
+    redirect_to locations_path
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location

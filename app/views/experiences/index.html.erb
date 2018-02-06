@@ -31,3 +31,194 @@
 <br>
 
 <%= link_to 'New Experience', new_experience_path %>
+
+
+    <div id="page-content">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><%= link_to "Home", root_path %></li>
+                <li class="active">Experiences</li>
+            </ol>
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+                    <section class="page-title">
+                        <h1>Experiences</h1>
+                    </section>
+                    <!--end section-title-->
+
+  <!--                   <section>
+                        <div class="search-results-controls clearfix">
+                            <div class="pull-left">
+                                <a href="listing-grid-right-sidebar.html" class="circle-icon"><i class="fa fa-th"></i></a>
+                                <a href="listing-row-right-sidebar.html" class="circle-icon active"><i class="fa fa-bars"></i></a>
+                            </div>
+
+                            <div class="pull-right">
+                                <div class="input-group inputs-underline min-width-150px">
+                                    <select class="form-control selectpicker" name="sort">
+                                        <option value="">Sort by</option>
+                                        <option value="1">Price</option>
+                                        <option value="2">Distance</option>
+                                        <option value="3">Title</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </section> -->
+
+                    <section>
+                      <% @experiences.each do |ex| %>
+                        <div class="item item-row" data-id="15" data-latitude="<%= ex.businesses.first.location.latitude%>" data-longitude="<%= ex.businesses.first.location.latitude%>">
+                            <figure class="ribbon">Top</figure>
+                            <%= link_to ex do %>
+                                <div class="image bg-transfer" style="background-image: url(<%= ex.header_image.url %>);">
+                                    <figure>Starts At: <%= ex.start_time %></figure>
+                                    <%= image_tag ex.header_image, class: 'img-fluid' %>
+                                </div>
+                                <!--end image-->
+                                <div class="map"></div>
+                                <div class="description">
+                                    <h3><%= ex.title %> </h3>
+                                    <h4><%= ex.description%></h4>
+                                    <% unless ex.categories.count == 0 %>
+                                      <div class="label label-default">
+                                        <% ex.categories.each do |cat| %>
+                                          <%= cat.name %>
+                                        <% end %>
+                                      </div>
+                                    <% end %>
+                                </div>
+                                <!--end description-->
+                                <!-- <div class="additional-info">
+                                    <div class="rating-passive" data-rating="3">
+                                        <span class="stars"></span>
+                                        <span class="reviews">8</span>
+                                    </div>
+                                </div> -->
+                                <!--end additional-info-->
+                            <% end %>
+                            <div class="controls-more">
+                                <ul>
+                                    <li><%= link_to 'Show', ex %></li>
+                                    <li><%= link_to 'Edit', edit_experience_path(ex) %></li>
+                                    <li><%= link_to 'Delete', ex, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                                </ul>
+                            </div>
+                            <!--end controls-more-->
+                        </div>
+                      <% end %>
+                    </section>
+
+                    <section>
+                        <div class="center">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li class="disabled previous">
+                                        <a href="#" aria-label="Previous">
+                                            <i class="arrow_left"></i>
+                                        </a>
+                                    </li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li class="active"><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li class="next">
+                                        <a href="#" aria-label="Next">
+                                            <i class="arrow_right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </section>
+                </div>
+                <!--end col-md-9-->
+
+                <div class="col-md-3 col-sm-3">
+                    <aside class="sidebar">
+                        <section>
+                            <h2>Recent Items</h2>
+                            <div class="item" data-id="1">
+                                <a href="detail.html">
+                                    <div class="description">
+                                        <figure>Average Price: $8 - $30</figure>
+                                        <div class="label label-default">Restaurant</div>
+                                        <h3>Marky’s Restaurant</h3>
+                                        <h4>63 Birch Street</h4>
+                                    </div>
+                                    <!--end description-->
+                                    <div class="image bg-transfer">
+                                        <img src="assets/img/items/1.jpg" alt="">
+                                    </div>
+                                    <!--end image-->
+                                </a>
+                                <div class="controls-more">
+                                    <ul>
+                                        <li><a href="#">Add to favorites</a></li>
+                                        <li><a href="#">Add to watchlist</a></li>
+                                        <li><a href="#" class="quick-detail">Quick detail</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--end item-->
+                            <div class="item" data-id="2">
+                                <a href="detail.html">
+                                    <div class="description">
+                                        <div class="label label-default">Restaurant</div>
+                                        <h3>Ironapple</h3>
+                                        <h4>4209 Glenview Drive</h4>
+                                    </div>
+                                    <!--end description-->
+                                    <div class="image bg-transfer">
+                                        <img src="assets/img/items/2.jpg" alt="">
+                                    </div>
+                                    <!--end image-->
+                                </a>
+                                <div class="controls-more">
+                                    <ul>
+                                        <li><a href="#">Add to favorites</a></li>
+                                        <li><a href="#">Add to watchlist</a></li>
+                                        <li><a href="#" class="quick-detail">Quick detail</a></li>
+                                    </ul>
+                                </div>
+                                <!--end controls-more-->
+                            </div>
+                            <!--end item-->
+                            <div class="item" data-id="15">
+                                <figure class="ribbon">Top</figure>
+                                <a href="detail.html">
+                                    <div class="description">
+                                        <figure>Happy hour: 18:00 - 19:00</figure>
+                                        <div class="label label-default">Bar & Grill</div>
+                                        <h3>Bambi Planet Houseboat Bar& Grill </h3>
+                                        <h4>3857 Losh Lane</h4>
+                                    </div>
+                                    <!--end description-->
+                                    <div class="image bg-transfer">
+                                        <img src="assets/img/items/3.jpg" alt="">
+                                    </div>
+                                    <!--end image-->
+                                </a>
+                                <div class="controls-more">
+                                    <ul>
+                                        <li><a href="#">Add to favorites</a></li>
+                                        <li><a href="#">Add to watchlist</a></li>
+                                        <li><a href="#" class="quick-detail">Quick detail</a></li>
+                                    </ul>
+                                </div>
+                                <!--end controls-more-->
+                            </div>
+                            <!--end item-->
+                        </section>
+                    </aside>
+                    <!--end sidebar-->
+                </div>
+                <!--end col-md-4-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end container-->
+    </div>

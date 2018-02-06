@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   end
   get 'my_reservations', to:'reservations#my_reservations', as: 'my_reservations'
 
+  get 'experiences/featured', to: 'experiences#featured'
   resources :experiences do
     get 'add_company/:id', to: 'experiences#add_company', as: 'add_company'
     get 'remove_company/:id', to: 'experiences#remove_company', as: 'remove_company'
@@ -64,6 +65,7 @@ Rails.application.routes.draw do
   resources :businesses
   resources :locations do
     get 'show_after_2', to: 'locations#set_show_after_2', as: 'show_after_2'
+    get 'toggle_shuttle_stop', to: 'locations#toggle_shuttle_stop', as: 'toggle_shuttle_stop'
   end
   resources :categories
 

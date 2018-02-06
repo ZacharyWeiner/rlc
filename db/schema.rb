@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131004221) do
+ActiveRecord::Schema.define(version: 20180206040819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(version: 20180131004221) do
     t.datetime "updated_at", null: false
     t.string "business_type"
     t.string "website"
+    t.text "description"
+    t.string "logo"
+    t.string "email"
     t.index ["category_id"], name: "index_businesses_on_category_id"
     t.index ["location_id"], name: "index_businesses_on_location_id"
   end
@@ -86,6 +89,7 @@ ActiveRecord::Schema.define(version: 20180131004221) do
     t.date "end_date"
     t.string "recurrs_every"
     t.text "header_image"
+    t.time "start_time"
   end
 
   create_table "images", force: :cascade do |t|
@@ -114,6 +118,7 @@ ActiveRecord::Schema.define(version: 20180131004221) do
     t.text "instruction"
     t.integer "priority"
     t.boolean "show_after_2"
+    t.boolean "is_shuttle_stop"
     t.index ["business_id"], name: "index_locations_on_business_id"
   end
 

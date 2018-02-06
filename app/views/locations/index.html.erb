@@ -12,6 +12,7 @@
       <th>Priority</th>
       <th>Name</th>
       <th>Address</th>
+      <th>Is Shuttle Stop</th>
       <th>Show After 2</th>
       <th></th>
       <th colspan="3"></th>
@@ -30,6 +31,13 @@
         </td>
         <td><%= location.name %></td>
         <td><%= location.address %></td>
+        <td>
+          <% if location.is_shuttle_stop  == true %>
+            <%= link_to "Disable <i class='fa fa-truck'></i>".html_safe, location_toggle_shuttle_stop_path(location), style:'padding-right: 12px;'%>
+          <% else %>
+            <%= link_to "Enable <i class='fa fa-truck'></i>".html_safe, location_toggle_shuttle_stop_path(location), style:'padding-right: 12px;' %>
+          <% end %>
+        </td>
         <td>
           <% if location.show_after_2 == true %>
             <%= link_to "Seen After 2", location_show_after_2_path(location), style:'padding-right: 6px;'%>

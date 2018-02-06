@@ -8,12 +8,15 @@
     <label class="amount">
       <span>Amount: $<%= @charge_amount%></span>
     </label>
+    <br><br>
   </article>
-
+  <%unless  @reservation.nil? %>
+   <%= hidden_field_tag 'reservation_id', @reservation.id %>
+  <% end %>
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="A month's subscription"
-          data-amount="<%= @charge_amount%>"
+          data-amount="<%= @charge_amount * 100%>"
           data-locale="auto"></script>
 <% end %>
 

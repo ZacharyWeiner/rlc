@@ -1,6 +1,91 @@
-<h1>Editing Reservation</h1>
+<p id="notice"><%= notice %></p>
 
-<%= render 'form', reservation: @reservation %>
+<p>
+  <strong>Name:</strong>
+  <%= @reservation.name %>
+</p>
 
-<%= link_to 'Show', @reservation %> |
+<p>
+  <strong>Phone:</strong>
+  <%= @reservation.phone %>
+</p>
+
+<p>
+  <strong>Experience:</strong>
+  <%= @reservation.experience %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @reservation.count %>
+</p>
+
+<%= link_to 'Edit', edit_reservation_path(@reservation) %> |
 <%= link_to 'Back', reservations_path %>
+
+
+
+
+
+    <div id="page-content">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><%= link_to "Experiences", experiences_path %> </li>
+                <li class="active">Reservation</li>
+            </ol>
+            <section class="page-title">
+                <h1 class="pull-left"><%= @reservation.experience_occurance.experience.title %></h1>
+                <div class="pull-right featured-contact">
+                    <i class="icon_comment_alt"></i>
+                   <!--  <h4>24/7 Support</h4>
+                    <h3>228-341-8068</h3> -->
+                </div>
+            </section>
+            <!--end section-title-->
+        </div>
+        <!--end container-->
+        <section>
+            <div class="map height-400px" id="map-contact"></div>
+            <!--end map-->
+        </section>
+        <section class="block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <h3>Contact Information</h3>
+                        <div class="box">
+                            <address>
+                                <strong>Reserved Spots</strong>
+                                <figure><%= @reservation.count %></figure>
+                                <br>
+                                <strong>Date</strong>
+                                <figure><%= @reservation.experience_occurance.date %></figure>
+                                <br>
+                                <strong>Start Time</strong>
+                                <figure><%= @reservation.experience_occurance.experience.start_time %></figure>
+                                <br>
+                                <strong>Customer Care</strong>
+                                <figure><a href="#">support@example.com</a></figure>
+                            </address>
+                        </div>
+                    </div>
+                    <!--end col-md-3-->
+                    <div class="col-md-9 col-sm-9">
+                        <%= render 'reservations/partials/reservations_details_form' %>
+                    </div>
+                    <!--end col-md-9-->
+                </div>
+                <!--end row-->
+            </div>
+            <!--end container-->
+        </section>
+    </div>
+<%= content_for :js do %>
+<script type="text/javascript">
+   var _latitude = 40.7344458;
+    var _longitude = -73.86704922;
+    var element = "map-contact";
+    simpleMap(_latitude,_longitude, element);
+  </script>
+<% end %>

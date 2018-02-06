@@ -8,7 +8,7 @@
             <div class="right">
                 <div class="primary-nav has-mega-menu">
                     <ul class="navigation">
-                        <!-- <li class='active'><% link_to "Home", root_path %></li> -->
+                        <li><%= link_to "Experiences", experiences_path %></li>
                         <% if current_user %>
                             <li><%= link_to "Shuttles", ride_request_manager_path %></li>
                         <% else %>

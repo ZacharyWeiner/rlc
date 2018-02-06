@@ -1,0 +1,40 @@
+<h3>Reservation Payment</h3>
+<%= form_with(model: @reservation, local: true, class: 'form inputs-underline') do |form| %>
+<!-- <form class="form form-email inputs-underline" id="form-hero"> -->
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <!-- <input type="text" class="form-control" name="name" id="name"> -->
+                <%= form.text_field :name, class: 'form-control disabled' %>
+            </div>
+            <!--end form-group-->
+        </div>
+        <!--end col-md-4-->
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <%= form.text_field :email, class: 'form-control disabled' %>
+            </div>
+            <!--end form-group-->
+        </div>
+        <!--end col-md-4-->
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <label for="subject">Phone</label>
+                <%= form.text_field :phone, class: 'form-control disabled' %>
+            </div>
+            <!--end form-group-->
+        </div>
+        <!--end col-md-4-->
+    </div>
+    <!--end form-group-->
+    <div class="form-group">
+        <!-- <button type="submit" class="btn btn-primary icon shadow">Send Message<i class="fa fa-caret-right"></i></button> -->
+
+        <%= link_to "Edit Reserrvation", edit_reservation_path(@reservation) %>
+    </div>
+    <!--end form-group-->
+<!-- </form> -->
+<%end%>
+<%= render 'charges/stripe_button'%>

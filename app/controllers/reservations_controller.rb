@@ -10,6 +10,7 @@ class ReservationsController < ApplicationController
   # GET /reservations/1
   # GET /reservations/1.json
   def show
+    @charge_amount = (@reservation.experience_occurance.experience.cost * @reservation.count)
   end
 
   # GET /reservations/new
@@ -28,6 +29,7 @@ class ReservationsController < ApplicationController
   def edit
     @experience = @reservation.experience
     @experience_occurance = @reservation.experience_occurance
+    @charge_amount = @experience.cost * 100
   end
 
   # POST /reservations
@@ -57,23 +59,20 @@ class ReservationsController < ApplicationController
   # PATCH/PUT /reservations/1
   # PATCH/PUT /reservations/1.json
   def update
-    respond_to do |format|
+    @eo = @reservation.experience_occurance
       if @reservation.update(reservation_params)
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @reservation }
-      else
-        format.html { render :edit }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        flash[:notice] = "Your Reservation Has Been Updated"
       end
-    end
+      redirect_back(fallback_location: @reservation)
   end
 
   # DELETE /reservations/1
   # DELETE /reservations/1.json
   def destroy
+    @experience = @reservation.experience_occurance.experience
     @reservation.destroy
     respond_to do |format|
-      format.html { redirect_to reservations_url, notice: 'Reservation was successfully destroyed.' }
+      format.html { redirect_to experience_path(@expereince), notice: 'Reservation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

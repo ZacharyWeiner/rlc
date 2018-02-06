@@ -62,6 +62,8 @@ class ExperiencesController < ApplicationController
     end
   end
 
+  def featured
+  end
 
   def add_company
     business = Business.find(params[:id])
@@ -95,7 +97,7 @@ class ExperiencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def experience_params
-      params.require(:experience).permit(:title, :duration, :capacity, :description, :cost, :start_date, :end_date, :recurrs_every, :header_image)
+      params.require(:experience).permit(:title, :duration, :capacity, :description, :cost, :start_date, :end_date, :recurrs_every, :header_image, :start_time)
     end
 
     def create_occurences
