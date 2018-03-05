@@ -16,10 +16,15 @@
     <%= form.label :name %>
     <%= form.text_field :name, id: :business_name %>
   </div>
+  <% locations = [] %>
+  <% locations << ["-- Please Select --", "-- Please Select --"]%>
+  <% Location.all.each do |l|  %>
+  <% locations << [l.name, l.id] %>
+  <% end %>
 
   <div class="field">
     <%= form.label :location_id %>
-    <%= form.text_field :location_id, id: :business_location_id %>
+    <%= form.select(:location_id, options_for_select(locations), {}, { :class => 'ride-select', style: 'max-width:100%'}) %>
   </div>
 
   <div class="field">
@@ -35,6 +40,10 @@
   <div class="field">
     <%= form.label :contact_phone %>
     <%= form.text_field :contact_phone, id: :business_contact_phone %>
+  </div>
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :business_email %>
   </div>
 
   <div class="field">
@@ -54,3 +63,9 @@
     <%= form.submit "Save",  class: 'btn btn-primary pull-right'  %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.ride-select').select2();
+  });
+</script>

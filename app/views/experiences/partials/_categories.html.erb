@@ -1,8 +1,8 @@
 <section>
   <h2>Categories</h2>
   <ul class="tags">
-    <% @experience.categories.each do |category|%>
-    <li><%= category.name %></li>
+    <% @experience.businesses.each do |b|%>
+    <li><%= b.category.name %></li>
     <% end %>
   </ul>
 </section>

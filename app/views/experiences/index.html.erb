@@ -1,36 +1,7 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Experiences</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Duration</th>
-      <th>Capacity</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @experiences.each do |experience| %>
-      <tr>
-        <td><%= experience.title %></td>
-        <td><%= experience.duration %></td>
-        <td><%= experience.capacity %></td>
-        <td><%= experience.description %></td>
-        <td><%= link_to 'Show', experience %></td>
-        <td><%= link_to 'Edit', edit_experience_path(experience) %></td>
-        <td><%= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Experience', new_experience_path %>
+<% if current_user %>
+<%= link_to 'New Experience', new_experience_path, class: 'btn btn-primary' %>
+<% end %>
 
 
     <div id="page-content">
@@ -70,11 +41,15 @@
 
                     <section>
                       <% @experiences.each do |ex| %>
+                        <% if ex.businesses.count == 0 %>
+                        <div class="item item-row" data-id="15" >
+                        <% else %>
                         <div class="item item-row" data-id="15" data-latitude="<%= ex.businesses.first.location.latitude%>" data-longitude="<%= ex.businesses.first.location.latitude%>">
+                          <% end %>
                             <figure class="ribbon">Top</figure>
                             <%= link_to ex do %>
                                 <div class="image bg-transfer" style="background-image: url(<%= ex.header_image.url %>);">
-                                    <figure>Starts At: <%= ex.start_time %></figure>
+                                    <figure><%= ex.experience_occurances.first.date.strftime(" %a %d-%b-%Y") %> <%= ex.start_time.strftime(" %H:%M %p") unless ex.start_time.nil? %></figure>
                                     <%= image_tag ex.header_image, class: 'img-fluid' %>
                                 </div>
                                 <!--end image-->
@@ -103,7 +78,7 @@
                                 <ul>
                                     <li><%= link_to 'Show', ex %></li>
                                     <li><%= link_to 'Edit', edit_experience_path(ex) %></li>
-                                    <li><%= link_to 'Delete', ex, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                                    <li><%= link_to 'Delete', experiences_path(ex), method: :delete, data: { confirm: 'Are you sure?' } %></li>
                                 </ul>
                             </div>
                             <!--end controls-more-->

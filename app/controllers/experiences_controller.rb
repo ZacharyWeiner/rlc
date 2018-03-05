@@ -26,6 +26,7 @@ class ExperiencesController < ApplicationController
   # POST /experiences.json
   def create
     @experience = Experience.new(experience_params)
+    byebug
     respond_to do |format|
       if @experience.save
         create_occurences
@@ -117,14 +118,18 @@ class ExperiencesController < ApplicationController
     end
 
     def next_date(date)
+      new_date = nil
       if @experience.recurrs_every == "Day"
-        return date + 1.day
+        new_date = (date + 1.day)
       elsif  @experience.recurrs_every == "Week"
-        return date + 7.days
-       elsif @experience.recurrs_every == "Other Week"
-        return date + 14.days
-       @experience.recurrs_every == "Month"
-        return date + 28.days;
+        new_date = date + 7.days
+      elsif @experience.recurrs_every == "Other Week"
+        new_date = date + 14.days
+       elsif @experience.recurrs_every == "Month"
+        byebug
+        new_date = (date + 28.days)
       end
+
+      return new_date
     end
 end

@@ -176,12 +176,10 @@
                                         <address>
                                             <figure><i class="fa fa-map-marker"></i><%= @business.location.address.split(',')[0] %><br> <%= @business.location.address.split(',')[1] %></figure>
                                             <figure><i class="fa fa-envelope"></i><a href="mailto:<%= @business.email %>"> <%= @business.email %></a></figure>
-                                            <figure><i class="fa fa-phone"></i><%= @business.contact_phone %></figure>
+                                            <figure><i class="fa fa-phone"></i><%=  number_to_phone(@business.contact_phone) %></figure>
                                             <figure>
                                               <i class="fa fa-globe"></i>
-                                              <%= link_to @business.website do %>
-                                                <%= @business.website %>
-                                                <% end %>
+                                              <a href="http://<%= @business.website %>" target='_blank'>website</a>
                                             </figure>
                                         </address>
                                     </div>

@@ -13,7 +13,7 @@
                         <div class="description">
                             <h1><%= ex.title %></h1>
                             <figure class="label label-default">From <%= ex.cost %></figure>
-                            <figure class="location"><i class="fa fa-map-marker"></i><%= ex.businesses.first.name %></figure>
+                            <figure class="location"><i class="fa fa-map-marker"></i><%= ex.businesses.first.name unless ex.businesses.first.nil? %></figure>
                             <hr>
                             <div class="count-down" data-countdown-year="2017" data-countdown-month="6" data-countdown-day="21"></div>
                             <a href="detail.html" class="btn btn-default btn-framed btn-rounded">View Detail</a>

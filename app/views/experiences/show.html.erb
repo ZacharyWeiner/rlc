@@ -8,8 +8,8 @@
                             <%= render 'experiences/partials/show/gallery' %>
                             <%= render 'experiences/partials/show/description' %>
                             <%= render 'experiences/partials/show/available_dates'%>
-                            <%= render 'experiences/partials/show/reviews' %>
-                            <%= render 'experiences/partials/review_form'%>
+                            <% render 'experiences/partials/show/reviews' %>
+                            <% render 'experiences/partials/review_form'%>
                         </div>
                         <!--end col-md-6-->
                         <div class="col-md-4 col-sm-12">
@@ -33,3 +33,13 @@
         </div>
         <!--end container-->
     </div>
+
+<%= content_for :js do %>
+<script>
+    rating(".visitor-rating");
+    var _latitude = <%= @experience.businesses.first.location.latitude %>;
+    var _longitude = <%= @experience.businesses.first.location.longitude %>;
+    var element = "map-detail";
+    simpleMap(_latitude,_longitude, element);
+</script>
+<% end %>
