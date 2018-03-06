@@ -83,8 +83,9 @@ class ShuttlesController < ApplicationController
   def driver
     set_shuttle
     @ordered_stops = @shuttle.get_ordered_stops
-    @lat = request.location.latitude
-    @long = request.location.longitude
+    # byebug
+    # @lat = request.location.latitude
+    # @long = request.location.longitude
     @last_request_id = @shuttle.ride_requests.last.id
     info_to_hash = ""
     @shuttle.ride_requests.each do |rr|
