@@ -11,11 +11,13 @@
   <th>Email</th>
 </tr>
   <% @ride_requests.each do |rr| %>
+  <tr>
   <td> <%= rr.id %> </td>
    <td> <%= rr.created_at.strftime('%a %b %y ') %> </td>
     <td> <%= rr.requester_name %> </td>
     <td> <%= rr.phone %> </td>
     <td> <%= rr.email %> </td>
+  </tr>
   <% end %>
 </table>
 </div>
