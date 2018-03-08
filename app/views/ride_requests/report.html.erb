@@ -16,8 +16,8 @@
   <% @ride_requests.each do |rr| %>
   <tr>
   <td> <%= rr.id %>, </td>
-   <td> <%= rr.created_at.strftime('%a %b %d %y ') %>, </td>
-   <td> <%= rr.created_at.strftime(' %H:%M ') %>, </td>
+   <td> <%= rr.created_at.strftime('%a %b %d %y,') %> </td>
+   <td> <%= rr.created_at.strftime(' %H:%M,') %> </td>
     <td> <%= rr.requester_name %>, </td>
     <td> <%= rr.pickup_address.split(',')[0] %>, </td>
     <td> <%= rr.dropoff_address.split(',')[0] %>, </td>
