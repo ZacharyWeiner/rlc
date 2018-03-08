@@ -1,14 +1,15 @@
 <style type="text/css">
-  th, td{padding: 6px;}
+  th, td{padding: 4px;}
 </style>
 <div class='container'>
 <table>
   <tr>
   <th>ID</th>
   <th>Date</th>
-  <th>Time</th>
+  <th>Pickup Time</th>
   <th>Name</th>
   <th>From</th>
+  <th>Dropoff Time</th>
   <th>To</th>
   <th>Phone</th>
   <th>Email</th>
@@ -16,10 +17,11 @@
   <% @ride_requests.each do |rr| %>
   <tr>
   <td> <%= rr.id %>, </td>
-   <td> <%= rr.created_at.strftime('%a %b %d %y,') %> </td>
+   <td> <%= rr.created_at.strftime('%a %b %d,') %> </td>
    <td> <%= rr.created_at.strftime(' %H:%M,') %> </td>
     <td> <%= rr.requester_name %>, </td>
     <td> <%= rr.pickup_address.split(',')[0] %>, </td>
+    <td> <%= rr.updated_at.strftime(' %H:%M,') %> </td>
     <td> <%= rr.dropoff_address.split(',')[0] %>, </td>
     <td> <%= rr.phone %>, </td>
     <td> <%= rr.email %>, </td>
