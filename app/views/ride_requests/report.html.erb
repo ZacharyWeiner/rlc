@@ -1,0 +1,21 @@
+<style type="text/css">
+  th, td{padding: 12px;}
+</style>
+<div class='container'>
+<table>
+  <tr>
+  <th>ID</th>
+  <th>Date</th>
+  <th>Name</th>
+  <th>Phone</th>
+  <th>Email</th>
+</tr>
+  <% @ride_requests.each do |rr| %>
+  <td> <%= rr.id %> </td>
+   <td> <%= rr.created_at.strftime('%a %b %y ') %> </td>
+    <td> <%= rr.requester_name %> </td>
+    <td> <%= rr.phone %> </td>
+    <td> <%= rr.email %> </td>
+  <% end %>
+</table>
+</div>

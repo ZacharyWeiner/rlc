@@ -142,6 +142,10 @@ class RideRequestsController < ApplicationController
     end
   end
 
+  def report
+    @ride_requests = RideRequest.where('created_at >  ?', Date.today - 7.days).order(:created_at).reverse
+  end
+
   def set_rider_info
     puts "************* setting cookies info ****************"
     if params[:name]
