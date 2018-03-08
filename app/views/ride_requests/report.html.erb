@@ -6,17 +6,23 @@
   <tr>
   <th>ID</th>
   <th>Date</th>
+  <th>Time</th>
   <th>Name</th>
+  <th>From</th>
+  <th>To</th>
   <th>Phone</th>
   <th>Email</th>
 </tr>
   <% @ride_requests.each do |rr| %>
   <tr>
-  <td> <%= rr.id %> </td>
-   <td> <%= rr.created_at.strftime('%a %b %y ') %> </td>
-    <td> <%= rr.requester_name %> </td>
-    <td> <%= rr.phone %> </td>
-    <td> <%= rr.email %> </td>
+  <td> <%= rr.id %>, </td>
+   <td> <%= rr.created_at.strftime('%a %b %d %y %H:%M ') %>, </td>
+   <td> <%= rr.created_at.strftime(' %H:%M ') %>, </td>
+    <td> <%= rr.requester_name %>, </td>
+    <td> <%= rr.pickup_address.split(',')[0] %>, </td>
+    <td> <%= rr.dropoff_address.split(',')[0] %>, </td>
+    <td> <%= rr.phone %>, </td>
+    <td> <%= rr.email %>, </td>
   </tr>
   <% end %>
 </table>
