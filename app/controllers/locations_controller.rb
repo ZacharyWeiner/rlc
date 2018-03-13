@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
   before_action :set_location, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  layout 'locations_locations'
+  layout 'shuttle_layout'
   # GET /locations
   # GET /locations.json
   def index
@@ -94,6 +94,6 @@ class LocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
-      params.require(:location).permit(:name, :address, :latitude, :longitude, :raw_address, :priority, :instruction)
+      params.require(:location).permit(:name, :address, :latitude, :longitude, :raw_address, :priority, :instruction, :image)
     end
 end

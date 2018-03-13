@@ -28,18 +28,25 @@
       <%= form.label :instruction %>
       <%= form.text_field :instruction, id: :location_instruction, class: 'form-control', placeholder: 'Instructions' %>
     </div>
+    <div class="col-md-4">
+      <br>
+      <%= form.label :image %>
+      <%= form.file_field :image %>
+      <% unless location.image.nil? %>
+        <%= image_tag location.image, class: 'img-responsive'%>
+      <% end %>
+    </div>
      <div class="col-md-4">
       <br>
       <% if @location.is_shuttle_stop %>
-  Is A Shuttle Stop
-<%else %>
-  Not Currently A Shuttle Stop
-<% end %>
-<%= link_to "Change" , location_toggle_shuttle_stop_path(@location), class: 'btn btn-secondary' %>
-
-
+        Is A Shuttle Stop
+      <%else %>
+        Not Currently A Shuttle Stop
+      <% end %>
+      <%= link_to "Change" , location_toggle_shuttle_stop_path(@location), class: 'btn btn-secondary' %>
     </div>
   </div>
+
    <%= form.submit "Save", class: 'btn btn-primary v-center', style: 'margin-top:24px;' %>
 <% end %>
 

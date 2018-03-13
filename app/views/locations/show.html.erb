@@ -19,6 +19,17 @@
 <p>
 <strong>Instructions:</strong> <%= @location.instruction %>
 </p>
+<div class='text-center'>
+<div class='row'>
+  <div class='col-md-3'></div>
+  <div class='col-md-6'>
+     <% unless @location.image.nil? %>
+      <%= image_tag @location.image, class: 'img-responsive '%>
+    <% end %>
+  </div>
+  <div class='col-md-3'></div>
+</div>
+</div>
 <div>
 <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@location.latitude},#{@location.longitude}&markers=#{@location.latitude},#{@location.longitude}&zoom=13&size=640x400&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
               class: 'img-fluid img-rounded', alt: "#{@location.name} on the map"%>

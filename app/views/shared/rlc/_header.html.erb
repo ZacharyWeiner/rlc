@@ -11,8 +11,9 @@
                         <li><%= link_to "Experiences", experiences_path %></li>
                         <% if current_user %>
                             <li><%= link_to "Shuttles", ride_request_manager_path %></li>
+                            <li><%= link_to "Locations", locations_path %></li>
                         <% else %>
-                        <li><%= link_to "New Ride", new_ride_request_path %></li>
+                            <li><%= link_to "New Ride", new_ride_request_path %></li>
                         <% end %>
                         <%= render 'shared/rlc/menu_items/devise' %>
                     </ul>
