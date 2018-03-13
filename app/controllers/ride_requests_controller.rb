@@ -235,11 +235,11 @@ class RideRequestsController < ApplicationController
     @ride_request.advance_status(@ride_request.status)
 
       if @ride_request.save!
-
+        loc = Location.where(name: @ride_request.pickup_address.split(',')[0]).first
         if @shuttle.is_looping
           message = "Your ride is on its way. Please meet at the pickup address"
         else
-          message = "Your ride is on its way." + loc.instruction + " . You can track the shuttle here: http://shuttle.resortlodgingcompany.com/shuttles/" + @ride_request.shuttle_id.to_s
+          message = "Your ride is on its way. Please meet at: " + loc.instruction + " . You can track the shuttle here: http://shuttle.resortlodgingcompany.com/shuttles/" + @ride_request.shuttle_id.to_s
         end
         sms = SmsManager.new(to_number: @ride_request.phone, message: message)
         sms.send_message
