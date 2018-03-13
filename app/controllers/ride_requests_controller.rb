@@ -1,7 +1,7 @@
 class RideRequestsController < ApplicationController
   before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear, :advance_status, :reset_status]
   before_action :authenticate_user!, except: [:new, :create, :show, :edit, :update, :set_rider_info, :inactive, :clear_rider_info]
-  before_action :check_active, except: [:manager, :inactive, :new_2, :create, :show]
+  before_action :check_active, except: [:manager, :inactive, :new_2, :create, :show, :assign_to_shuttle]
 
   layout 'shuttle_layout'
   #autocomplete :pickup_location, :name
@@ -293,7 +293,7 @@ class RideRequestsController < ApplicationController
   def send_inital_sms
     set_ride_request
     loc = Location.where(name: @ride_request.pickup_address.split(',')[0]).first
-    message = "Your request has been received. Your Shuttle will arrive in within " + params[:minutes] + " minutes. Please meet at " + loc.name + " " + loc.instruction + "."
+    message = "Your request has been received. Your Shuttle will arrive in within " + params[:minutes] + " minutes. Please meet at "  + loc.instruction + "."
     sender = SmsManager.new
     sender.message = message
     sender.to_number = @ride_request.phone
