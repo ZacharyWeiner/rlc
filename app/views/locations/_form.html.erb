@@ -1,3 +1,4 @@
+
 <%= form_with(model: location, local: true) do |form| %>
   <% if location.errors.any? %>
     <div id="error_explanation">
@@ -19,13 +20,26 @@
       <%= form.label :address %>
       <%= form.text_field :address, id: :location_address, class: 'form-control', placeholder: 'Address' %>
     </div>
-    <div class='col-md-2'>
+    <div class='col-md-4'>
       <%= form.label :priority %>
       <%= form.number_field :priority, id: :location_priority, class: 'form-control' %>
     </div>
-     <div class="col-md-2">
-      <%= form.submit "Add", class: 'btn btn-primary v-center', style: 'margin-top:24px;' %>
+    <div class='col-md-12'>
+      <%= form.label :instruction %>
+      <%= form.text_field :instruction, id: :location_instruction, class: 'form-control', placeholder: 'Instructions' %>
+    </div>
+     <div class="col-md-4">
+      <br>
+      <% if @location.is_shuttle_stop %>
+  Is A Shuttle Stop
+<%else %>
+  Not Currently A Shuttle Stop
+<% end %>
+<%= link_to "Change" , location_toggle_shuttle_stop_path(@location), class: 'btn btn-secondary' %>
+
+
     </div>
   </div>
-
+   <%= form.submit "Add", class: 'btn btn-primary v-center', style: 'margin-top:24px;' %>
 <% end %>
+
