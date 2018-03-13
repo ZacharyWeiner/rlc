@@ -121,7 +121,10 @@
              <% if cookies[:phone] == os.phone && os.stop_type == 'pickup' %>
               <% complete = true %>
               <br>
-
+              <% location_for_picture = Location.where(name: os.address.split(',')[0].gsub('+', ' ')).first%>
+              <% unless location_for_picture.nil? || location_for_picture.image.nil? %>
+                <%= image_tag location_for_picture.image, class: 'img-responsive' %>
+              <% end %>
              <% end %>
              <% @last_stop_for_display = os %>
           </div>
