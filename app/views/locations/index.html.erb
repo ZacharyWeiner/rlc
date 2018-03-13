@@ -11,7 +11,8 @@
     <tr>
       <th>Priority</th>
       <th>Name</th>
-      <th>Address</th>
+      <th>Address </th>
+      <th>Instruction</th>
       <th>Is Shuttle Stop</th>
       <th>Show After 2</th>
       <th></th>
@@ -30,7 +31,8 @@
           <% end %>
         </td>
         <td><%= location.name %></td>
-        <td><%= location.address %></td>
+        <td><%= location.address.split(',')[0] %></td>
+        <td><%= location.instruction %></td>
         <td>
           <% if location.is_shuttle_stop  == true %>
             <%= link_to "Disable <i class='fa fa-truck'></i>".html_safe, location_toggle_shuttle_stop_path(location), style:'padding-right: 12px;'%>
