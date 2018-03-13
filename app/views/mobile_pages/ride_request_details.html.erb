@@ -18,6 +18,13 @@
               <!--end row-->
 
                   <!--end form-group-->
+               <% location_for_picture = Location.where(name: @ride_request.pickup_address.split(',')[0].gsub('+', ' ')).first %>
+              <% unless location_for_picture.nil? || location_for_picture.image.file.nil? %>
+                <section class='center'>
+                  <h3>This is Where We Will Pick You Up</h3>
+                  <%= image_tag location_for_picture.image, class: 'img-responsive' %>
+                </section>
+              <% end %>
 
               <section class="center">
                 <h3>This Is The Ride You've Requested:</h3>
