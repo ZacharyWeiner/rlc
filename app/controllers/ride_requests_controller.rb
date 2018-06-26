@@ -302,7 +302,7 @@ class RideRequestsController < ApplicationController
   end
 
   def show_all
-    @ride_requests = RideRequest.all
+    @ride_requests = RideRequest.select('distinct on (requester_name) *')
   end
 
   private
