@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   end
   get 'ride_request/manager', to: "ride_requests#manager", as:'ride_request_manager'
   get 'ride_request/report', to: "ride_requests#report", as:'ride_request_report'
+  get 'ride_request/show_all', to: "ride_requests#show_all", as:'ride_requests_show_all'
   get 'ride_request/check_last_ride/:id', to: "ride_requests#check_last_ride", as:'last_ride'
   resources :shuttle_stops
   resources :shuttles do

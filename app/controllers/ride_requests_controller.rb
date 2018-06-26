@@ -1,7 +1,7 @@
 class RideRequestsController < ApplicationController
   before_action :set_ride_request, only: [:show, :edit, :update, :destroy, :assign_to_shuttle, :mark_clear, :advance_status, :reset_status]
   before_action :authenticate_user!, except: [:new, :create, :show, :edit, :update, :set_rider_info, :inactive, :clear_rider_info]
-  before_action :check_active, except: [:manager, :inactive, :new_2, :create, :show, :assign_to_shuttle]
+  before_action :check_active, except: [:manager, :inactive, :new_2, :create, :show, :assign_to_shuttle, :show_all]
 
   layout 'shuttle_layout'
   #autocomplete :pickup_location, :name
@@ -299,6 +299,10 @@ class RideRequestsController < ApplicationController
     sender.to_number = @ride_request.phone
     sender.send_message
     redirect_to ride_request_manager_path
+  end
+
+  def show_all
+    @ride_requests = RideRequest.all
   end
 
   private
