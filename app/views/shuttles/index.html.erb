@@ -67,7 +67,7 @@
   width="600"
   height="450"
   frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
+  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBrXjXWK4DtOZQQ3Z5EnnF9TwUx96B-Tog
   &origin=<%= Shuttle.first.ride_requests.first.pickup_address unless Shuttle.first.ride_requests.first.nil? %>
   &destination=<%= Shuttle.first.ride_requests.last.dropoff_address unless Shuttle.first.ride_requests.last.nil? %>
   &avoid=tolls|highways" allowfullscreen>

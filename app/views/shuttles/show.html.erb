@@ -139,7 +139,7 @@
         <iframe
           width="100%"
           frameborder="0" style="border:0"
-          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
+          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBrXjXWK4DtOZQQ3Z5EnnF9TwUx96B-Tog
           &origin=<%= URI.encode(@shuttle.address)%>
           &destination=<%= URI.encode(@last_stop_for_display.address)%>
           &avoid=tolls|highways" allowfullscreen>
@@ -148,7 +148,7 @@
          <iframe
           width="100%"
           frameborder="0" style="border:0"
-          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCqbNCLQod-jTl4UltA_2s-FEiG-L0Q_gA
+          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBrXjXWK4DtOZQQ3Z5EnnF9TwUx96B-Tog
           &origin=<%= URI.encode(@shuttle.address)%>
           &destination=<%= URI.encode(@last_stop_for_display.address)%>
           &waypoints=<%= waypoints %>
@@ -170,7 +170,7 @@
 <script>
   $(document).ready(function () {
     <% if cookies[:phone].nil? == false %>
-    setInterval(refresh_page, 15000);
+    setInterval(refresh_page, 30000);
     function refresh_page(){location.reload();}
     <% end %>
     if(location.search == '?q=driver'){
@@ -179,7 +179,7 @@
 
      function initGeolocation() {
      if (navigator && navigator.geolocation) {
-          /*alert('setting geolocation'); */
+          /*alert('setting geolocation');*/
           navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
             } else {
                 alert('Geolocation is not supported');
@@ -215,20 +215,25 @@
 
 });
 
-function errorCallback() {}
+function errorCallback() {
+  alert('error getting location');
+}
 
 function successCallback(position) {
   // var mapUrl = "http://maps.google.com/maps/api/staticmap?center=";
   // mapUrl = mapUrl + position.coords.latitude + ',' + position.coords.longitude;
   // mapUrl = mapUrl + '&zoom=15&size=512x512&maptype=roadmap&sensor=false';
   // var imgElement = document.getElementById("static-map");
+  alert('success callback');
   // imgElement.src = mapUrl;
   $('.lat').text(position.coords.latitude);
   $('.long').text(position.coords.longitude);
+
   makeRequest(position.coords.latitude, position.coords.longitude, <%= @shuttle.id %>)
 }
 
 function makeRequest(latitude, longitude, shuttleID){
+  alert('making request');
   $.ajax({
       url:'/driver/' + shuttleID + '/set_location',
       type:'POST',
@@ -240,11 +245,11 @@ function makeRequest(latitude, longitude, shuttleID){
           authenticity_token: window._token
       },
       success:function(data){
-        // alert('set position');
+        alert('set position');
 
       },
       error:function(data){
-
+        errorCallback(data);
       }
   });
 }
